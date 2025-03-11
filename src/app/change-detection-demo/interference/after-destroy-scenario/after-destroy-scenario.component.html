@@ -1,0 +1,12 @@
+<div class="lifecycle-card">
+  <h3>Async DetectChanges Example</h3>
+
+  <p><strong>Status:</strong> {{ status }}</p>
+  <p *ngIf="initializedTime"><strong>Initialized at:</strong> {{ initializedTime }}</p>
+
+  <div class="warning">
+    ⚠️ This component updates asynchronously using <code>setTimeout()</code>
+    and forces <code>detectChanges()</code> afterward, which may happen
+    after the view is stable or even destroyed.
+  </div>
+</div>
