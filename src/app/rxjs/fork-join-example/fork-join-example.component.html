@@ -1,0 +1,38 @@
+<div class="example-container">
+  <div class="example">
+    <h2>ForkJoin Example</h2>
+    <p *ngIf="results">Results: {{ results | json }}</p>
+    <br>
+    <p>{{ results2 }}</p>
+  </div>
+  
+  <div class="code-snippet">
+    <h3>Component Code:</h3>
+    <textarea highlight-js [options]="{}" [lang]="'typescript'" readonly>
+      @Component({
+        selector: 'app-fork-join-example',
+        templateUrl: './fork-join-example.component.html',
+        styleUrls: ['./fork-join-example.component.scss']
+      })
+      export class ForkJoinExampleComponent implements OnInit {
+      
+        results!: string[];
+        results2!: string;;
+      
+        constructor() { }
+      
+        ngOnInit(): void {
+          const observable1 = of('Hello');
+          const observable3 = of('!');
+          const observable2 = of('World').pipe(delay(5000));
+      
+          forkJoin([observable1, observable2, observable3]).subscribe(results => {
+            this.results = results;
+            console.log(results); // ['Hello', 'World', '!']
+          });
+      
+          // this.results2 = 'should show first'
+        }
+      }
+    </textarea>
+</div>

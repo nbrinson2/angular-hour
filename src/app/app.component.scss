@@ -1,57 +1,72 @@
-/* General resets */
-:host {
+/* filepath: /Users/paultouchton/workspaces/angular-hour/src/app/app.component.scss */
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f9fa;
+}
+
+nav {
+  position: relative;
+  order: 1; /* Ensure nav appears before the title */
+}
+
+h1 {
+  order: 2;
+  margin-left: 20px; /* Ensure title appears after the nav */
+}
+
+.hamburger-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 24px;
+  width: 30px;
+  padding: 0;
+}
+
+.hamburger-button span {
   display: block;
-  min-height: 100vh;
-  background-color: #f3f4f6; /* gray-100 */
+  width: 100%;
+  height: 3px;
+  background-color: #007bff;
+  border-radius: 2px;
 }
 
-/* Header */
-header {
-  padding: 1.5rem;
-  background: linear-gradient(to right, #1f2937, #111827); /* from-gray-800 to-gray-900 */
-  color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  .header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    h1 {
-      font-size: 1.875rem; /* text-3xl */
-      font-weight: 600; /* font-semibold */
-      letter-spacing: 0.05em; /* tracking-wide */
-      margin: 0;
-    }
-
-    nav {
-      a {
-        margin-left: 1rem;
-        text-decoration: none;
-        color: inherit;
-        transition: color 0.2s ease-in-out;
-
-        &:hover {
-          color: #60a5fa; /* blue-400 */
-        }
-
-        &.active-link {
-          font-weight: bold;
-          text-decoration: underline;
-        }
-      }
-    }
-  }
+.hamburger-button:hover span {
+  background-color: #0056b3;
 }
 
-/* Main content */
-main {
-  padding: 2rem;
-
-  .main-container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  width: 200px;
 }
+
+li {
+  padding: 10px;
+}
+
+li a {
+  text-decoration: none;
+  color: black;
+}
+
+li a:hover {
+  background-color: #f1f1f1;
+}
+
+.active-link {
+  font-weight: bold;
+}
+

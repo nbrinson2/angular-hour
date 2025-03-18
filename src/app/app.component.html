@@ -1,11 +1,21 @@
 <header>
   <div class="header-container">
-    <h1>{{ title }}</h1>
     <nav>
-      <a routerLink="/change-detection" routerLinkActive="active-link">
-        Change Detection
-      </a>
+      <button (click)="toggleMenu()" class="hamburger-button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul *ngIf="menuOpen">
+        <li><a routerLink="/change-detection" routerLinkActive="active-link">Change Detection</a></li>
+        <li><a routerLink="/fork-join-example" routerLinkActive="active-link">Fork Join Example</a></li>
+        <li><a routerLink="/filter-example" routerLinkActive="active-link">Filter Example</a></li>
+        <li><a routerLink="/map-example" routerLinkActive="active-link">Map Example</a></li>
+        <li><a routerLink="/last-value-from-example" routerLinkActive="active-link">Last Value From Example</a></li>
+        <li><a routerLink="/search-example" routerLinkActive="active-link">Search Example</a></li>
+      </ul>
     </nav>
+    <h1>{{ title }}</h1>
   </div>
 </header>
 

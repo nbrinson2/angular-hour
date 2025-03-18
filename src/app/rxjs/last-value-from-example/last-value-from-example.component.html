@@ -1,0 +1,28 @@
+<div class="example-container">
+
+<div class="example">
+  <h2>LastValueFrom Example</h2>
+  <p>Last Value: {{ lastValue }}</p>
+</div>
+
+<div class="code-snippet">
+  <h3>Component Code:</h3>
+  <textarea highlight-js [options]="{}" [lang]="'typescript'" readonly>
+    @Component({
+      selector: 'app-last-value-from-example',
+      templateUrl: './last-value-from-example.component.html',
+      styleUrls: ['./last-value-from-example.component.scss']
+    })
+    export class LastValueFromExampleComponent implements OnInit {
+    
+      lastValue!: string
+    
+      constructor() { }
+    
+      async ngOnInit(): Promise<void> {
+        const observable$ = of('Hello', 'World', '!').pipe(delay(1000));
+        this.lastValue = await lastValueFrom(observable$);
+      }
+    }
+  </textarea>
+</div>
