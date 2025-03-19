@@ -1,72 +1,144 @@
-/* filepath: /Users/paultouchton/workspaces/angular-hour/src/app/app.component.scss */
-.header-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  background-color: #f8f9fa;
-}
-
-nav {
-  position: relative;
-  order: 1; /* Ensure nav appears before the title */
-}
-
-h1 {
-  order: 2;
-  margin-left: 20px; /* Ensure title appears after the nav */
-}
-
-.hamburger-button {
-  background: none;
-  border: none;
-  cursor: pointer;
+.drawer-container {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  height: 24px;
-  width: 30px;
-  padding: 0;
+
+  // Drawer styling
+  .drawer {
+    width: 350px;
+    background-color: #f0f4fa; // Light background to contrast with content
+    border-right: 1px solid #ccc;
+    padding: 0.5rem; // Some spacing around the accordion
+    margin-top: 0.5rem; // Align with the header
+
+    mat-accordion {
+      // Remove default accordion margin
+      margin: 0;
+
+      // Style each expansion panel
+      mat-expansion-panel {
+        margin-bottom: 0.5rem;
+        border-radius: 6px;
+        overflow: hidden; // Ensure rounded corners clip children
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff; // White panel for contrast
+
+        // Header styling (panel title area)
+        mat-expansion-panel-header {
+          padding: 0 1rem;
+          background-color: #f8fafc; 
+          font-weight: 500;
+          // Provide a subtle divider line between panels
+          border-bottom: 1px solid #ddd;
+
+          .mat-panel-title {
+            color: #333; // Darker text for readability
+          }
+
+          // Optionally hide the expansion indicator arrow if you want a cleaner look
+          .mat-expansion-indicator::after {
+            color: #666; // Or your theme accent color
+          }
+        }
+
+        // The content area (where links live)
+        .mat-expansion-panel-body {
+          padding: 0;
+        }
+      }
+    }
+
+    mat-nav-list {
+      padding: 0;
+      padding-top: 0.5rem; 
+
+      a[mat-list-item] {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #f1f5f9;
+        }
+
+        &.active-link {
+          background-color: #e2e8f0;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  // The main content area
+  mat-drawer-content {
+    background-color: #e6f7ff; // Light azure background, can match your theme
+  }
+
+  // Header styling
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #3f51b5; // Your Azure/Blue theme’s primary color
+    color: #fff;
+    padding: 0 1rem;
+    height: 90px;
+
+    mat-icon {
+      color: white;
+      font-size: 30px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.25rem;
+      font-weight: 500;
+    }
+
+    .hamburger-button {
+      position: absolute;
+      left: 1rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 24px;
+      width: 30px;
+      padding: 0;
+
+      span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: #fff;
+        border-radius: 2px;
+      }
+
+      &:hover span {
+        background-color: #ddd;
+      }
+    }
+  }
+
+  .main-container {
+    padding: 1rem;
+  }
+
+  // Hide the hamburger when the drawer is open (if desired)
+  &.drawer-open {
+    mat-icon {
+      display: none;
+    }
+  }
 }
 
-.hamburger-button span {
-  display: block;
-  width: 100%;
-  height: 3px;
-  background-color: #007bff;
-  border-radius: 2px;
-}
-
-.hamburger-button:hover span {
-  background-color: #0056b3;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  border: 1px solid #ddd;
-  width: 200px;
-}
-
-li {
-  padding: 10px;
-}
-
-li a {
+// Optional global link styling outside the drawer
+a {
   text-decoration: none;
-  color: black;
+  color: inherit;
 }
-
-li a:hover {
-  background-color: #f1f1f1;
-}
-
-.active-link {
-  font-weight: bold;
-}
-

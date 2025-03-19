@@ -1,26 +1,107 @@
-<header>
-  <div class="header-container">
-    <nav>
-      <button (click)="toggleMenu()" class="hamburger-button">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul *ngIf="menuOpen">
-        <li><a routerLink="/change-detection" routerLinkActive="active-link">Change Detection</a></li>
-        <li><a routerLink="/fork-join-example" routerLinkActive="active-link">Fork Join Example</a></li>
-        <li><a routerLink="/filter-example" routerLinkActive="active-link">Filter Example</a></li>
-        <li><a routerLink="/map-example" routerLinkActive="active-link">Map Example</a></li>
-        <li><a routerLink="/last-value-from-example" routerLinkActive="active-link">Last Value From Example</a></li>
-        <li><a routerLink="/search-example" routerLinkActive="active-link">Search Example</a></li>
-      </ul>
-    </nav>
-    <h1>{{ title }}</h1>
-  </div>
-</header>
+<mat-drawer-container class="drawer-container" [class.drawer-open]="drawer.opened">
 
-<main>
-  <div class="main-container">
-    <router-outlet></router-outlet>
-  </div>
-</main>
+  <!-- Sidenav / Drawer -->
+  <mat-drawer #drawer mode="over" (backdropClick)="drawer.close()" class="drawer">
+    <mat-accordion>
+
+      <!-- 1. Change Detection category -->
+      <mat-expansion-panel [expanded]="changeDetectionExpanded">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Change Detection</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <a mat-list-item 
+             routerLink="/change-detection/subscription-pitfall-example" 
+             routerLinkActive="active-link"
+             (click)="drawer.close()">
+            Subscription Pitfall Example
+          </a>
+          <a mat-list-item 
+             routerLink="/change-detection/signal-solution" 
+             routerLinkActive="active-link"
+             (click)="drawer.close()">
+            Signal Solution
+          </a>
+          <a mat-list-item 
+             routerLink="/change-detection/lifecycle-example" 
+             routerLinkActive="active-link"
+             (click)="drawer.close()">
+            Lifecycle Example
+          </a>
+          <a mat-list-item 
+             routerLink="/change-detection/loop-example" 
+             routerLinkActive="active-link"
+             (click)="drawer.close()">
+            Loop Example
+          </a>
+          <a mat-list-item 
+             routerLink="/change-detection/after-destroy-example" 
+             routerLinkActive="active-link"
+             (click)="drawer.close()">
+            After Destroy Example
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+      <!-- 2. RxJS category -->
+      <mat-expansion-panel [expanded]="rxjsExpanded">
+        <mat-expansion-panel-header>
+          <mat-panel-title>RxJS</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <a mat-list-item 
+             routerLink="/rxjs/fork-join-example" 
+             routerLinkActive="active-link"
+             (click)="drawer.close()">
+            Fork Join Example
+          </a>
+          <a mat-list-item 
+             routerLink="/rxjs/filter-example" 
+             routerLinkActive="active-link"
+             (click)="drawer.close()">
+            Filter Example
+          </a>
+          <a mat-list-item 
+             routerLink="/rxjs/map-example" 
+             routerLinkActive="active-link"
+             (click)="drawer.close()">
+            Map Example
+          </a>
+          <a mat-list-item 
+             routerLink="/rxjs/last-value-from-example" 
+             routerLinkActive="active-link"
+             (click)="drawer.close()">
+            Last Value From Example
+          </a>
+          <a mat-list-item 
+             routerLink="/rxjs/search-example" 
+             routerLinkActive="active-link"
+             (click)="drawer.close()">
+            Search Example
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </mat-drawer>
+
+  <!-- Main Content -->
+  <mat-drawer-content>
+    <!-- Header / Toolbar -->
+    <header class="header-container">
+      <!-- Hamburger button to toggle the sidenav -->
+      <button mat-icon-button (click)="drawer.toggle()" class="hamburger-button">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1>{{ title }}</h1>
+    </header>
+
+    <!-- Main area / Router outlet -->
+    <main class="main-container">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-drawer-content>
+
+</mat-drawer-container>

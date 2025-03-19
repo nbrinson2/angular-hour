@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { Subscription, filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +9,41 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular Hour';
-  menuOpen = false;
+  rxjsExpanded = false;
+  changeDetectionExpanded = false;
 
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
+  private routerSubscription!: Subscription;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    // Subscribe to navigation events to update which panel is open
+    this.routerSubscription = this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.setActivePanels();
+      });
+
+    // Initial panel state
+    this.setActivePanels();
+  }
+
+  ngOnDestroy(): void {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
+
+  private setActivePanels(): void {
+    const url = this.router.url;
+    // If the URL contains '/change-detection', open that panel
+    this.changeDetectionExpanded = url.includes('/change-detection');
+    // Open the RxJS panel if the URL matches any of its sublinks
+    this.rxjsExpanded =
+      url.includes('/fork-join-example') ||
+      url.includes('/filter-example') ||
+      url.includes('/map-example') ||
+      url.includes('/last-value-from-example') ||
+      url.includes('/search-example');
   }
 }
