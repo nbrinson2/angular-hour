@@ -39,11 +39,6 @@ export class AppComponent {
     // If the URL contains '/change-detection', open that panel
     this.changeDetectionExpanded = url.includes('/change-detection');
     // Open the RxJS panel if the URL matches any of its sublinks
-    this.rxjsExpanded =
-      url.includes('/fork-join-example') ||
-      url.includes('/filter-example') ||
-      url.includes('/map-example') ||
-      url.includes('/last-value-from-example') ||
-      url.includes('/search-example');
+    this.rxjsExpanded = url.includes('/rxjs');
   }
 }
