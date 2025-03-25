@@ -1,0 +1,72 @@
+<div class="example-container">
+    <div class="example">
+      <h2>ExhaustMap Example</h2>
+      <p>
+        Demonstrates how <code>exhaustMap</code> processes only the first form submission and ignores subsequent submissions until the first one completes.
+      </p>
+  
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <label for="name">Name:</label>
+        <input id="name" formControlName="name" type="text" />
+  
+        <label for="email">Email:</label>
+        <input id="email" formControlName="email" type="email" />
+  
+        <button type="submit">Submit</button>
+      </form>
+  
+      <p>Submission Results:</p>
+      <ul>
+        <li *ngFor="let result of submissionResults">{{ result }}</li>
+      </ul>
+    </div>
+    <div class="code-snippet">
+        <h3>Component Code:</h3>
+        <textarea highlight-js [options]="{}" [lang]="'typescript'" readonly>
+            import { Component } from '@angular/core';
+            import { FormBuilder, FormGroup } from '@angular/forms';
+            import { of, Subject } from 'rxjs';
+            import { exhaustMap, delay, tap } from 'rxjs/operators';
+            
+            @Component({
+              selector: 'app-exhaust-map-example',
+              templateUrl: './exhaust-map-example.component.html',
+              styleUrls: ['./exhaust-map-example.component.scss']
+            })
+            export class ExhaustMapExampleComponent {
+            
+              form: FormGroup;
+              submissionResults: string[] = [];
+              private submit$ = new Subject<void>();
+            
+              constructor(private fb: FormBuilder) {
+                this.form = this.fb.group({
+                  name: [''],
+                  email: ['']
+                });
+            
+                // Handle form submissions using exhaustMap
+                this.submit$.pipe(
+                  exhaustMap(() => this.mockApiCall(this.form.value))
+                ).subscribe(result => {
+                  this.submissionResults.push(result);
+                  console.log(result); // Logs the result of the API call
+                });
+              }
+            
+              onSubmit(): void {
+                // Emit a submission event
+                this.submit$.next();
+              }
+            
+              mockApiCall(formData: any) {
+                console.log('Processing submission:', formData);
+                return of(`Submission successful for ${formData.name} (${formData.email})`).pipe(
+                  delay(3000), // Simulate a 3-second API call
+                  tap(() => console.log('API call completed'))
+                );
+              }
+            }
+        </textarea>
+      </div>
+  </div>

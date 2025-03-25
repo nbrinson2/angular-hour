@@ -25,6 +25,8 @@ import { SearchExampleComponent } from './rxjs/search-example/search-example.com
 import { CombineLatestPowerExampleComponent } from './rxjs/combine-latest-power-example/combine-latest-power-example.component';
 import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-example.component';
 import { ConcatMapExampleComponent } from './rxjs/concat-map-example/concat-map-example.component';
+import { ExhaustMapExampleComponent } from './rxjs/exhaust-map-example/exhaust-map-example.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { ConcatMapExampleComponent } from './rxjs/concat-map-example/concat-map-
     LastValueFromExampleComponent,
     CombineLatestPowerExampleComponent,
     MergeMapExampleComponent,
-    ConcatMapExampleComponent
+    ConcatMapExampleComponent,
+    ExhaustMapExampleComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { ConcatMapExampleComponent } from './rxjs/concat-map-example/concat-map-
     MatButtonModule,
     MatIconModule,
     MatExpansionModule,
-    MatListModule
+    MatListModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideAnimationsAsync()

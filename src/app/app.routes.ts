@@ -13,6 +13,7 @@ import { OnPushComponent } from './change-detection-demo/on-push/on-push.compone
 import { CombineLatestPowerExampleComponent } from './rxjs/combine-latest-power-example/combine-latest-power-example.component';
 import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-example.component';
 import { ConcatMapExampleComponent } from './rxjs/concat-map-example/concat-map-example.component';
+import { ExhaustMapExampleComponent } from './rxjs/exhaust-map-example/exhaust-map-example.component';
 
 export const routes: Routes = [
   { 
@@ -26,6 +27,7 @@ export const routes: Routes = [
       { path: 'combine-latest-power-example', component: CombineLatestPowerExampleComponent },
       { path: 'merge-map-example', component: MergeMapExampleComponent },
       { path: 'concat-map-example', component: ConcatMapExampleComponent },
+      { path: 'exhaust-map-example', component: ExhaustMapExampleComponent }
     ]
   },
   { path: 'change-detection',
