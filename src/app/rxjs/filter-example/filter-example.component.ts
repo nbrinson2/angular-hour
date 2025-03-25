@@ -1,14 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { of } from "rxjs";
-import { filter } from "rxjs/operators";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { of, Subject } from "rxjs";
+import { filter, takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "app-filter-example",
   templateUrl: "./filter-example.component.html",
   styleUrls: ["./filter-example.component.scss"],
 })
-export class FilterExampleComponent implements OnInit {
+export class FilterExampleComponent implements OnInit, OnDestroy {
   filteredValues: number[] = [];
+  private onDestroy$ = new Subject<void>();
 
   constructor() {}
 
@@ -16,10 +17,18 @@ export class FilterExampleComponent implements OnInit {
     const numbers$ = of(1, 2, 3, 4, 5, 6);
 
     numbers$
-      .pipe(filter((value) => value % 2 === 0))
+      .pipe(
+        takeUntil(this.onDestroy$),
+        filter((value) => value % 2 === 0)
+      )
       .subscribe((filteredValue) => {
         this.filteredValues.push(filteredValue);
         console.log(filteredValue); // Logs 2, 4, 6
       });
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }
