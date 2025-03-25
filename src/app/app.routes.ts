@@ -10,6 +10,9 @@ import { LifecycleScenarioComponent } from './change-detection-demo/lifecycle-sc
 import { LoopScenarioComponent } from './change-detection-demo/loop-scenario/loop-scenario.component';
 import { AfterDestroyScenarioComponent } from './change-detection-demo/after-destroy-scenario/after-destroy-scenario.component';
 import { OnPushComponent } from './change-detection-demo/on-push/on-push.component';
+import { CombineLatestPowerExampleComponent } from './rxjs/combine-latest-power-example/combine-latest-power-example.component';
+import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-example.component';
+import { ConcatMapExampleComponent } from './rxjs/concat-map-example/concat-map-example.component';
 
 export const routes: Routes = [
   { 
@@ -20,6 +23,9 @@ export const routes: Routes = [
       { path: 'map-example', component: MapExampleComponent },
       { path: 'last-value-from-example', component: LastValueFromExampleComponent },
       { path: 'search-example', component: SearchExampleComponent },
+      { path: 'combine-latest-power-example', component: CombineLatestPowerExampleComponent },
+      { path: 'merge-map-example', component: MergeMapExampleComponent },
+      { path: 'concat-map-example', component: ConcatMapExampleComponent },
     ]
   },
   { path: 'change-detection',

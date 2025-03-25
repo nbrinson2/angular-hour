@@ -33,5 +33,24 @@
           }
       }
     </textarea>
+
+    <textarea highlight-js [options]="{}" [lang]="'typescript'" readonly>
+      @Injectable({
+        providedIn: 'root'
+      })
+      export class SearchService {
+      
+        private apiUrl = 'assets/mock-data.json';
+      
+        constructor(private http: HttpClient) { }
+      
+        search(term: string): Observable<string[]> {
+          return this.http.get<{ items: string[] }>(this.apiUrl).pipe(
+            tap(() => console.log(term)),
+            map(response => response.items.filter(item => item.toLowerCase().includes(term.toLowerCase())))
+          );
+        }
+      }
+    </textarea>
   </div>
 </div>

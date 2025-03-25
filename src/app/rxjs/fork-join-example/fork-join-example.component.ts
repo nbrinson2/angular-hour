@@ -24,6 +24,6 @@ export class ForkJoinExampleComponent implements OnInit {
       console.log(results); // ['Hello', 'World', '!']
     });
 
-    // this.results2 = 'should show first'
+    this.results2 = 'should show first'
   }
 }

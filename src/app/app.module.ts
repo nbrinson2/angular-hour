@@ -22,6 +22,9 @@ import { ForkJoinExampleComponent } from './rxjs/fork-join-example/fork-join-exa
 import { LastValueFromExampleComponent } from './rxjs/last-value-from-example/last-value-from-example.component';
 import { MapExampleComponent } from './rxjs/map-example/map-example.component';
 import { SearchExampleComponent } from './rxjs/search-example/search-example.component';
+import { CombineLatestPowerExampleComponent } from './rxjs/combine-latest-power-example/combine-latest-power-example.component';
+import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-example.component';
+import { ConcatMapExampleComponent } from './rxjs/concat-map-example/concat-map-example.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { SearchExampleComponent } from './rxjs/search-example/search-example.com
     FilterExampleComponent,
     SearchExampleComponent,
     MapExampleComponent,
-    LastValueFromExampleComponent
+    LastValueFromExampleComponent,
+    CombineLatestPowerExampleComponent,
+    MergeMapExampleComponent,
+    ConcatMapExampleComponent
   ],
   imports: [
     BrowserModule,
