@@ -1,6 +1,6 @@
 import { Component, computed, Signal, signal } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
-import { signalSolutionExampleCode } from '../../constants/code-snippets.constants';
+import { signalSolutionExampleCode } from '../../shared/constants/code-snippets.constants';
 
 @Component({
   selector: 'app-signal-solution',

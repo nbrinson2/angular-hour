@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { lastValueFrom } from 'rxjs';
-import { lastValueFromExampleCode } from '../../constants/code-snippets.constants';
+import { lastValueFromExampleCode } from '../../shared/constants/code-snippets.constants';
 
 @Component({
   selector: 'app-last-value-from-example',

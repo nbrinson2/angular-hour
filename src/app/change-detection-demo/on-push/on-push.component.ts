@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone } from '@angular/core';
-import { onPushScenarioCode } from '../../constants/code-snippets.constants';
+import { onPushScenarioCode } from '../../shared/constants/code-snippets.constants';
 
 @Component({
   selector: 'app-on-push',

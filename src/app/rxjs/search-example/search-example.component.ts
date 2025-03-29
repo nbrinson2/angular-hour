@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { SearchService } from './search.service';
-import { searchExampleCode } from '../../constants/code-snippets.constants';
+import { searchExampleCode } from '../../shared/constants/code-snippets.constants';
 
 @Component({
   selector: 'app-search-example',

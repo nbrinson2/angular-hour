@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { combineLatest, interval, of, Subject } from "rxjs";
 import { map, startWith, delay, takeUntil } from "rxjs/operators";
-import { combineLatestExampleCode } from "../../constants/code-snippets.constants";
+import { combineLatestExampleCode } from "../../shared/constants/code-snippets.constants";
 
 @Component({
   selector: "app-combine-latest-power-example",

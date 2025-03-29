@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
-import { mapExampleCode } from '../../constants/code-snippets.constants';
+import { mapExampleCode } from '../../shared/constants/code-snippets.constants';
 
 @Component({
   selector: 'app-map-example',

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { of, Subject } from "rxjs";
 import { filter, takeUntil } from "rxjs/operators";
-import { filterExampleCode } from "../../constants/code-snippets.constants";
+import { filterExampleCode } from "../../shared/constants/code-snippets.constants";
 
 @Component({
   selector: "app-filter-example",

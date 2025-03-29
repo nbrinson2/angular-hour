@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { forkJoin, of, Subject } from "rxjs";
 import { delay, takeUntil } from "rxjs/operators";
-import { forkJoinExampleCode } from "../../constants/code-snippets.constants";
+import { forkJoinExampleCode } from "../../shared/constants/code-snippets.constants";
 
 @Component({
   selector: "app-fork-join-example",

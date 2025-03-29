@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
-import { subscriptionPitfallScenarioCode } from '../../constants/code-snippets.constants';
+import { subscriptionPitfallScenarioCode } from '../../shared/constants/code-snippets.constants';
 
 @Component({
   selector: 'app-subscription-pitfall-scenario',

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy, NgZone } from '@angular/core';
-import { loopScenarioCode } from '../../constants/code-snippets.constants';
+import { loopScenarioCode } from '../../shared/constants/code-snippets.constants';
 
 @Component({
   selector: 'app-loop-scenario',

@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { lifecycleScenarioCode } from '../../constants/code-snippets.constants';
+import { lifecycleScenarioCode } from '../../shared/constants/code-snippets.constants';
 
 @Component({
   selector: 'app-lifecycle-scenario',

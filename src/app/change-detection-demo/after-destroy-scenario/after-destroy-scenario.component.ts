@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { afterDestroyScenarioCode } from '../../constants/code-snippets.constants';
+import { afterDestroyScenarioCode } from '../../shared/constants/code-snippets.constants';
 
 @Component({
   selector: 'app-after-destroy-scenario',

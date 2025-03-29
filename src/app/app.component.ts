@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
-import { NavCategory, NAV_CATEGORIES } from './constants/nav.constants';
+import { NavCategory, NAV_CATEGORIES } from './shared/constants/nav.constants';
 
 @Component({
   selector: 'app-root',
