@@ -1,5 +1,6 @@
 import { Component, computed, Signal, signal } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
+import { signalSolutionExampleCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-signal-solution',
@@ -9,6 +10,7 @@ import { Subscription, interval } from 'rxjs';
 export class SignalSolutionComponent {
   doubleCounter = computed(() => this.counter() * 2);
   subscription!: Subscription;
+  signalSolutionCode = signalSolutionExampleCode;
 
   get counter(): Signal<number> {
     return this._counter.asReadonly();

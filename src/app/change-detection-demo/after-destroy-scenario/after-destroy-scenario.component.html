@@ -1,64 +1,17 @@
-<div class="example-container">
-  <div class="example">
-    <h3>Async DetectChanges Example</h3>
+<app-example-display
+  title="Async DetectChanges Example"
+  description="Demonstrates how to update a component asynchronously and force detectChanges() afterward."
+  [codeSnippet]="afterDestroyScenarioCode"
+>
+  <p><strong>Status:</strong> {{ status }}</p>
+  <p *ngIf="initializedTime">
+    <strong>Initialized at:</strong> {{ initializedTime }}
+  </p>
 
-    <p><strong>Status:</strong> {{ status }}</p>
-    <p *ngIf="initializedTime">
-      <strong>Initialized at:</strong> {{ initializedTime }}
-    </p>
-
-    <div class="warning">
-      ⚠️ This component updates asynchronously using
-      <code>setTimeout()</code> and forces
-      <code>detectChanges()</code> afterward, which may happen after the view is
-      stable or even destroyed.
-    </div>
+  <div class="warning">
+    ⚠️ This component updates asynchronously using
+    <code>setTimeout()</code> and forces
+    <code>detectChanges()</code> afterward, which may happen after the view is
+    stable or even destroyed.
   </div>
-
-  <div class="code-snippet">
-    <h3>Component Code:</h3>
-    <textarea highlight-js [options]="{}" [lang]="'typescript'" readonly>
-      import { ChangeDetectorRef, Component } from '@angular/core';
-
-      @Component({
-        selector: 'app-after-destroy-scenario',
-        templateUrl: './after-destroy-scenario.component.html',
-        styleUrl: './after-destroy-scenario.component.scss'
-      })
-      export class AfterDestroyScenarioComponent {
-        status = 'Initializing...';
-        initializedTime = '';
-        destroyed = false;
-      
-        constructor(private cdRef: ChangeDetectorRef) {}
-      
-        ngOnInit() {
-          console.log('🟡 ngOnInit started');
-      
-          setTimeout(() => {
-            if (this.destroyed) {
-              console.warn('⚠️ Attempted detectChanges() after destroy');
-              return;
-            }
-      
-            this.status = 'Updated in setTimeout after init';
-            this.initializedTime = new Date().toLocaleTimeString();
-            console.log('🟡 Async update applied');
-      
-            // ⚠️ Forcing detectChanges() after async update
-            this.cdRef.detectChanges();
-            console.log('🔄 detectChanges() called from setTimeout');
-          }, 2000);
-        }
-      
-        ngOnDestroy() {
-          this.destroyed = true;
-          console.log('🛑 Component destroyed');
-        }
-      
-      
-      }
-      
-    </textarea>
-  </div>
-</div>
+</app-example-display>

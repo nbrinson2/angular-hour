@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone } from '@angular/core';
+import { onPushScenarioCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-on-push',
@@ -9,6 +10,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone } from '@
 export class OnPushComponent {
   counter = 0;
   intervalId: any;
+  onPushScenarioCode = onPushScenarioCode;
 
   constructor(
     private cdRef: ChangeDetectorRef,

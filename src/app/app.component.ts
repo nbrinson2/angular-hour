@@ -1,44 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
+import { NavCategory, NAV_CATEGORIES } from './constants/nav.constants';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'Angular Hour';
-  rxjsExpanded = false;
-  changeDetectionExpanded = false;
+
+  // Clone the categories from the constant so that we can modify the `expanded` state locally.
+  categories: NavCategory[] = NAV_CATEGORIES.map(category => ({ ...category }));
 
   private routerSubscription!: Subscription;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Subscribe to navigation events to update which panel is open
     this.routerSubscription = this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
+      .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         this.setActivePanels();
       });
 
-    // Initial panel state
+    // Set the initial state for expansion panels.
     this.setActivePanels();
   }
 
   ngOnDestroy(): void {
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-    }
+    this.routerSubscription.unsubscribe();
   }
 
   private setActivePanels(): void {
     const url = this.router.url;
-    // If the URL contains '/change-detection', open that panel
-    this.changeDetectionExpanded = url.includes('/change-detection');
-    // Open the RxJS panel if the URL matches any of its sublinks
-    this.rxjsExpanded = url.includes('/rxjs');
+    this.categories.forEach(category => {
+      if (category.title === 'Change Detection') {
+        category.expanded = url.includes('/change-detection');
+      } else if (category.title === 'RxJS') {
+        category.expanded = url.includes('/rxjs');
+      }
+    });
   }
 }

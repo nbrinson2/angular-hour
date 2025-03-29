@@ -27,6 +27,10 @@ import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-exa
 import { ConcatMapExampleComponent } from './rxjs/concat-map-example/concat-map-example.component';
 import { ExhaustMapExampleComponent } from './rxjs/exhaust-map-example/exhaust-map-example.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ChromeDevtoolsComponent } from './debugging/chrome-devtools/chrome-devtools.component';
+import { AuguryComponent } from './debugging/augury/augury.component';
+import { AngularCliComponent } from './debugging/angular-cli/angular-cli.component';
+import { ExampleDisplayComponent } from './example-display/example-display.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     CombineLatestPowerExampleComponent,
     MergeMapExampleComponent,
     ConcatMapExampleComponent,
-    ExhaustMapExampleComponent
+    ExhaustMapExampleComponent,
+    ChromeDevtoolsComponent,
+    AuguryComponent,
+    AngularCliComponent,
+    ExampleDisplayComponent
   ],
   imports: [
     BrowserModule,

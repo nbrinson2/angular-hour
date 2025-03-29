@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+import { mapExampleCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-map-example',
@@ -10,6 +11,7 @@ import { map, takeUntil } from 'rxjs/operators';
 export class MapExampleComponent implements OnInit, OnDestroy {
 
   mappedValues: number[] = [];
+  mapExampleCode = mapExampleCode;
   private onDestroy$ = new Subject<void>();
 
   constructor() { }

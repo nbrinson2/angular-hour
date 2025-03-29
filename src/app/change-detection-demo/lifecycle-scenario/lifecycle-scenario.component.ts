@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { lifecycleScenarioCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-lifecycle-scenario',
@@ -8,6 +9,7 @@ import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 export class LifecycleScenarioComponent implements AfterViewInit {
   status = 'Initial status';
   changeCycleCount = 0;
+  lifecycleScenarioCode = lifecycleScenarioCode;
 
   constructor(private cdRef: ChangeDetectorRef) {}
 

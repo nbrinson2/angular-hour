@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { forkJoin, of, Subject } from "rxjs";
 import { delay, takeUntil } from "rxjs/operators";
+import { forkJoinExampleCode } from "../../constants/code-snippets.constants";
 
 @Component({
   selector: "app-fork-join-example",
@@ -10,6 +11,7 @@ import { delay, takeUntil } from "rxjs/operators";
 export class ForkJoinExampleComponent implements OnInit {
   results!: string[];
   results2!: string;
+  forkJoinExampleCode = forkJoinExampleCode;
   private onDestroy$ = new Subject<void>();
 
   constructor() {}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { lastValueFrom } from 'rxjs';
+import { lastValueFromExampleCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-last-value-from-example',
@@ -11,6 +12,7 @@ import { lastValueFrom } from 'rxjs';
 export class LastValueFromExampleComponent implements OnInit {
 
   lastValue!: string
+  lastValueFromExampleCode = lastValueFromExampleCode;
 
   constructor() { }
 

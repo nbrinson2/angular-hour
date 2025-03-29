@@ -1,56 +1,9 @@
-<div class="example-container">
-  <div class="example">
-    <h2>Search Example</h2>
-    <input #searchInput type="text" placeholder="Search..." />
-    <ul>
-      <li *ngFor="let result of searchResults">{{ result }}</li>
-    </ul>
-  </div>
-
-  <div class="code-snippet">
-    <h3>Component Code:</h3>
-    <textarea highlight-js [options]="{}" [lang]="'typescript'" readonly>
-      @Component({
-        selector: 'app-search-example',
-        templateUrl: './search-example.component.html',
-        styleUrls: ['./search-example.component.scss']
-      })
-      export class SearchExampleComponent implements OnInit {
-      
-        @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
-        searchResults: string[] = [];
-      
-        constructor(private searchService: SearchService) { }
-      
-          ngOnInit(): void {
-            fromEvent(this.searchInput.nativeElement, 'input').pipe(
-              debounceTime(600),
-              distinctUntilChanged(),
-              switchMap((event: any) => this.searchService.search(event.target.value))
-            ).subscribe(results => {
-              this.searchResults = results;
-            });
-          }
-      }
-    </textarea>
-
-    <textarea highlight-js [options]="{}" [lang]="'typescript'" readonly>
-      @Injectable({
-        providedIn: 'root'
-      })
-      export class SearchService {
-      
-        private apiUrl = 'assets/mock-data.json';
-      
-        constructor(private http: HttpClient) { }
-      
-        search(term: string): Observable<string[]> {
-          return this.http.get<{ items: string[] }>(this.apiUrl).pipe(
-            tap(() => console.log(term)),
-            map(response => response.items.filter(item => item.toLowerCase().includes(term.toLowerCase())))
-          );
-        }
-      }
-    </textarea>
-  </div>
-</div>
+<app-example-display
+  title="Search Example"
+  description="Searches a list of items based on the input value."
+  [codeSnippet]="searchExampleCode">
+  <input #searchInput type="text" placeholder="Search..." />
+  <ul>
+    <li *ngFor="let result of searchResults">{{ result }}</li>
+  </ul>
+</app-example-display>

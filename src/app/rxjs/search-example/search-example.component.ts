@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { SearchService } from './search.service';
+import { searchExampleCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-search-example',
@@ -12,6 +13,7 @@ export class SearchExampleComponent implements OnInit {
 
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
   searchResults: string[] = [];
+  searchExampleCode = searchExampleCode;
 
   constructor(private searchService: SearchService) { }
 

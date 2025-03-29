@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { combineLatest, interval, of, Subject } from "rxjs";
 import { map, startWith, delay, takeUntil } from "rxjs/operators";
+import { combineLatestExampleCode } from "../../constants/code-snippets.constants";
 
 @Component({
   selector: "app-combine-latest-power-example",
@@ -9,6 +10,8 @@ import { map, startWith, delay, takeUntil } from "rxjs/operators";
 })
 export class CombineLatestPowerExampleComponent implements OnInit, OnDestroy {
   combinedValues: any[] = [];
+  combineLatestCode = combineLatestExampleCode;
+  
   private onDestroy$ = new Subject<void>();
 
   constructor() {}

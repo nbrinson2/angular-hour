@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { concatMap, delay, map } from 'rxjs/operators';
+import { concatMapExampleCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-concat-map-example',
@@ -11,6 +12,7 @@ import { concatMap, delay, map } from 'rxjs/operators';
 export class ConcatMapExampleComponent implements OnInit {
 
   results: string[] = [];
+  concatMapExampleCode = concatMapExampleCode;
 
   constructor(private http: HttpClient) { }
 

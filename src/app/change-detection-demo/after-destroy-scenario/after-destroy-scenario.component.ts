@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { afterDestroyScenarioCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-after-destroy-scenario',
@@ -9,6 +10,7 @@ export class AfterDestroyScenarioComponent {
   status = 'Initializing...';
   initializedTime = '';
   destroyed = false;
+  afterDestroyScenarioCode = afterDestroyScenarioCode;
 
   constructor(private cdRef: ChangeDetectorRef) {}
 

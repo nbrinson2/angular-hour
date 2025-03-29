@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { of, interval, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { mergeMap, map, delay, takeUntil } from 'rxjs/operators';
+import { mergeMapExampleCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-merge-map-example',
@@ -11,6 +12,7 @@ import { mergeMap, map, delay, takeUntil } from 'rxjs/operators';
 export class MergeMapExampleComponent implements OnInit, OnDestroy {
 
   mergedValues: string[] = [];
+  mergeMapExampleCode = mergeMapExampleCode;
   private onDestroy$ = new Subject<void>();
 
   constructor(private http: HttpClient) { }

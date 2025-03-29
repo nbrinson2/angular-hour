@@ -1,4 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { loopScenarioCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-loop-scenario',
@@ -8,6 +9,7 @@ import { Component, ChangeDetectorRef, OnInit, OnDestroy, NgZone } from '@angula
 export class LoopScenarioComponent implements OnInit, OnDestroy {
   loopCounter = 0;
   intervalId: any;
+  loopScenarioCode = loopScenarioCode;
 
   constructor(
     private cdRef: ChangeDetectorRef,

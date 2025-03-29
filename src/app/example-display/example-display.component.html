@@ -1,0 +1,13 @@
+<div class="example-container">
+  <div class="example">
+    <h2>{{ title }}</h2>
+    <p>{{ description }}</p>
+    <!-- Projection for additional dynamic content such as lists or forms -->
+    <ng-content></ng-content>
+  </div>
+
+  <div class="code-snippet">
+    <h3>Component Code:</h3>
+    <textarea highlight-js [options]="{}" [lang]="'typescript'" readonly>{{ codeSnippet }}</textarea>
+  </div>
+</div>

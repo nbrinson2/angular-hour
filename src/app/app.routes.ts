@@ -14,6 +14,9 @@ import { CombineLatestPowerExampleComponent } from './rxjs/combine-latest-power-
 import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-example.component';
 import { ConcatMapExampleComponent } from './rxjs/concat-map-example/concat-map-example.component';
 import { ExhaustMapExampleComponent } from './rxjs/exhaust-map-example/exhaust-map-example.component';
+import { AngularCliComponent } from './debugging/angular-cli/angular-cli.component';
+import { AuguryComponent } from './debugging/augury/augury.component';
+import { ChromeDevtoolsComponent } from './debugging/chrome-devtools/chrome-devtools.component';
 
 export const routes: Routes = [
   { 
@@ -40,4 +43,12 @@ export const routes: Routes = [
       { path: 'on-push-example', component: OnPushComponent},
     ]
   },
+  {
+    path: 'debugging',
+    children: [
+      {path: 'chrome-devtools', component: ChromeDevtoolsComponent},
+      {path: 'augury', component: AuguryComponent},
+      {path: 'angular-cli', component: AngularCliComponent}
+    ]
+  }
 ];

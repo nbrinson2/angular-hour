@@ -1,113 +1,23 @@
 <mat-drawer-container class="drawer-container" [class.drawer-open]="drawer.opened">
-
   <!-- Sidenav / Drawer -->
   <mat-drawer #drawer mode="over" (backdropClick)="drawer.close()" class="drawer">
     <mat-accordion>
-
-      <!-- 1. Change Detection category -->
-      <mat-expansion-panel [expanded]="changeDetectionExpanded">
+      <mat-expansion-panel *ngFor="let category of categories" [expanded]="category.expanded">
         <mat-expansion-panel-header>
-          <mat-panel-title>Change Detection</mat-panel-title>
+          <mat-panel-title>{{ category.title }}</mat-panel-title>
         </mat-expansion-panel-header>
-
         <mat-nav-list>
-          <a mat-list-item 
-             routerLink="/change-detection/subscription-pitfall-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            Subscription Pitfall Example
-          </a>
-          <a mat-list-item 
-             routerLink="/change-detection/signal-solution" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            Signal Solution
-          </a>
-          <a mat-list-item 
-             routerLink="/change-detection/lifecycle-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            Lifecycle Example
-          </a>
-          <a mat-list-item 
-             routerLink="/change-detection/loop-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            Loop Example
-          </a>
-          <a mat-list-item 
-             routerLink="/change-detection/after-destroy-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            After Destroy Example
+          <a
+            mat-list-item
+            *ngFor="let link of category.links"
+            [routerLink]="link.path"
+            routerLinkActive="active-link"
+            (click)="drawer.close()"
+          >
+            {{ link.label }}
           </a>
         </mat-nav-list>
       </mat-expansion-panel>
-
-      <!-- 2. RxJS category -->
-      <mat-expansion-panel [expanded]="rxjsExpanded">
-        <mat-expansion-panel-header>
-          <mat-panel-title>RxJS</mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <mat-nav-list>
-          <a mat-list-item 
-             routerLink="/rxjs/fork-join-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            Fork Join Example
-          </a>
-          <a mat-list-item 
-             routerLink="/rxjs/filter-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            Filter Example
-          </a>
-          <a mat-list-item 
-             routerLink="/rxjs/map-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            Map Example
-          </a>
-          <a mat-list-item 
-             routerLink="/rxjs/last-value-from-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            Last Value From Example
-          </a>
-          <a mat-list-item 
-             routerLink="/rxjs/search-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            Search Example
-          </a>
-          <a mat-list-item 
-             routerLink="/rxjs/combine-latest-power-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-            CombineLatest Example
-          </a>
-          <a mat-list-item 
-             routerLink="/rxjs/merge-map-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-             MergeMap Example
-          </a>  
-          <a mat-list-item 
-             routerLink="/rxjs/concat-map-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-             ConcatMap Example
-          </a>  
-          <a mat-list-item 
-             routerLink="/rxjs/exhaust-map-example" 
-             routerLinkActive="active-link"
-             (click)="drawer.close()">
-             ExhaustMap Example
-          </a>      
-        </mat-nav-list>
-      </mat-expansion-panel>
-
     </mat-accordion>
   </mat-drawer>
 
@@ -115,7 +25,6 @@
   <mat-drawer-content>
     <!-- Header / Toolbar -->
     <header class="header-container">
-      <!-- Hamburger button to toggle the sidenav -->
       <button mat-icon-button (click)="drawer.toggle()" class="hamburger-button">
         <mat-icon>menu</mat-icon>
       </button>
@@ -127,5 +36,4 @@
       <router-outlet></router-outlet>
     </main>
   </mat-drawer-content>
-
 </mat-drawer-container>

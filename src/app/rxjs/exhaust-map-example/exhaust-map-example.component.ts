@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { of, Subject } from 'rxjs';
 import { exhaustMap, delay, tap } from 'rxjs/operators';
+import { exhaustMapExampleCode } from '../../constants/code-snippets.constants';
 
 @Component({
   selector: 'app-exhaust-map-example',
@@ -12,6 +13,7 @@ export class ExhaustMapExampleComponent {
 
   form: FormGroup;
   submissionResults: string[] = [];
+  exhaustMapExampleCode = exhaustMapExampleCode;
   private submit$ = new Subject<void>();
 
   constructor(private fb: FormBuilder) {
