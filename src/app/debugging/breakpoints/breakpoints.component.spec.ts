@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuguryComponent } from './augury.component';
+import { BreakpointsComponent } from './breakpoints.component';
 
-describe('AuguryComponent', () => {
-  let component: AuguryComponent;
-  let fixture: ComponentFixture<AuguryComponent>;
+describe('BreakpointsComponent', () => {
+  let component: BreakpointsComponent;
+  let fixture: ComponentFixture<BreakpointsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AuguryComponent]
+      declarations: [BreakpointsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AuguryComponent);
+    fixture = TestBed.createComponent(BreakpointsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

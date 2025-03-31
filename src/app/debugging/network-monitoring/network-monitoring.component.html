@@ -1,0 +1,33 @@
+<app-example-display
+  title="Network Monitoring"
+  description="Monitor network requests and responses using the Network panel in Chrome DevTools."
+  [codeSnippet]="networkMonitoringCode">
+  <div class="debug-demo">
+    <button mat-raised-button (click)="runNetworkRequest()">Run Network Request</button>
+
+    <p>
+      Click the button to send a request to JSONPlaceholder. Open the
+      Network panel to view the details of the HTTP request and
+      response.
+    </p>
+    <div class="results-container">
+      <p><strong>Response:</strong></p>
+      <pre>{{ networkResponse | json }}</pre>
+    </div>
+  </div>
+
+  <div class="debug-demo">
+    <button mat-raised-button (click)="runErrorRequest()">Run Error Request</button>
+
+    <p>
+      Click the button to trigger an HTTP error (endpoint does not
+      exist). Open the Network panel to view the error details.
+    </p>
+    <div class="results-container">
+      <p><strong>Error Response:</strong></p>
+      <pre>{{ errorResponse | json }}</pre>
+    </div>
+  </div>
+  <button mat-raised-button (click)="clearResults()">Clear Results</button>
+
+</app-example-display>

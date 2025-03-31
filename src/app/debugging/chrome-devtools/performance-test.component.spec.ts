@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChromeDevtoolsComponent } from './chrome-devtools.component';
+import { PerformanceTestComponent } from './performance-test.component';
 
 describe('ChromeDevtoolsComponent', () => {
-  let component: ChromeDevtoolsComponent;
-  let fixture: ComponentFixture<ChromeDevtoolsComponent>;
+  let component: PerformanceTestComponent;
+  let fixture: ComponentFixture<PerformanceTestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ChromeDevtoolsComponent]
+      declarations: [PerformanceTestComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ChromeDevtoolsComponent);
+    fixture = TestBed.createComponent(PerformanceTestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,15 +1,20 @@
 <app-example-display
   title="ExhaustMap Example"
   description="Demonstrates how exhaustMap processes only the first form submission and ignores subsequent submissions until the first one completes."
-  [codeSnippet]="exhaustMapExampleCode">
+  [codeSnippet]="exhaustMapExampleCode"
+>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <label for="name">Name:</label>
-    <input id="name" formControlName="name" type="text" />
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" id="name" type="text" />
+    </mat-form-field>
 
-    <label for="email">Email:</label>
-    <input id="email" formControlName="email" type="email" />
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" id="email" type="email" />
+    </mat-form-field>
 
-    <button type="submit">Submit</button>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
   </form>
 
   <p>Submission Results:</p>

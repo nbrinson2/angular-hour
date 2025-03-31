@@ -1,6 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -27,10 +29,11 @@ import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-exa
 import { ConcatMapExampleComponent } from './rxjs/concat-map-example/concat-map-example.component';
 import { ExhaustMapExampleComponent } from './rxjs/exhaust-map-example/exhaust-map-example.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ChromeDevtoolsComponent } from './debugging/chrome-devtools/chrome-devtools.component';
-import { AuguryComponent } from './debugging/augury/augury.component';
-import { AngularCliComponent } from './debugging/angular-cli/angular-cli.component';
-import { ExampleDisplayComponent } from './example-display/example-display.component';
+import { PerformanceTestComponent } from './debugging/chrome-devtools/performance-test.component';
+import { ExampleDisplayComponent } from './shared/example-display/example-display.component';
+import { ComponentStateInspectorComponent } from './debugging/component-state-inspector/component-state-inspector.component';
+import { BreakpointsComponent } from './debugging/breakpoints/breakpoints.component';
+import { NetworkMonitoringComponent } from './debugging/network-monitoring/network-monitoring.component';
 
 @NgModule({
   declarations: [
@@ -50,10 +53,11 @@ import { ExampleDisplayComponent } from './example-display/example-display.compo
     MergeMapExampleComponent,
     ConcatMapExampleComponent,
     ExhaustMapExampleComponent,
-    ChromeDevtoolsComponent,
-    AuguryComponent,
-    AngularCliComponent,
-    ExampleDisplayComponent
+    PerformanceTestComponent,
+    ExampleDisplayComponent,
+    ComponentStateInspectorComponent,
+    BreakpointsComponent,
+    NetworkMonitoringComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +69,8 @@ import { ExampleDisplayComponent } from './example-display/example-display.compo
     MatIconModule,
     MatExpansionModule,
     MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
     ReactiveFormsModule
   ],
   providers: [

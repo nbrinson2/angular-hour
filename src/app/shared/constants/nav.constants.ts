@@ -1,3 +1,6 @@
+import { Routes } from "@angular/router";
+import { routes } from "../../app.routes";
+
 export interface NavLink {
   path: string;
   label: string;
@@ -9,40 +12,42 @@ export interface NavCategory {
   links: NavLink[];
 }
 
-export const NAV_CATEGORIES: NavCategory[] = [
-  {
-    title: 'Change Detection',
-    expanded: false,
-    links: [
-      { path: '/change-detection/subscription-pitfall-example', label: 'Subscription Pitfall Example' },
-      { path: '/change-detection/signal-solution', label: 'Signal Solution' },
-      { path: '/change-detection/lifecycle-example', label: 'Lifecycle Example' },
-      { path: '/change-detection/loop-example', label: 'Loop Example' },
-      { path: '/change-detection/after-destroy-example', label: 'After Destroy Example' },
-    ],
-  },
-  {
-    title: 'RxJS',
-    expanded: false,
-    links: [
-      { path: '/rxjs/fork-join-example', label: 'Fork Join Example' },
-      { path: '/rxjs/filter-example', label: 'Filter Example' },
-      { path: '/rxjs/map-example', label: 'Map Example' },
-      { path: '/rxjs/last-value-from-example', label: 'Last Value From Example' },
-      { path: '/rxjs/search-example', label: 'Search Example' },
-      { path: '/rxjs/combine-latest-power-example', label: 'CombineLatest Example' },
-      { path: '/rxjs/merge-map-example', label: 'MergeMap Example' },
-      { path: '/rxjs/concat-map-example', label: 'ConcatMap Example' },
-      { path: '/rxjs/exhaust-map-example', label: 'ExhaustMap Example' },
-    ],
-  },
-  {
-    title: 'Debugging',
-    expanded: false,
-    links: [
-      { path: '/debugging/chrome-devtools', label: 'Debugging with Chrome DevTools' },
-      { path: '/debugging/augury', label: 'Augury (Angular DevTools Extension)' },
-      { path: '/debugging/angular-cli', label: 'Angular CLI and Debugging Tools' },
-    ],
-  }
-];
+// Helper function: Converts a hyphenated string into Title Case.
+function toTitleCase(str: string): string {
+  return str
+    .split(/[-\s]+/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+/**
+ * Generate an array of navigation categories from the provided routes.
+ * Each top-level route that has children becomes a category. The category title
+ * is derived from the top-level route's path, and each child becomes a nav link.
+ */
+export function generateNavCategories(routes: Routes): NavCategory[] {
+  const navCategories: NavCategory[] = [];
+
+  routes.forEach(route => {
+    if (route.children && route.children.length) {
+      const categoryTitle = toTitleCase(route.path || '');
+      const links: NavLink[] = route.children.map(child => {
+        const fullPath = `/${route.path}/${child.path}`;
+        // Use the child route's path to generate a label.
+        const label = toTitleCase(child.path || '');
+        return { path: fullPath, label };
+      });
+
+      navCategories.push({
+        title: categoryTitle,
+        expanded: false,
+        links: links
+      });
+    }
+  });
+
+  return navCategories;
+}
+
+export const NAV_CATEGORIES: NavCategory[] = generateNavCategories(routes);
+

@@ -14,41 +14,56 @@ import { CombineLatestPowerExampleComponent } from './rxjs/combine-latest-power-
 import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-example.component';
 import { ConcatMapExampleComponent } from './rxjs/concat-map-example/concat-map-example.component';
 import { ExhaustMapExampleComponent } from './rxjs/exhaust-map-example/exhaust-map-example.component';
-import { AngularCliComponent } from './debugging/angular-cli/angular-cli.component';
-import { AuguryComponent } from './debugging/augury/augury.component';
-import { ChromeDevtoolsComponent } from './debugging/chrome-devtools/chrome-devtools.component';
+import { PerformanceTestComponent } from './debugging/chrome-devtools/performance-test.component';
+import { BreakpointsComponent } from './debugging/breakpoints/breakpoints.component';
+import { ComponentStateInspectorComponent } from './debugging/component-state-inspector/component-state-inspector.component';
+import { NetworkMonitoringComponent } from './debugging/network-monitoring/network-monitoring.component';
 
 export const routes: Routes = [
-  { 
+  {
     path: 'rxjs',
     children: [
       { path: 'fork-join-example', component: ForkJoinExampleComponent },
       { path: 'filter-example', component: FilterExampleComponent },
       { path: 'map-example', component: MapExampleComponent },
-      { path: 'last-value-from-example', component: LastValueFromExampleComponent },
+      {
+        path: 'last-value-from-example',
+        component: LastValueFromExampleComponent,
+      },
       { path: 'search-example', component: SearchExampleComponent },
-      { path: 'combine-latest-power-example', component: CombineLatestPowerExampleComponent },
+      {
+        path: 'combine-latest-power-example',
+        component: CombineLatestPowerExampleComponent,
+      },
       { path: 'merge-map-example', component: MergeMapExampleComponent },
       { path: 'concat-map-example', component: ConcatMapExampleComponent },
-      { path: 'exhaust-map-example', component: ExhaustMapExampleComponent }
-    ]
+      { path: 'exhaust-map-example', component: ExhaustMapExampleComponent },
+    ],
   },
-  { path: 'change-detection',
+  {
+    path: 'change-detection',
     children: [
-      { path: 'subscription-pitfall-example', component: SubscriptionPitfallScenarioComponent},
-      { path: 'signal-solution', component: SignalSolutionComponent},
-      { path: 'lifecycle-example', component: LifecycleScenarioComponent},
-      { path: 'loop-example', component: LoopScenarioComponent},
-      { path: 'after-destroy-example', component: AfterDestroyScenarioComponent},
-      { path: 'on-push-example', component: OnPushComponent},
-    ]
+      {
+        path: 'subscription-pitfall-example',
+        component: SubscriptionPitfallScenarioComponent,
+      },
+      { path: 'signal-solution', component: SignalSolutionComponent },
+      { path: 'lifecycle-example', component: LifecycleScenarioComponent },
+      { path: 'loop-example', component: LoopScenarioComponent },
+      {
+        path: 'after-destroy-example',
+        component: AfterDestroyScenarioComponent,
+      },
+      { path: 'on-push-example', component: OnPushComponent },
+    ],
   },
   {
     path: 'debugging',
     children: [
-      {path: 'chrome-devtools', component: ChromeDevtoolsComponent},
-      {path: 'augury', component: AuguryComponent},
-      {path: 'angular-cli', component: AngularCliComponent}
-    ]
-  }
+      { path: 'performance-test', component: PerformanceTestComponent },
+      { path: 'breakpoints', component: BreakpointsComponent },
+      { path: 'component-state-inspector', component: ComponentStateInspectorComponent },
+      { path: 'network-monitoring', component: NetworkMonitoringComponent },
+    ],
+  },
 ];

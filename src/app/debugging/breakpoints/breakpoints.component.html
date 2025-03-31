@@ -1,0 +1,28 @@
+<app-example-display
+  title="Breakpoints"
+  description="Debugging with breakpoints in Chrome DevTools."
+  [codeSnippet]="breakpointsExampleCode"
+>
+  <button mat-raised-button (click)="runDebugFunction()">Run Debug Function</button>
+  <button mat-raised-button (click)="clearResults()">Clear Results</button>
+  <p>
+    Open the Sources panel, set a breakpoint in the
+    <code>runDebugFunction()</code>
+    method, and then click the button to step through the code.
+  </p>
+  <p>
+    You can also set breakpoints in the HTML template by right-clicking on the
+    line number in the Elements panel.
+  </p>
+  <!-- New UI element to display the debug function's results -->
+  <div class="results-container">
+    <h3>Results</h3>
+      <p>
+        <strong>Fibonacci Sequence:</strong> {{ fibonacciSequence.join(", ") }}
+      </p>
+      <div *ngIf="fibonacciSequence.length > 0">
+        <p><strong>Last Fibonacci:</strong> {{ lastFibonacci }}</p>
+        <p><strong>Prime Count:</strong> {{ primeCount }}</p>
+      </div>
+    </div>
+</app-example-display>

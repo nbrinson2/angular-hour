@@ -410,3 +410,160 @@ export const subscriptionPitfallScenarioCode = `      export class SubscriptionP
           console.warn('⚠️ Component destroyed, but subscription is still active!');
         }
       }`;
+
+export const performanceTestCode = `
+export class PerformanceTestComponent {
+
+  performanceResultBubble: number | null = null;
+  performanceResultOptimized: number | null = null;
+
+  performanceTestCode = performanceTestCode;
+
+  async runPerformanceTest(): Promise<void> {
+    // Create an array of 10,000 random numbers.
+    const array = Array.from({ length: 10000 }, () => Math.random());
+    
+    // Clone the array for both sorting methods.
+    const bubbleSortArray = [...array];
+    const optimizedSortArray = [...array];
+    
+    // --- Bubble Sort Measurement ---
+    performance.mark('startBubbleSort');
+    for (let i = 0; i < bubbleSortArray.length - 1; i++) {
+      for (let j = 0; j < bubbleSortArray.length - i - 1; j++) {
+        if (bubbleSortArray[j] > bubbleSortArray[j + 1]) {
+          const temp = bubbleSortArray[j];
+          bubbleSortArray[j] = bubbleSortArray[j + 1];
+          bubbleSortArray[j + 1] = temp;
+        }
+      }
+    }
+    performance.mark('endBubbleSort');
+    performance.measure('Bubble Sort Duration', 'startBubbleSort', 'endBubbleSort');
+    const bubbleTime = performance.getEntriesByName('Bubble Sort Duration')[0].duration;
+    
+    // --- Optimized Sort Measurement ---
+    performance.mark('startOptimizedSort');
+    optimizedSortArray.sort((a, b) => a - b);
+    performance.mark('endOptimizedSort');
+    performance.measure('Optimized Sort Duration', 'startOptimizedSort', 'endOptimizedSort');
+    const optimizedTime = performance.getEntriesByName('Optimized Sort Duration')[0].duration;
+    
+    // Update class fields so they can be inspected.
+    this.performanceResultBubble = bubbleTime;
+    this.performanceResultOptimized = optimizedTime;
+    console.log('Bubble sort took', bubbleTime, 'ms');
+    console.log('Optimized sort took', optimizedTime, 'ms');
+  }
+}
+      `;
+
+export const breakpointsExampleCode = `
+export class BreakpointsComponent {
+  fibonacciSequence: number[] = [];
+  lastFibonacci: number = 0;
+  primeCount: number = 0;
+
+  breakpointsExampleCode = breakpointsExampleCode;
+
+  runDebugFunction(): void {
+    const n = 10;
+    let fib: number[] = [0, 1];
+    let primeCount = 0;
+    
+    // Initialize the UI with the first two numbers.
+    this.fibonacciSequence = [0, 1];
+
+    let i = 2;
+    const addNextFib = () => {
+      if (i > n) {
+        // Update the remaining fields once the loop is finished.
+        this.lastFibonacci = fib[n];
+        this.primeCount = primeCount;
+        return;
+      }
+      // Calculate the next Fibonacci number.
+      fib[i] = fib[i - 1] + fib[i - 2];
+
+      // Check if the current Fibonacci number is prime.
+      let isPrime = true;
+      if (fib[i] < 2) {
+        isPrime = false;
+      }
+      for (let j = 2; j < fib[i]; j++) {
+        if (fib[i] % j === 0) {
+          isPrime = false;
+          break;
+        }
+      }
+      if (isPrime) {
+        primeCount++;
+      }
+
+      // Dynamically add the computed Fibonacci number to the UI.
+      this.fibonacciSequence.push(fib[i]);
+
+      i++;
+      // Use a small delay so that the UI has time to update.
+      setTimeout(addNextFib, 300);
+    };
+
+    addNextFib();
+  }
+
+  clearResults(): void {
+    this.fibonacciSequence = [];
+    this.lastFibonacci = 0;
+    this.primeCount = 0;
+    console.log('Results cleared.');
+  }
+}`;
+
+export const componentStateInspectorCode = `
+export class ComponentStateInspectorComponent {
+  currentValue: boolean = false;
+
+  componentStateInspectorCode = componentStateInspectorCode;
+
+  toggleValue(): void {
+    this.currentValue = !this.currentValue;
+    console.log('Current value toggled:', this.currentValue);
+  }
+}`;
+
+export const networkMonitoringCode = `
+export class NetworkMonitoringComponent {
+  networkResponse: any;
+  errorResponse: any;
+
+  networkMonitoringCode = networkMonitoringCode;
+
+  constructor(private http: HttpClient) {}
+
+  async runNetworkRequest(): Promise<void> {
+    const userId = 1;
+    try {
+      const response = await firstValueFrom(this.http.get(\`https://jsonplaceholder.typicode.com/users/\${userId}\`));
+      this.networkResponse = response;
+      console.log('Network response:', response);
+    } catch (error) {
+      console.error('Network error:', error);
+    }
+  }
+
+  async runErrorRequest(): Promise<void> {
+    try {
+      const response = await firstValueFrom(this.http.get('https://jsonplaceholder.typicode.com/nonexistent'));
+      this.errorResponse = response;
+      console.log('Response:', response);
+    } catch (error) {
+      this.errorResponse = error;
+      console.error('HTTP Error:', error);
+    }
+  }
+
+  clearResults(): void {
+    this.networkResponse = undefined;
+    this.errorResponse = undefined;
+  }
+}`;
