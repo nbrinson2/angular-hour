@@ -18,6 +18,12 @@ import { PerformanceTestComponent } from './debugging/chrome-devtools/performanc
 import { BreakpointsComponent } from './debugging/breakpoints/breakpoints.component';
 import { ComponentStateInspectorComponent } from './debugging/component-state-inspector/component-state-inspector.component';
 import { NetworkMonitoringComponent } from './debugging/network-monitoring/network-monitoring.component';
+import { UserResolver } from './shared/resolvers/user.resolver';
+import { SeparateConcernsComponent } from './resolvers-guards/separate-concerns/separate-concerns.component';
+import { ErrorHandlingComponent } from './resolvers-guards/error-handling/error-handling.component';
+import { DeactivationGuardComponent } from './resolvers-guards/deactivation-guard/deactivation-guard.component';
+import { UnsavedChangesGuard } from './shared/guards/unsaved-changes.guard';
+import { AdminCanLoadGuard } from './shared/guards/admin-can-load.guard';
 
 export const routes: Routes = [
   {
@@ -62,8 +68,41 @@ export const routes: Routes = [
     children: [
       { path: 'performance-test', component: PerformanceTestComponent },
       { path: 'breakpoints', component: BreakpointsComponent },
-      { path: 'component-state-inspector', component: ComponentStateInspectorComponent },
+      {
+        path: 'component-state-inspector',
+        component: ComponentStateInspectorComponent,
+      },
       { path: 'network-monitoring', component: NetworkMonitoringComponent },
+    ],
+  },
+  {
+    path: 'resolvers-guards',
+    children: [
+      {
+        path: 'separate-concerns',
+        children: [
+          { path: '', redirectTo: '1', pathMatch: 'full' },
+          {
+            path: ':id',
+            component: SeparateConcernsComponent,
+            resolve: { user: UserResolver },
+          },
+        ],
+      },
+      { path: 'error-handling', component: ErrorHandlingComponent },
+      {
+        path: 'deactivation-guard',
+        component: DeactivationGuardComponent,
+        canDeactivate: [UnsavedChangesGuard],
+      },
+      {
+        path: 'can-load-guard',
+        loadChildren: () =>
+          import('./resolvers-guards/can-load-guard/can-load-guard.module')
+            .then(m => m.CanLoadGuardModule),
+        canMatch: [AdminCanLoadGuard] // or canMatch, depending on your guard type
+      }
+      
     ],
   },
 ];

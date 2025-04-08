@@ -1,8 +1,19 @@
-<mat-drawer-container class="drawer-container" [class.drawer-open]="drawer.opened">
+<mat-drawer-container
+  class="drawer-container"
+  [class.drawer-open]="drawer.opened"
+>
   <!-- Sidenav / Drawer -->
-  <mat-drawer #drawer mode="over" (backdropClick)="drawer.close()" class="drawer">
+  <mat-drawer
+    #drawer
+    mode="over"
+    (backdropClick)="drawer.close()"
+    class="drawer"
+  >
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let category of categories" [expanded]="category.expanded">
+      <mat-expansion-panel
+        *ngFor="let category of categories"
+        [expanded]="category.expanded"
+      >
         <mat-expansion-panel-header>
           <mat-panel-title>{{ category.title }}</mat-panel-title>
         </mat-expansion-panel-header>
@@ -25,10 +36,17 @@
   <mat-drawer-content>
     <!-- Header / Toolbar -->
     <header class="header-container">
-      <button mat-icon-button (click)="drawer.toggle()" class="hamburger-button">
+      <button
+        mat-icon-button
+        (click)="drawer.toggle()"
+        class="hamburger-button"
+      >
         <mat-icon>menu</mat-icon>
       </button>
       <h1>{{ title }}</h1>
+      <span class="admin-badge" *ngIf="isAdmin()">
+        <mat-icon matTooltip="Admin Access" color="warn">verified_user</mat-icon>
+      </span>
     </header>
 
     <!-- Main area / Router outlet -->

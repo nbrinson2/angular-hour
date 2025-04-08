@@ -1,0 +1,20 @@
+<app-example-display
+  title="Error Handling"
+  description="Demonstrates how to handle errors in an Angular application."
+  [codeSnippet]="errorHandlingCode"
+>
+  <div class="resolver-error">
+    <h2>Oops! Something went wrong.</h2>
+    <p>We couldn’t load the information you were looking for.</p>
+    <p>
+      Please try again later or <a routerLink="/">go back to the homepage</a>.
+    </p>
+  </div>
+
+  <button mat-raised-button color="secondary" (click)="authorizeUser()">
+    Authorize
+  </button>
+  <button mat-raised-button color="warn" (click)="unauthorizeUser()">
+    Unauthorize
+  </button>
+</app-example-display>

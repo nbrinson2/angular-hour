@@ -123,6 +123,16 @@
         background-color: #ddd;
       }
     }
+
+    .admin-badge {
+      display: flex;
+      align-items: center;
+      font-size: 1.2rem;
+  
+      mat-icon {
+        color: #e53935; // or use Angular Material theming
+      }
+    }
   }
 
   .main-container {

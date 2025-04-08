@@ -567,3 +567,201 @@ export class NetworkMonitoringComponent {
     this.errorResponse = undefined;
   }
 }`;
+
+export const separateConcernsCode = `
+export class SeparateConcernsComponent implements OnInit {
+  user!: User;
+  currentUserId!: number;
+
+  separateConcernsCode = separateConcernsCode;
+
+  constructor(private route: ActivatedRoute, private router: Router) {}
+
+  ngOnInit(): void {
+    this.route.data.subscribe(data => {
+      this.user = data['user'];
+    });
+
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      this.currentUserId = id ? +id : 0;
+    });
+  }
+
+  viewUser(id: number): void {
+    this.router.navigate(['../', id], { relativeTo: this.route });
+  }
+
+}
+
+
+export class UserService {
+  private baseUrl = 'https://jsonplaceholder.typicode.com/users';
+
+  constructor(private http: HttpClient) {}
+
+  getUserById(userId: string): Observable<UserResponse> {
+    const response = this.http.get<UserResponse>(\`\${this.baseUrl}/\${userId}\`);
+    console.log('Response:', response);
+    return response;
+  }
+}
+
+
+@Injectable({ providedIn: 'root' })
+export class UserResolver {
+  constructor(private userService: UserService) {}
+
+  resolve(route: ActivatedRouteSnapshot): Observable<User> {
+    const userId = route.paramMap.get('id');
+    return this.userService.getUserById(userId!).pipe(
+      map((response: UserResponse): User => ({
+        fullName: response.name,
+        email: response.email,
+        city: response.address.city,
+        company: response.company.name,
+        phone: response.phone
+      }))
+    );
+  }
+}
+
+`;
+
+export const errorHandlingCode = `
+@Injectable({ providedIn: 'root' })
+export class UserResolver {
+  constructor(private userService: UserService, private router: Router) {}
+
+  resolve(route: ActivatedRouteSnapshot): Observable<User> {
+    const userId = route.paramMap.get('id');
+    return this.userService.getUserById(userId!).pipe(
+      map(
+        (response: UserResponse): User => ({
+          fullName: \`\${response.name} (\${response.username})\`,
+          email: response.email,
+          city: response.address.city,
+          company: \`\${response.company.name} - \${response.company.catchPhrase}\`,
+          phone: response.phone,
+        })
+      ),
+      catchError((error) => {
+        this.router.navigate(['/resolvers-guards/error-handling']);
+        return EMPTY;
+      })
+    );
+  }
+}
+
+
+Routes:
+  {
+    path: 'resolvers-guards',
+    children: [
+      {
+        path: 'separate-concerns',
+        children: [
+          { path: '', redirectTo: '1', pathMatch: 'full' },
+          {
+            path: ':id',
+            component: SeparateConcernsComponent,
+            resolve: { user: UserResolver },
+          },
+        ],
+      },
+      { path: 'error-handling', component: ErrorHandlingComponent },
+    ],
+  },
+`;
+
+export const deactivationGuardCode = `
+export class DeactivationGuardComponent implements CanComponentDeactivate {
+  profileForm: FormGroup;
+  isSubmitted = false;
+
+  deactivationGuardCode = deactivationGuardCode;
+
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute
+  ) {
+    this.profileForm = this.fb.group({
+      name: [''],
+      email: ['']
+    });
+  }
+
+  save(): void {
+    this.isSubmitted = true;
+    this.profileForm.markAsPristine();
+    alert('Profile saved!');
+  }
+
+  canDeactivate(): boolean {
+    return this.profileForm.pristine || this.isSubmitted;
+  }
+
+}
+
+
+export interface CanComponentDeactivate {
+  canDeactivate: () => boolean | Observable<boolean>;
+}
+
+
+export class UnsavedChangesGuard implements CanDeactivate<CanComponentDeactivate> {
+  constructor(private dialog: MatDialog) {}
+
+  canDeactivate(component: CanComponentDeactivate): Observable<boolean> | boolean {
+    if (component.canDeactivate()) {
+      return true;
+    }
+
+    // 🔥 Open modal and return its result
+    const dialogRef = this.dialog.open(UnsavedChangesModalComponent, {
+      width: '400px',
+      disableClose: true
+    });
+
+    return dialogRef.afterClosed(); // Returns Observable<boolean>
+  }
+}
+
+
+
+Routes:
+      {
+        path: 'deactivation-guard',
+        component: DeactivationGuardComponent,
+        canDeactivate: [UnsavedChangesGuard],
+      },
+`;
+
+
+export const canLoadGuardCode = `
+
+
+export class AdminCanLoadGuard implements CanMatch {
+  constructor(private auth: AuthService, private router: Router) {}
+
+  canMatch(route: Route, segments: UrlSegment[]): boolean {
+    if (this.auth.hasRole('admin')) {
+      return true;
+    }
+
+    // Redirect and block load
+    this.router.navigate(['/resolvers-guards/error-handling']);
+    return false;
+  }
+}
+
+
+Routes:
+      {
+        path: 'can-load-guard',
+        loadChildren: () =>
+          import('./resolvers-guards/can-load-guard/can-load-guard.module')
+            .then(m => m.CanLoadGuardModule),
+        canMatch: [AdminCanLoadGuard] // or canMatch, depending on your guard type
+      }
+`;

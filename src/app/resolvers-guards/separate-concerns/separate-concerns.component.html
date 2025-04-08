@@ -1,0 +1,64 @@
+<app-example-display
+  title="Separate Concerns"
+  description="Use separate components for different concerns in your application."
+  [codeSnippet]="separateConcernsCode"
+>
+  <section class="why-this-matters">
+    <h4>Why This Matters</h4>
+    <ul>
+      <li>
+        <strong>API service:</strong> stays clean and returns raw response.
+      </li>
+      <li>
+        <strong>Resolver:</strong> focuses mapping logic and transformation.
+      </li>
+      <li>
+        <strong>Component:</strong> remains lightweight and displays only what
+        the UI needs.
+      </li>
+    </ul>
+    <p class="context-note">
+      In this example, we have a user profile component that displays user
+      information.
+    </p>
+  </section>
+
+  <section class="route-behavior">
+    <h4>Route Reuse Behavior</h4>
+    <p>
+      Since it's the same route (<code>:id</code>) with a different parameter,
+      Angular <strong>reuses the component instance</strong> instead of destroying and recreating it.
+    </p>
+    <ul>
+      <li><code>ngOnInit()</code> does <strong>not</strong> run again.</li>
+      <li>The <strong>resolver does run</strong> again and updates <code>ActivatedRoute.data</code>.</li>
+      <li>
+        Your component must <strong>subscribe to route data or paramMap</strong>
+        to detect changes and update accordingly.
+      </li>
+    </ul>
+  </section>
+
+  <div class="user-selector">
+    <p>Select a user:</p>
+    <div class="button-group">
+      <button
+        mat-raised-button
+        color="primary"
+        *ngFor="let id of [1, 2, 3, 4, 78]"
+        (click)="viewUser(id)"
+        [ngClass]="{ active: id === currentUserId }"
+      >
+        User {{ id }}
+      </button>
+    </div>
+  </div>
+
+  <div class="user-profile" *ngIf="user">
+    <h2>{{ user.fullName }}</h2>
+    <div class="user-detail"><strong>Email:</strong> {{ user.email }}</div>
+    <div class="user-detail"><strong>City:</strong> {{ user.city }}</div>
+    <div class="user-detail"><strong>Company:</strong> {{ user.company }}</div>
+    <div class="user-detail"><strong>Phone:</strong> {{ user.phone }}</div>
+  </div>
+</app-example-display>

@@ -1,0 +1,29 @@
+<app-example-display
+  title="Deactivation Guard"
+  description="Demonstrates how to use a deactivation guard in Angular."
+  [codeSnippet]="deactivationGuardCode"
+>
+  <section class="deactivation-intro">
+    <p>
+      This form is protected by a <strong>CanDeactivate</strong> guard. If you
+      make changes and try to navigate away without saving, you’ll be prompted
+      to confirm.
+    </p>
+  </section>
+
+  <form [formGroup]="profileForm" class="edit-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="save()">Save</button>
+    </div>
+  </form>
+</app-example-display>

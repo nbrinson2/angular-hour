@@ -1,0 +1,17 @@
+.resolver-error {
+  background-color: #fff3f3;
+  color: #c53030;
+  border: 1px solid #fcc;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: #c53030;
+    text-decoration: underline;
+  }
+}
