@@ -43,6 +43,10 @@ export class AppComponent implements OnInit, OnDestroy {
         category.expanded = url.includes('/change-detection');
       } else if (category.title === 'RxJS') {
         category.expanded = url.includes('/rxjs');
+      } else if (category.title === 'Debugging') {
+        category.expanded = url.includes('/debugging');
+      } else if (category.title === 'Resolvers Guards') {
+        category.expanded = url.includes('/resolvers-guards');
       }
     });
   }
