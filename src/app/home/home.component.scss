@@ -9,7 +9,6 @@
   }
 
   .event-list {
-    // Responsive grid layout: by default, multiple columns.
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
@@ -19,13 +18,12 @@
   .event-card {
     width: 100%;
     max-width: 400px;
-    /* Set a fixed height for uniformity */
-    height: 300px;
+    height: 300px; // fixed height for uniformity
     min-width: 23.75rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    flex-direction: column;  // Stack header, content, actions vertically.
-    justify-content: space-between; // Distribute vertical space evenly.
+    flex-direction: column;
+    justify-content: space-between;
 
     &:hover {
       transform: translateY(-3px);
@@ -35,7 +33,7 @@
     mat-card-header {
       display: flex;
       align-items: center;
-      justify-content: space-between; // Pushes the badge to the far right
+      justify-content: space-between;
 
       .title-flex {
         display: flex;
@@ -50,8 +48,8 @@
       
       p {
         font-size: 1.1rem;
-        margin: 0.75rem 0; // Increase vertical spacing between text lines.
-        line-height: 1.4;  // Improve readability.
+        margin: 0.75rem 0;
+        line-height: 1.4;
         display: flex;
         align-items: center;
 
@@ -59,18 +57,11 @@
           margin-right: 0.5rem;
         }
       }
-
       .countdown {
         margin-top: 0.5rem;
         font-style: italic;
-        color: #ff4081; // Accent color matching the badge.
+        color: #ff4081;
       }
-    }
-
-    .event-actions {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 1rem 1rem;
     }
   }
 
@@ -85,6 +76,19 @@
     transform: translateY(-2px);
   }
 
+  /* NEW: highlight for events in progress */
+  .happening-now {
+    border: 2px solid #4caf50;
+    box-shadow: 0 0 12px rgba(76, 175, 80, 0.4);
+    position: relative;
+  }
+
+  /* Optional text style if you add "Happening Now!" inside mat-card-content */
+  .happening-now-text {
+    color: #4caf50;
+    font-weight: bold;
+  }
+
   .badge {
     background-color: #ff4081;
     color: #fff;
@@ -95,7 +99,6 @@
     margin-left: 1rem;
   }
 
-  // Media query to change the grid to a single column when screen width is 800px or less.
   @media screen and (max-width: 800px) {
     .event-list {
       grid-template-columns: 1fr;

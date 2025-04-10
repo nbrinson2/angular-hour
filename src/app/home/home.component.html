@@ -4,23 +4,39 @@
     <mat-card
       class="event-card"
       *ngFor="let event of events"
-      [ngClass]="{ 'next-event': event === nextEvent }"
+      [ngClass]="{
+        'next-event': event === displayedNextEvent,
+        'happening-now': event === nextEvent && isHappeningNowSignal()
+      }"
     >
       <mat-card-header>
         <mat-card-title class="title-flex">
-            <span class="title-text">{{ event.topic }}</span>
+          <span class="title-text">{{ event.topic }}</span>
         </mat-card-title>
-        <div *ngIf="event === nextEvent" class="badge">Next Event</div>
+        <!-- Show badge and timer on the displayedNextEvent only -->
+        <ng-container *ngIf="event === displayedNextEvent">
+          <div class="badge">
+            Next Event
+          </div>
+        </ng-container>
       </mat-card-header>
       <mat-card-content>
         <p>
           <mat-icon inline>calendar_today</mat-icon>
-          {{ event.date | date : "fullDate" }} at {{ event.time }}
+          {{ event.date | date: 'fullDate' }} at {{ event.time }}
         </p>
-        <p><mat-icon inline>person</mat-icon> Hosted by {{ event.host }}</p>
-        <p *ngIf="event === nextEvent" class="countdown">
-          {{ timeUntilNextEvent }}
+        <p>
+          <mat-icon inline>person</mat-icon>
+          Hosted by {{ event.host }}
         </p>
+        <!-- If this event is the one receiving the timer, display the countdown -->
+        <ng-container *ngIf="event === displayedNextEvent">
+          <p class="countdown">{{ timeUntilNextEvent() }}</p>
+        </ng-container>
+        <!-- Optionally, if the first event is currently happening, display a "Happening Now!" label -->
+        <ng-container *ngIf="event === nextEvent && isHappeningNowSignal()">
+          <p class="happening-now-text">Happening Now!</p>
+        </ng-container>
       </mat-card-content>
     </mat-card>
   </div>
