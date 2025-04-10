@@ -1,14 +1,25 @@
 <div class="events-schedule">
   <h2>Upcoming Angular Hour Events</h2>
   <div class="event-list">
-    <mat-card class="event-card" *ngFor="let event of events">
+    <mat-card
+      class="event-card"
+      *ngFor="let event of events"
+      [ngClass]="{ 'next-event': event === nextEvent }"
+    >
       <mat-card-header>
-        <mat-card-title>{{ event.topic }}</mat-card-title>
-        <mat-card-subtitle>Hosted by {{ event.host }}</mat-card-subtitle>
+        <mat-card-title class="title-flex">
+            <span class="title-text">{{ event.topic }}</span>
+        </mat-card-title>
+        <div *ngIf="event === nextEvent" class="badge">Next Event</div>
       </mat-card-header>
       <mat-card-content>
         <p>
-          {{ event.date | date:'fullDate' }} at {{ event.time }}
+          <mat-icon inline>calendar_today</mat-icon>
+          {{ event.date | date : "fullDate" }} at {{ event.time }}
+        </p>
+        <p><mat-icon inline>person</mat-icon> Hosted by {{ event.host }}</p>
+        <p *ngIf="event === nextEvent" class="countdown">
+          {{ timeUntilNextEvent }}
         </p>
       </mat-card-content>
     </mat-card>

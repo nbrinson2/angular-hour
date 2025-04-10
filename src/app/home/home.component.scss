@@ -9,34 +9,101 @@
   }
 
   .event-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    // Responsive grid layout: by default, multiple columns.
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-items: center;
   }
 
   .event-card {
-    margin: 0 auto;
-    padding: 1rem;
+    width: 100%;
+    max-width: 400px;
+    /* Set a fixed height for uniformity */
+    height: 300px;
     min-width: 23.75rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;  // Stack header, content, actions vertically.
+    justify-content: space-between; // Distribute vertical space evenly.
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
 
     mat-card-header {
-      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; // Pushes the badge to the far right
 
-      mat-card-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-      }
-      mat-card-subtitle {
-        font-size: 1rem;
-        color: #757575;
+      .title-flex {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        justify-content: flex-start;
       }
     }
 
     mat-card-content {
+      flex-grow: 1;
+      
       p {
         font-size: 1.1rem;
-        margin: 1rem 0;
+        margin: 0.75rem 0; // Increase vertical spacing between text lines.
+        line-height: 1.4;  // Improve readability.
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+          margin-right: 0.5rem;
+        }
       }
+
+      .countdown {
+        margin-top: 0.5rem;
+        font-style: italic;
+        color: #ff4081; // Accent color matching the badge.
+      }
+    }
+
+    .event-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem 1rem;
+    }
+  }
+
+  .next-event {
+    border: 2px solid #ff4081;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 240, 245, 0.5),
+      rgba(255, 255, 255, 0.8)
+    );
+    box-shadow: 0 4px 12px rgba(255, 64, 129, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .badge {
+    background-color: #ff4081;
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-left: 1rem;
+  }
+
+  // Media query to change the grid to a single column when screen width is 800px or less.
+  @media screen and (max-width: 800px) {
+    .event-list {
+      grid-template-columns: 1fr;
+    }
+
+    .event-card {
+      height: auto;
+      min-width: 300px;
     }
   }
 }
