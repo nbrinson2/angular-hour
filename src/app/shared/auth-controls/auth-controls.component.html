@@ -1,0 +1,14 @@
+<div class="auth-controls">
+  <button mat-raised-button color="secondary" (click)="authorizeUser()">
+    Authorize
+  </button>
+  <button mat-raised-button color="warn" (click)="unauthorizeUser()">
+    Unauthorize
+  </button>
+  <span class="auth-indicator" [ngClass]="{ 'authorized': isAdmin, 'unauthorized': !isAdmin }">
+    <mat-icon>
+      {{ isAdmin ? 'check_circle' : 'error_outline' }}
+    </mat-icon>
+    <span>{{ isAdmin ? 'Authorized' : 'Unauthorized' }}</span>
+  </span>
+</div>

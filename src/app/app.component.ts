@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
-import { NavCategory, NAV_CATEGORIES } from './shared/constants/nav.constants';
-import { AuthService } from './shared/services/auth.service';
+import { NAV_CATEGORIES, NavCategory } from './shared/constants/nav.constants';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +9,6 @@ import { AuthService } from './shared/services/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  readonly isAdmin = this.authService.isAdmin;
-
   title = 'Angular Hour';
 
   // Clone the categories from the constant so that we can modify the `expanded` state locally.
@@ -19,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private routerSubscription!: Subscription;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.routerSubscription = this.router.events
@@ -35,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
   }
-
+  
   private setActivePanels(): void {
     const url = this.router.url;
     this.categories.forEach(category => {

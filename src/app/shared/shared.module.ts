@@ -13,9 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HighlightJsModule } from 'ngx-highlight-js';
+import { AuthControlsComponent } from './auth-controls/auth-controls.component';
 
 @NgModule({
-  declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent],
+  declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent, AuthControlsComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -45,6 +46,7 @@ import { HighlightJsModule } from 'ngx-highlight-js';
     MatListModule,
     ExampleDisplayComponent,
     UnsavedChangesModalComponent,
+    AuthControlsComponent,
   ],
 })
 export class SharedModule {}

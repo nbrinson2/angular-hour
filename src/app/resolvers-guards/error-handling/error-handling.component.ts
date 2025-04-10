@@ -11,13 +11,4 @@ export class ErrorHandlingComponent {
 
   errorHandlingCode = errorHandlingCode;
 
-  constructor(private authService: AuthService) {}
-
-  authorizeUser(): void {
-    this.authService.addRole('admin');
-  }
-
-  unauthorizeUser(): void {
-    this.authService.removeRole('admin');
-  }
 }

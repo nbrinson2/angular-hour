@@ -1,11 +1,16 @@
-import { computed, Injectable, signal } from "@angular/core";
+import { computed, Injectable, Signal, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  isAdmin = computed(() => this.hasRole('admin'));
-  currentUser = signal({
+  isAdmin = computed(() => this.currentUser().roles.includes('admin'));
+
+  get currentUser(): Signal<{ username: string; roles: string[] }> {
+    return this._currentUser.asReadonly();
+  }
+
+  private _currentUser = signal({
     username: 'jdoe',
-    roles: ['user']
+    roles: ['user'],
   });
 
   isLoggedIn(): boolean {
@@ -13,18 +18,28 @@ export class AuthService {
   }
 
   hasRole(role: string): boolean {
-    if (!this.currentUser) {
-      return false;
-    }
-
     return this.currentUser().roles.includes(role);
   }
 
   addRole(role: string): void {
-    this.currentUser().roles.push(role);
+    if (this.currentUser().roles.includes(role)) {
+      return;
+    }
+
+    this._currentUser.update((user) => ({
+      ...user,
+      roles: [...user.roles, role],
+    }));
   }
 
   removeRole(role: string): void {
-    this.currentUser().roles = this.currentUser().roles.filter(r => r !== role);
+    if (!this.currentUser().roles.includes(role)) {
+      return;
+    }
+
+    this._currentUser.update((user) => ({
+      ...user,
+      roles: user.roles.filter((r) => r !== role),
+    }));
   }
 }

@@ -26,7 +26,7 @@
         // Header styling (panel title area)
         mat-expansion-panel-header {
           padding: 0 1rem;
-          background-color: #f8fafc; 
+          background-color: #f8fafc;
           font-weight: 500;
           // Provide a subtle divider line between panels
           border-bottom: 1px solid #ddd;
@@ -50,7 +50,7 @@
 
     mat-nav-list {
       padding: 0;
-      padding-top: 0.5rem; 
+      padding-top: 0.5rem;
 
       a[mat-list-item] {
         display: block;
@@ -69,6 +69,27 @@
         }
       }
     }
+
+    // Auth controls in the drawer are hidden by default
+    .drawer-auth-actions {
+      display: none;
+      padding: 1rem;
+      border-top: 1px solid #ddd;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f4fa;
+    }
+
+    @media screen and (max-width: 900px) {
+      .drawer-auth-actions {
+        display: flex;
+        padding: 1rem;
+        border-top: 1px solid #ddd;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f4fa;
+      }
+    }
   }
 
   // The main content area
@@ -80,58 +101,70 @@
   .header-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    background-color: #3f51b5; // Your Azure/Blue theme’s primary color
+    background-color: #3f51b5;
     color: #fff;
     padding: 0 1rem;
     height: 90px;
 
+    /* Divide the header into three columns */
+    .header-left,
+    .header-center,
+    .header-right {
+      flex: 1;
+    }
+
+    .header-center {
+      text-align: center;
+      min-width: 13.75rem;
+
+      h1 {
+        margin: 0;
+        font-size: 2.25rem;
+        font-weight: 500;
+      }
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+
+      .hamburger-button {
+        position: absolute;
+        left: 1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 24px;
+        width: 30px;
+        padding: 0;
+
+        span {
+          display: block;
+          width: 100%;
+          height: 3px;
+          background-color: #fff;
+          border-radius: 2px;
+        }
+
+        &:hover span {
+          background-color: #ddd;
+        }
+      }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
     mat-icon {
       color: white;
       font-size: 30px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 2.25rem;
-      font-weight: 500;
-    }
-
-    .hamburger-button {
-      position: absolute;
-      left: 1rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      height: 24px;
-      width: 30px;
-      padding: 0;
-
-      span {
-        display: block;
-        width: 100%;
-        height: 3px;
-        background-color: #fff;
-        border-radius: 2px;
-      }
-
-      &:hover span {
-        background-color: #ddd;
-      }
-    }
-
-    .admin-badge {
-      display: flex;
-      align-items: center;
-      font-size: 1.2rem;
-  
-      mat-icon {
-        color: #e53935; // or use Angular Material theming
-      }
     }
   }
 
@@ -141,7 +174,14 @@
 
   // Hide the hamburger when the drawer is open (if desired)
   &.drawer-open {
-    mat-icon {
+    .menu-icon {
+      display: none;
+    }
+  }
+
+  // Hide the auth controls in the header for smaller screens
+  @media screen and (max-width: 900px) {
+    .header-container .header-right .auth-actions {
       display: none;
     }
   }

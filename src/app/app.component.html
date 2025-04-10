@@ -30,23 +30,34 @@
         </mat-nav-list>
       </mat-expansion-panel>
     </mat-accordion>
+
+    <!-- Auth controls for small screens -->
+    <div class="drawer-auth-actions">
+      <app-auth-controls> </app-auth-controls>
+    </div>
   </mat-drawer>
 
   <!-- Main Content -->
   <mat-drawer-content>
     <!-- Header / Toolbar -->
     <header class="header-container">
-      <button
-        mat-icon-button
-        (click)="drawer.toggle()"
-        class="hamburger-button"
-      >
-        <mat-icon>menu</mat-icon>
-      </button>
-      <h1>{{ title }}</h1>
-      <span class="admin-badge" *ngIf="isAdmin()">
-        <mat-icon matTooltip="Admin Access" color="warn">verified_user</mat-icon>
-      </span>
+      <div class="header-left">
+        <button
+          mat-icon-button
+          (click)="drawer.toggle()"
+          class="hamburger-button"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div class="header-center">
+        <h1>{{ title }}</h1>
+      </div>
+      <div class="header-right">
+        <div class="auth-actions">
+          <app-auth-controls> </app-auth-controls>
+        </div>
+      </div>
     </header>
 
     <!-- Main area / Router outlet -->
