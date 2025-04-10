@@ -27,6 +27,7 @@ import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-exa
 import { SearchExampleComponent } from './rxjs/search-example/search-example.component';
 import { SharedModule } from './shared/shared.module';
 import { DeactivationGuardComponent } from './resolvers-guards/deactivation-guard/deactivation-guard.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { DeactivationGuardComponent } from './resolvers-guards/deactivation-guar
     SeparateConcernsComponent,
     ErrorHandlingComponent,
     DeactivationGuardComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

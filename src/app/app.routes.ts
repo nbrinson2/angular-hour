@@ -24,8 +24,11 @@ import { ErrorHandlingComponent } from './resolvers-guards/error-handling/error-
 import { DeactivationGuardComponent } from './resolvers-guards/deactivation-guard/deactivation-guard.component';
 import { UnsavedChangesGuard } from './shared/guards/unsaved-changes.guard';
 import { AdminCanLoadGuard } from './shared/guards/admin-can-load.guard';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   {
     path: 'rxjs',
     children: [

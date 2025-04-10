@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HighlightJsModule } from 'ngx-highlight-js';
 import { AuthControlsComponent } from './auth-controls/auth-controls.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent, AuthControlsComponent],
@@ -30,6 +31,7 @@ import { AuthControlsComponent } from './auth-controls/auth-controls.component';
     MatIconModule,
     MatExpansionModule,
     MatListModule,
+    MatCardModule,
   ],
   exports: [
     CommonModule,
@@ -44,6 +46,7 @@ import { AuthControlsComponent } from './auth-controls/auth-controls.component';
     MatIconModule,
     MatExpansionModule,
     MatListModule,
+    MatCardModule,
     ExampleDisplayComponent,
     UnsavedChangesModalComponent,
     AuthControlsComponent,

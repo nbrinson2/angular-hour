@@ -100,6 +100,9 @@
   // Header styling
   .header-container {
     display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 1000; // Adjust as needed to ensure it's above other elements
     align-items: center;
     background-color: #3f51b5;
     color: #fff;
@@ -118,6 +121,7 @@
       min-width: 13.75rem;
 
       h1 {
+        cursor: pointer;
         margin: 0;
         font-size: 2.25rem;
         font-weight: 500;
