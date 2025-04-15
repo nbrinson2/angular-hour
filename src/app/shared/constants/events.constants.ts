@@ -26,7 +26,7 @@ export const EVENTS: EventItem[] = [
     date: new Date('2025-04-29T13:00:00'),
     day: 'Tuesday',
     time: '1:00 PM',
-    host: 'Paul',
+    host: 'Kevin',
     topic: 'Testing Part 2',
   },
   {
