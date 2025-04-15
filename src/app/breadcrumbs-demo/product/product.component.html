@@ -1,10 +1,12 @@
-<div *ngIf="product" class="product-container">
-  <div class="product-detail">
-    <h1 class="product-name">{{ product.name }}</h1>
-    <h2 class="product-price">$ {{ product.price | number:'1.2-2' }}</h2>
+<mat-card *ngIf="product" class="product-container">
+  <mat-card-header>
+    <mat-card-title class="product-name">{{ product.name }}</mat-card-title>
+    <mat-card-subtitle class="product-price">$ {{ product.price | number:'1.2-2' }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
     <p class="product-description">{{ product.description }}</p>
     <p class="product-category" *ngIf="product.category">
       Category: {{ product.category }}
     </p>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>

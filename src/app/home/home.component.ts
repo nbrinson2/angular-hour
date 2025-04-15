@@ -43,21 +43,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private filterAndSortEvents(events: EventItem[]): EventItem[] {
-    // Get today's date at midnight.
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const now = new Date();
+    const todayMidnight = new Date();
+    todayMidnight.setHours(0, 0, 0, 0);
 
     return events
       .filter((event) => {
-        const eventDate = new Date(event.date);
-        eventDate.setHours(0, 0, 0, 0);
-        return eventDate >= today;
+        const eventDateTime = new Date(event.date);
+        const eventMidnight = new Date(eventDateTime);
+        eventMidnight.setHours(0, 0, 0, 0);
+
+        if (eventMidnight.getTime() > todayMidnight.getTime()) {
+          // Event is on a future day.
+          return true;
+        } else if (eventMidnight.getTime() === todayMidnight.getTime()) {
+          // Event is today; allow it only if the current time is before one hour after the event's start.
+          const eventEndTime = new Date(
+            eventDateTime.getTime() + 60 * 60 * 1000
+          );
+          return now < eventEndTime;
+        }
+        // Otherwise, the event is in the past.
+        return false;
       })
-      .sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
-        return dateA.getTime() - dateB.getTime();
-      });
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }
 
   private calculateTimeUntilNextEvent(): string {
@@ -71,7 +80,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     const timeDiff = eventDate.getTime() - now.getTime();
 
     if (timeDiff <= 0) {
-      return 'Event is happening now!';
+      this.filterAndSortEvents(EVENTS);
     }
 
     const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));

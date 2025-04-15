@@ -5,30 +5,25 @@
   border: 1px solid #e0e0e0;
   border-radius: 8px;
 }
-
-/* Grid Layout for the Cards */
+.products-container
+/* Grid Layout */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
-  list-style: none;
   padding: 0;
-  margin: 0;
 }
 
-/* Fixed Size Card Styling */
+/* Angular Material Card Overrides for Fixed Size and Flex Centering */
 .product-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 16px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  height: 75px;                /* Fixed height for all cards */
-  display: flex;                /* Use flex to center content */
+  height: 75px; /* Fixed height for all cards */
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .product-card:hover {
@@ -36,7 +31,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
 }
 
-/* Ensure the link spans the entire card */
+/* Ensure the anchor spans the full card */
 .card-link {
   text-decoration: none;
   color: inherit;

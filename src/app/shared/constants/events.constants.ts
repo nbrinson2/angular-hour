@@ -43,4 +43,25 @@ export const EVENTS: EventItem[] = [
     host: 'Nick',
     topic: 'Types and Typescript Generics',
   },
+  {
+    date: new Date('2025-05-13T13:00:00'),
+    day: 'Tuesday',
+    time: '1:00 PM',
+    host: 'Nick',
+    topic: 'Component Communication',
+  },
+  {
+    date: new Date('2025-05-27T13:00:00'),
+    day: 'Tuesday',
+    time: '1:00 PM',
+    host: 'Nick',
+    topic: 'Reactive Forms',
+  },
+  {
+    date: new Date('2025-06-03T13:00:00'),
+    day: 'Tuesday',
+    time: '1:00 PM',
+    host: 'Nick',
+    topic: 'Standalone Components',
+  }
 ];
