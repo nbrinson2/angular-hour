@@ -1,0 +1,28 @@
+<app-example-display
+  title="Breadcrumbs"
+  description="Demonstrates how to use breadcrumbs in Angular."
+  [codeSnippet]="breadcrumbsCode"
+>
+  <section class="breadcrumbs-intro">
+    <p>
+      This example shows how to implement breadcrumbs in an Angular application.
+      The breadcrumbs are dynamically generated based on the current route.
+    </p>
+  </section>
+
+  <section class="breadcrumbs-demo">
+    <app-breadcrumbs></app-breadcrumbs>
+    <div class="products-link">
+      <a
+        class="btn-products"
+        [routerLink]="['/breadcrumbs', 'products']"
+        routerLinkActive="hidden"
+      >
+        Products
+      </a>
+    </div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+</app-example-display>

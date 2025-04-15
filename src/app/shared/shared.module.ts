@@ -15,9 +15,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { HighlightJsModule } from 'ngx-highlight-js';
 import { AuthControlsComponent } from './auth-controls/auth-controls.component';
 import { MatCardModule } from '@angular/material/card';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent, AuthControlsComponent],
+  declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent, AuthControlsComponent, BreadcrumbsComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -32,6 +34,7 @@ import { MatCardModule } from '@angular/material/card';
     MatExpansionModule,
     MatListModule,
     MatCardModule,
+    RouterModule,
   ],
   exports: [
     CommonModule,
@@ -47,9 +50,11 @@ import { MatCardModule } from '@angular/material/card';
     MatExpansionModule,
     MatListModule,
     MatCardModule,
+    RouterModule,
     ExampleDisplayComponent,
     UnsavedChangesModalComponent,
     AuthControlsComponent,
+    BreadcrumbsComponent,
   ],
 })
 export class SharedModule {}

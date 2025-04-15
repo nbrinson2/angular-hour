@@ -1,0 +1,17 @@
+<div *ngIf="!childOutlet.isActivated" class="products-container">
+  <h2>Products</h2>
+  <ul class="products-grid">
+    <li
+      *ngFor="let product of products"
+      class="product-card"
+    >
+      <a
+        [routerLink]="['/breadcrumbs', 'products', 'details', product.id]"
+        class="card-link"
+      >
+        <h3 class="product-name">{{ product.name }}</h3>
+      </a>
+    </li>
+  </ul>
+</div>
+<router-outlet #childOutlet="outlet"></router-outlet>

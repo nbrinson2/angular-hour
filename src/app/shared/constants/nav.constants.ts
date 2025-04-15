@@ -27,38 +27,35 @@ function toTitleCase(str: string): string {
  * is derived from the top-level route's path, and each child becomes a nav link.
  */
 export function generateNavCategories(routes: Routes): NavCategory[] {
-  const navCategories: NavCategory[] = [];
-
-  routes.forEach((route) => {
-    const categoryTitle = toTitleCase(route.path || '');
-
-    if (route.children && route.children.length) {
-      const links: NavLink[] = route.children
-        .filter((child) => !child.redirectTo)
-        .map((child) => {
-          const fullPath = `/${route.path}/${child.path}`;
-          // Use the child route's path to generate a label.
-          const label = toTitleCase(child.path || '');
-          return { path: fullPath, label };
-        });
-
-      navCategories.push({
-        title: categoryTitle,
+  return routes.reduce<NavCategory[]>((acc, route) => {
+    if (route.path === 'breadcrumbs') {
+      acc.push({
+        title: 'Breadcrumbs',
         expanded: false,
-        links: links,
+        links: [{ path: `/${route.path}`, label: 'Demo' }]
+      });
+    } else if (route.children?.length) {
+      acc.push({
+        title: toTitleCase(route.path || ''),
+        expanded: false,
+        links: route.children
+          .filter(child => !child.redirectTo)
+          .map(child => ({
+            path: `/${route.path}/${child.path}`,
+            label: toTitleCase(child.path || '')
+          }))
       });
     } else if (route.loadChildren) {
-      // 👈 Handle lazy-loaded top-level routes
-      const label = toTitleCase(route.path || '');
-      navCategories.push({
-        title: categoryTitle,
+      acc.push({
+        title: toTitleCase(route.path || ''),
         expanded: false,
-        links: [{ path: `/${route.path}`, label }],
+        links: [{ path: `/${route.path}`, label: toTitleCase(route.path || '') }]
       });
     }
-  });
-
-  return navCategories;
+    return acc;
+  }, []);
 }
+
+
 
 export const NAV_CATEGORIES: NavCategory[] = generateNavCategories(routes);

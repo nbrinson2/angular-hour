@@ -12,7 +12,9 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'Angular Hour';
 
   // Clone the categories from the constant so that we can modify the `expanded` state locally.
-  categories: NavCategory[] = NAV_CATEGORIES.map(category => ({ ...category }));
+  categories: NavCategory[] = NAV_CATEGORIES.map((category) => ({
+    ...category,
+  }));
 
   private routerSubscription!: Subscription;
 
@@ -20,11 +22,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routerSubscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         this.setActivePanels();
       });
-
+      
     // Set the initial state for expansion panels.
     this.setActivePanels();
   }
@@ -32,10 +34,10 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
   }
-  
+
   private setActivePanels(): void {
     const url = this.router.url;
-    this.categories.forEach(category => {
+    this.categories.forEach((category) => {
       if (category.title === 'Change Detection') {
         category.expanded = url.includes('/change-detection');
       } else if (category.title === 'RxJS') {
@@ -44,6 +46,8 @@ export class AppComponent implements OnInit, OnDestroy {
         category.expanded = url.includes('/debugging');
       } else if (category.title === 'Resolvers Guards') {
         category.expanded = url.includes('/resolvers-guards');
+      } else if (category.title === 'Breadcrumbs') {
+        category.expanded = url.includes('/breadcrumbs');
       }
     });
   }

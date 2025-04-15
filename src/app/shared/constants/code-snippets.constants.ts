@@ -737,7 +737,6 @@ Routes:
       },
 `;
 
-
 export const canLoadGuardCode = `
 
 
@@ -764,4 +763,126 @@ Routes:
             .then(m => m.CanLoadGuardModule),
         canMatch: [AdminCanLoadGuard] // or canMatch, depending on your guard type
       }
+`;
+
+export const productCode = `
+export class ProductComponent {
+  product: Product = {
+    id: 1,
+    name: 'Product 1',
+    description: 'Description of Product 1',
+    price: 100,
+    category: 'Category 1',
+  };
+
+  constructor() {}
+
+  getProductDetails(): void {
+    console.log('Product details:', this.product);
+  }
+}
+`;
+
+export const breadcrumbsCode = `
+Routes:
+  {
+    path: 'breadcrumbs',
+    children: [
+      {
+        path: '',
+        component: BreadcrumbsHostComponent,
+        data: { breadcrumb: 'Breadcrumbs' },
+        resolve: { products: ProductsResolver },
+        children: [
+          {
+            path: 'products',
+            component: ProductsComponent,
+            data: { breadcrumb: 'Products' },
+            resolve: { products: ProductsResolver },
+            children: [
+              {
+                path: 'details/:id',
+                component: ProductComponent,
+                data: { breadcrumb: 'Details' },
+                resolve: { product: ProductResolver }
+              }
+            ]
+          }
+            ],
+      },
+    ],
+  },
+
+  
+export class BreadcrumbsComponent implements OnInit {
+  public breadcrumbs: Breadcrumb[] = [];
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    // Subscribe to the NavigationEnd event
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
+      });
+  }
+
+  private createBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: Breadcrumb[] = []): Breadcrumb[] {
+    let children: ActivatedRoute[] = route.children;
+
+    // Return the breadcrumbs if there's no more children
+    if (children.length === 0) {
+      return breadcrumbs;
+    }
+
+    for (let child of children) {
+      if (child.outlet !== PRIMARY_OUTLET) {
+        continue;
+      }
+
+      let routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
+      if (routeURL) {
+        url += \`/\${routeURL}\`;
+      }
+
+      // Use the breadcrumb from route data if available
+      const label = child.snapshot.data['breadcrumb'];
+      if (label) {
+        breadcrumbs.push({ label, url });
+      }
+
+      // Recursively add breadcrumbs from children
+      return this.createBreadcrumbs(child, url, breadcrumbs);
+    }
+
+    return breadcrumbs;
+  }
+}
+  
+
+<app-example-display
+  title="Breadcrumbs"
+  description="Demonstrates how to use breadcrumbs in Angular."
+  [codeSnippet]="breadcrumbsCode"
+>
+  <section class="breadcrumbs-intro">
+    <p>
+      This example shows how to implement breadcrumbs in an Angular application.
+      The breadcrumbs are dynamically generated based on the current route.
+    </p>
+  </section>
+  
+  <section class="breadcrumbs-demo">
+    <app-breadcrumbs></app-breadcrumbs>
+    <!-- The "Products" link will be hidden when the current route matches either the products list or any child details route -->
+    <a [routerLink]="['/breadcrumbs', 'products']" routerLinkActive="hidden">
+      Products
+    </a>
+    <router-outlet></router-outlet>
+  </section>
+</app-example-display>
 `;

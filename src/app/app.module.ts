@@ -4,6 +4,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
+import { BreadcrumbsHostComponent } from './breadcrumbs-demo/breadcrumbs-host/breadcrumbs-host.component';
+import { ProductComponent } from './breadcrumbs-demo/product/product.component';
 import { AfterDestroyScenarioComponent } from './change-detection-demo/after-destroy-scenario/after-destroy-scenario.component';
 import { LifecycleScenarioComponent } from './change-detection-demo/lifecycle-scenario/lifecycle-scenario.component';
 import { LoopScenarioComponent } from './change-detection-demo/loop-scenario/loop-scenario.component';
@@ -14,6 +16,8 @@ import { BreakpointsComponent } from './debugging/breakpoints/breakpoints.compon
 import { PerformanceTestComponent } from './debugging/chrome-devtools/performance-test.component';
 import { ComponentStateInspectorComponent } from './debugging/component-state-inspector/component-state-inspector.component';
 import { NetworkMonitoringComponent } from './debugging/network-monitoring/network-monitoring.component';
+import { HomeComponent } from './home/home.component';
+import { DeactivationGuardComponent } from './resolvers-guards/deactivation-guard/deactivation-guard.component';
 import { ErrorHandlingComponent } from './resolvers-guards/error-handling/error-handling.component';
 import { SeparateConcernsComponent } from './resolvers-guards/separate-concerns/separate-concerns.component';
 import { CombineLatestPowerExampleComponent } from './rxjs/combine-latest-power-example/combine-latest-power-example.component';
@@ -26,8 +30,7 @@ import { MapExampleComponent } from './rxjs/map-example/map-example.component';
 import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-example.component';
 import { SearchExampleComponent } from './rxjs/search-example/search-example.component';
 import { SharedModule } from './shared/shared.module';
-import { DeactivationGuardComponent } from './resolvers-guards/deactivation-guard/deactivation-guard.component';
-import { HomeComponent } from './home/home.component';
+import { ProductsComponent } from './breadcrumbs-demo/products/products.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +58,9 @@ import { HomeComponent } from './home/home.component';
     ErrorHandlingComponent,
     DeactivationGuardComponent,
     HomeComponent,
+    ProductComponent,
+    BreadcrumbsHostComponent,
+    ProductsComponent,
   ],
   imports: [
     BrowserModule,

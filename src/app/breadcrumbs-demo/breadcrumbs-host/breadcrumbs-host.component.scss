@@ -1,0 +1,50 @@
+/* Breadcrumbs Intro Section */
+.breadcrumbs-intro {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px 24px;
+  margin-bottom: 24px;
+  font-size: 1.1em;
+  color: #333;
+}
+
+/* Breadcrumbs Demo Section */
+.breadcrumbs-demo {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+/* Products Link Container */
+.products-link {
+  margin-bottom: 16px;
+}
+
+/* Products Button Link */
+.btn-products {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-products:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Hide element when the hidden class is applied */
+.hidden {
+  display: none;
+}
+
+/* Optional: styling for the content (router-outlet) area */
+.content {
+  margin-top: 24px;
+}

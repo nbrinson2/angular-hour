@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "https://simple-grocery-store-api.glitch.me",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "logLevel": "debug"
+  }
+}
