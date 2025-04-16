@@ -3,12 +3,8 @@
   description="Learn how to inspect the DOM, use breakpoints, monitor network requests, and profile performance using Chrome DevTools."
   [codeSnippet]="performanceTestCode"
 >
+  <app-example-info [item]="exampleInfo"></app-example-info>
   <button mat-raised-button (click)="runPerformanceTest()">Run Performance Test</button>
-  <p>
-    Click the button to run a CPU-intensive task. The test compares an
-    inefficient bubble sort with the optimized native sort. Use the Performance
-    panel to record the operation and review frame times.
-  </p>
   <div class="results-container">
     <p><strong>Results:</strong></p>
     <div

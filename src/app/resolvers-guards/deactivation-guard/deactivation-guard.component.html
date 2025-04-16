@@ -3,13 +3,7 @@
   description="Demonstrates how to use a deactivation guard in Angular."
   [codeSnippet]="deactivationGuardCode"
 >
-  <section class="deactivation-intro">
-    <p>
-      This form is protected by a <strong>CanDeactivate</strong> guard. If you
-      make changes and try to navigate away without saving, you’ll be prompted
-      to confirm.
-    </p>
-  </section>
+  <app-example-info [item]="exampleInfo"></app-example-info>
 
   <form [formGroup]="profileForm" class="edit-form">
     <mat-form-field appearance="fill">

@@ -3,17 +3,10 @@
   description="Debugging with breakpoints in Chrome DevTools."
   [codeSnippet]="breakpointsExampleCode"
 >
+  <app-example-info [item]="exampleInfo"></app-example-info>
   <button mat-raised-button (click)="runDebugFunction()">Run Debug Function</button>
   <button mat-raised-button (click)="clearResults()">Clear Results</button>
-  <p>
-    Open the Sources panel, set a breakpoint in the
-    <code>runDebugFunction()</code>
-    method, and then click the button to step through the code.
-  </p>
-  <p>
-    You can also set breakpoints in the HTML template by right-clicking on the
-    line number in the Elements panel.
-  </p>
+
   <!-- New UI element to display the debug function's results -->
   <div class="results-container">
     <h3>Results</h3>

@@ -1,16 +1,21 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { afterDestroyScenarioCode } from '../../shared/constants/code-snippets.constants';
+import { InfoItem } from '../../shared/example-info/example-info.component';
 
 @Component({
   selector: 'app-after-destroy-scenario',
   templateUrl: './after-destroy-scenario.component.html',
-  styleUrl: './after-destroy-scenario.component.scss'
+  styleUrl: './after-destroy-scenario.component.scss',
 })
 export class AfterDestroyScenarioComponent {
   status = 'Initializing...';
   initializedTime = '';
   destroyed = false;
   afterDestroyScenarioCode = afterDestroyScenarioCode;
+  exampleInfo: InfoItem = {
+    context:
+      'This component updates asynchronously using setTimeout() and forces detectChanges() afterward, which may happen after the view is stable or even destroyed.',
+  };
 
   constructor(private cdRef: ChangeDetectorRef) {}
 
@@ -37,6 +42,4 @@ export class AfterDestroyScenarioComponent {
     this.destroyed = true;
     console.log('🛑 Component destroyed');
   }
-
-
 }

@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { loopScenarioCode } from '../../shared/constants/code-snippets.constants';
+import { InfoItem } from '../../shared/example-info/example-info.component';
 
 @Component({
   selector: 'app-loop-scenario',
@@ -10,6 +11,9 @@ export class LoopScenarioComponent implements OnInit, OnDestroy {
   loopCounter = 0;
   intervalId: any;
   loopScenarioCode = loopScenarioCode;
+  exampleInfo: InfoItem = {
+    context: 'Check the console and performance tab to see how many change detection cycles are triggered.',
+  };
 
   constructor(
     private cdRef: ChangeDetectorRef,

@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { subscriptionPitfallScenarioCode } from '../../shared/constants/code-snippets.constants';
+import { InfoItem } from '../../shared/example-info/example-info.component';
 
 @Component({
   selector: 'app-subscription-pitfall-scenario',
   templateUrl: './subscription-pitfall-scenario.component.html',
-  styleUrls: ['./subscription-pitfall-scenario.component.scss']
+  styleUrls: ['./subscription-pitfall-scenario.component.scss'],
 })
 export class SubscriptionPitfallScenarioComponent implements OnInit, OnDestroy {
   value = 0;

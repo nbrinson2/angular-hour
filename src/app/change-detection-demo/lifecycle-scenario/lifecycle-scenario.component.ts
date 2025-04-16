@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { lifecycleScenarioCode } from '../../shared/constants/code-snippets.constants';
+import { InfoItem } from '../../shared/example-info/example-info.component';
 
 @Component({
   selector: 'app-lifecycle-scenario',
@@ -10,6 +11,9 @@ export class LifecycleScenarioComponent implements AfterViewInit {
   status = 'Initial status';
   changeCycleCount = 0;
   lifecycleScenarioCode = lifecycleScenarioCode;
+  exampleInfo: InfoItem = {
+    context: 'This component calls detectChanges() inside ngAfterViewInit(), forcing another change detection cycle before Angular\'s lifecycle is complete.',
+  };
 
   constructor(private cdRef: ChangeDetectorRef) {}
 

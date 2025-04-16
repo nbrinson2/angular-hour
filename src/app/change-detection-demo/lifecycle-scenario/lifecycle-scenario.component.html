@@ -2,12 +2,7 @@
   title="Lifecycle Scenario"
   description="Demonstrates how calling detectChanges() inside ngAfterViewInit() can interfere with Angular's lifecycle."
   [codeSnippet]="lifecycleScenarioCode">
+  <app-example-info [item]="exampleInfo"></app-example-info>
   <p><strong>Status:</strong> {{ status }}</p>
   <p><strong>Forced Change Detection Cycles:</strong> {{ changeCycleCount }}</p>
-
-  <div class="warning">
-    ⚠️ This component calls <code>detectChanges()</code> inside
-    <code>ngAfterViewInit()</code>, forcing another change detection cycle
-    before Angular's lifecycle is complete.
-  </div>
 </app-example-display>

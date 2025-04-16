@@ -3,41 +3,10 @@
   description="Use separate components for different concerns in your application."
   [codeSnippet]="separateConcernsCode"
 >
-  <section class="why-this-matters">
-    <h4>Why This Matters</h4>
-    <ul>
-      <li>
-        <strong>API service:</strong> stays clean and returns raw response.
-      </li>
-      <li>
-        <strong>Resolver:</strong> focuses mapping logic and transformation.
-      </li>
-      <li>
-        <strong>Component:</strong> remains lightweight and displays only what
-        the UI needs.
-      </li>
-    </ul>
-    <p class="context-note">
-      In this example, we have a user profile component that displays user
-      information.
-    </p>
-  </section>
-
-  <section class="route-behavior">
-    <h4>Route Reuse Behavior</h4>
-    <p>
-      Since it's the same route (<code>:id</code>) with a different parameter,
-      Angular <strong>reuses the component instance</strong> instead of destroying and recreating it.
-    </p>
-    <ul>
-      <li><code>ngOnInit()</code> does <strong>not</strong> run again.</li>
-      <li>The <strong>resolver does run</strong> again and updates <code>ActivatedRoute.data</code>.</li>
-      <li>
-        Your component must <strong>subscribe to route data or paramMap</strong>
-        to detect changes and update accordingly.
-      </li>
-    </ul>
-  </section>
+  <app-example-info
+    [item]="exampleInfo"
+    heading="Why this matters?"
+  ></app-example-info>
 
   <div class="user-selector">
     <p>Select a user:</p>

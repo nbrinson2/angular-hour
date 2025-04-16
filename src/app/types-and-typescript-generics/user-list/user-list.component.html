@@ -3,6 +3,8 @@
   description="Demonstrates how to use a generic component to display a list of users with all attributes."
   [codeSnippets]="genericComponentCode"
 >
+  <app-example-info [item]="exampleInfo"></app-example-info>
+
   <!-- Define a template for rendering an individual user with all attributes -->
   <ng-template #userTemplate let-user>
     <mat-card class="user-card">

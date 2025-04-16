@@ -1,7 +1,7 @@
 <app-example-display
   title="High-Frequency Loop"
-  description="Loop Counter: {{ loopCounter }}"
+  description="Increments a counter up to five, and manually invokes change detection on each tick to illustrate heavy detection cycles."
   [codeSnippet]="loopScenarioCode">
+  <app-example-info [item]="exampleInfo"></app-example-info>
   <p>Loop Counter: {{ loopCounter }}</p>
-  <p>Check the console and performance tab for heavy change detection.</p>
 </app-example-display>

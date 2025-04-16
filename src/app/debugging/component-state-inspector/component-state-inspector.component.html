@@ -3,12 +3,9 @@
   description="A simple component state inspector to visualize the state of a component."
   [codeSnippet]="componentStateInspectorCode"
 >
+  <app-example-info [item]="exampleInfo"></app-example-info>
   <button mat-raised-button (click)="toggleValue()">Toggle Value</button>
   <p [ngClass]="{ highlight: currentValue }">
     Current value: <strong>{{ currentValue }}</strong>
-  </p>
-  <p>
-    Open Chrome DevTools and Angular DevTools to inspect this element and view
-    the <code>currentValue</code> property.
   </p>
 </app-example-display>

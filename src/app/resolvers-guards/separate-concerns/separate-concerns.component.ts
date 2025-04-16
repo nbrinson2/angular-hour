@@ -3,6 +3,7 @@ import { User } from '../../shared/resolvers/user.resolver';
 import { ActivatedRoute, Router } from '@angular/router';
 import { separateConcernsCode } from '../../shared/constants/code-snippets.constants';
 import { AuthService } from '../../shared/services/auth.service';
+import { InfoItem } from '../../shared/example-info/example-info.component';
 
 @Component({
   selector: 'app-separate-concerns',
@@ -14,6 +15,24 @@ export class SeparateConcernsComponent implements OnInit {
   currentUserId!: number;
 
   separateConcernsCode = separateConcernsCode;
+  exampleInfo: InfoItem = {
+    context:
+      'In this example, we have a user profile component that displays user information.',
+    bulletPoints: [
+      {
+        label: 'API service',
+        description: 'stays clean and returns raw response.',
+      },
+      {
+        label: 'Resolver',
+        description: 'focuses mapping logic and transformation.',
+      },
+      {
+        label: 'Component',
+        description: 'remains lightweight and displays only what the UI needs.',
+      },
+    ],
+  };
 
   constructor(
     private route: ActivatedRoute,

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { breakpointsExampleCode } from '../../shared/constants/code-snippets.constants';
+import { InfoItem } from '../../shared/example-info/example-info.component';
 
 @Component({
   selector: 'app-breakpoints',
@@ -12,6 +13,17 @@ export class BreakpointsComponent {
   primeCount: number = 0;
 
   breakpointsExampleCode = breakpointsExampleCode;
+
+  exampleInfo: InfoItem = {
+    bulletPoints: [
+      {
+        description: 'Open the Sources panel, set a breakpoint in the runDebugFunction() method, and then click the button to step through the code.',
+      },
+      {
+        description: 'You can also set breakpoints in the HTML template by right-clicking on the line number in the Elements panel.',
+      },
+    ],
+  };
 
   runDebugFunction(): void {
     const n = 10;

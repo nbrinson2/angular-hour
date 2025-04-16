@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { performanceTestCode } from '../../shared/constants/code-snippets.constants';
+import { InfoItem } from '../../shared/example-info/example-info.component';
 
 @Component({
   selector: 'app-performance-test',
@@ -12,6 +13,10 @@ export class PerformanceTestComponent {
   performanceResultOptimized: number | null = null;
 
   performanceTestCode = performanceTestCode;
+
+  exampleInfo: InfoItem = {
+    context: 'Click the button to run a CPU-intensive task. The test compares an inefficient bubble sort with the optimized native sort. Use the Performance panel to record the operation and review frame times.',
+  };
 
   async runPerformanceTest(): Promise<void> {
     // Create an array of 10,000 random numbers.
