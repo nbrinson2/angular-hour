@@ -1,0 +1,9 @@
+<mat-grid-list [cols]="cols" [rowHeight]="rowHeight" gutterSize="10px">
+  <mat-grid-tile
+    *ngFor="let item of items; let i = index"
+    [ngStyle]="getDynamicStyles(i)"
+  >
+    <ng-container *ngTemplateOutlet="template; context: { $implicit: item }">
+    </ng-container>
+  </mat-grid-tile>
+</mat-grid-list>
