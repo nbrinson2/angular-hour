@@ -19,9 +19,10 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { RouterModule } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ExampleInfoComponent } from './example-info/example-info.component';
 
 @NgModule({
-  declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent, AuthControlsComponent, BreadcrumbsComponent],
+  declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent, AuthControlsComponent, BreadcrumbsComponent, ExampleInfoComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -58,6 +59,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     LayoutModule,
     RouterModule,
     ExampleDisplayComponent,
+    ExampleInfoComponent,
     UnsavedChangesModalComponent,
     AuthControlsComponent,
     BreadcrumbsComponent,

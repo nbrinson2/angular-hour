@@ -1,0 +1,13 @@
+<section class="info-section">
+  <h4 *ngIf="heading">{{ heading }}</h4>
+  <ng-container *ngIf="item && item.bulletPoints?.length">
+    <ul>
+      <li *ngFor="let bp of item.bulletPoints">
+        <strong>{{ bp.label }}</strong> {{ bp.description }}
+      </li>
+    </ul>
+  </ng-container>
+  <ng-container *ngIf="item && item.context">
+    <p class="context-note" *ngIf="item.context">{{ item.context }}</p>
+  </ng-container>
+</section>
