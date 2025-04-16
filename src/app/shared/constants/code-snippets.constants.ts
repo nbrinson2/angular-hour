@@ -1,3 +1,8 @@
+import {
+  CodeSnippet,
+  CodeType,
+} from '../example-display/example-display.component';
+
 export const combineLatestExampleCode = `
   export class CombineLatestPowerExampleComponent implements OnInit, OnDestroy {
     combinedValues: any[] = [];
@@ -783,7 +788,10 @@ export class ProductComponent {
 }
 `;
 
-export const breadcrumbsCode = `
+export const breadcrumbsCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
 Routes:
   {
     path: 'breadcrumbs',
@@ -813,7 +821,7 @@ Routes:
     ],
   },
 
-  
+
 export class BreadcrumbsComponent implements OnInit {
   public breadcrumbs: Breadcrumb[] = [];
 
@@ -861,10 +869,11 @@ export class BreadcrumbsComponent implements OnInit {
 
     return breadcrumbs;
   }
-}
-  
-
-<app-example-display
+}`,
+  },
+  {
+    type: CodeType.HTML,
+    code: `<app-example-display
   title="Breadcrumbs"
   description="Demonstrates how to use breadcrumbs in Angular."
   [codeSnippet]="breadcrumbsCode"
@@ -885,4 +894,133 @@ export class BreadcrumbsComponent implements OnInit {
     <router-outlet></router-outlet>
   </section>
 </app-example-display>
-`;
+`,
+  },
+];
+
+export const genericComponentCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+export class GenericComponentComponent<T> {
+  @Input() items: T[] = [];
+  @Input() itemDisplaySizeMulitiplier: number = 1;
+  @Input() template!: TemplateRef<any>;
+
+  get rowHeight(): number {
+    return this.itemDisplaySizeMulitiplier * 200;
+  }
+
+  // Responsive number of columns for the grid.
+  cols: number = 3;
+
+  constructor(private breakpointObserver: BreakpointObserver) {
+    // Subscribe to viewport breakpoints to adjust the grid columns.
+    this.breakpointObserver
+      .observe([
+        Breakpoints.XSmall,
+        Breakpoints.Small,
+      ])
+      .subscribe((state: BreakpointState) => {
+        if (state.breakpoints[Breakpoints.XSmall]) {
+          this.cols = 1;
+        } else if (state.breakpoints[Breakpoints.Small]) {
+          this.cols = 2;
+        } else {
+          this.cols = 3;
+        }
+      });
+  }
+
+  /**
+   * Computes dynamic CSS styles for each list item.
+   * Here, the width and height are based on the index.
+   * Adjust the logic as needed to derive from item properties.
+   */
+  getDynamicStyles(index: number): { [key: string]: string } {
+    const baseWidth = 200;
+    const baseHeight = 50;
+
+    const computedWidth = (
+      baseWidth * this.itemDisplaySizeMulitiplier
+    ).toString();
+    const computedHeight = (
+      baseHeight * this.itemDisplaySizeMulitiplier
+    ).toString();
+
+    return {
+      width: computedWidth,
+      height: computedHeight,
+    };
+  }
+}
+  
+
+export class UserListComponent implements OnInit {
+  users!: User[];
+  genericComponentCode: CodeSnippet[] = genericComponentCode;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.users = this.route.snapshot.data['users'];
+  }
+}
+`,
+  },
+  {
+    type: CodeType.HTML,
+    code: `<ul>
+  <li *ngFor="let item of items">
+    <!-- Render the provided template with the current item as context -->
+    <ng-container *ngTemplateOutlet="template; context: { $implicit: item }">
+    </ng-container>
+  </li>
+</ul>
+
+    
+    
+<app-example-display
+  title="User List with Generics"
+  description="Demonstrates how to use a generic component to display a list of users with all attributes."
+  [codeSnippets]="genericComponentCode"
+>
+  <!-- Define a template for rendering an individual user with all attributes -->
+  <ng-template #userTemplate let-user>
+    <mat-card class="user-card">
+      <mat-card-header>
+        <!-- An optional avatar using a Material icon -->
+        <div mat-card-avatar class="user-avatar">
+          <mat-icon aria-hidden="true">person</mat-icon>
+        </div>
+        <mat-card-title>{{ user.fullName }}</mat-card-title>
+        <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          <mat-icon aria-hidden="true" class="icon">location_city</mat-icon>
+          <strong>City:</strong> {{ user.city }}
+        </p>
+        <p>
+          <mat-icon aria-hidden="true" class="icon">business</mat-icon>
+          <strong>Company:</strong> {{ user.company }}
+        </p>
+        <p>
+          <mat-icon aria-hidden="true" class="icon">phone</mat-icon>
+          <strong>Phone:</strong> {{ user.phone }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+
+  <!-- Use the generic component, binding the users array and template -->
+  <app-generic-component
+    [items]="users"
+    [itemDisplaySizeMulitiplier]="1.25"
+    [template]="userTemplate"
+  ></app-generic-component>
+</app-example-display>
+
+`,
+  },
+];

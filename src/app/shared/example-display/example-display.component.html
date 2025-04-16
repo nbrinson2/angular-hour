@@ -8,6 +8,23 @@
 
   <div class="code-snippet">
     <h3>Component Code:</h3>
-    <textarea highlight-js [options]="{}" [lang]="'typescript'" readonly>{{ codeSnippet }}</textarea>
+    <!-- If codeSnippets array exists and has items, display each snippet -->
+    <ng-container *ngIf="codeSnippets?.length; else singleSnippet">
+      <div *ngFor="let snippet of codeSnippets" class="snippet-section">
+        <h4>{{ snippet.type | uppercase }} Code:</h4>
+        <textarea highlight-js [options]="{}" [lang]="snippet.type" readonly>
+{{ snippet.code }}
+        </textarea>
+      </div>
+    </ng-container>
+    <!-- Fallback to single snippet if codeSnippets is empty or undefined -->
+    <ng-template #singleSnippet>
+      <div class="snippet-section" *ngIf="codeSnippet">
+        <h4>TS Code:</h4>
+        <textarea highlight-js [options]="{}" lang="ts" readonly>
+{{ codeSnippet }}
+        </textarea>
+      </div>
+    </ng-template>
   </div>
 </div>

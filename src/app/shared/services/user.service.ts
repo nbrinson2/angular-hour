@@ -39,4 +39,8 @@ export class UserService {
     console.log('Response:', response);
     return response;
   }
+
+  getUsers(): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(this.baseUrl);
+  }
 }

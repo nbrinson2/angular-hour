@@ -33,6 +33,8 @@ import {
 import { ProductsResolver } from './shared/resolvers/products.resolver';
 import { UserResolver } from './shared/resolvers/user.resolver';
 import { ProductsComponent } from './breadcrumbs-demo/products/products.component';
+import { UserListComponent } from './types-and-typescript-generics/user-list/user-list.component';
+import { UsersResolver } from './shared/resolvers/users.resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -142,4 +144,14 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'types-and-typescript-generics',
+    children: [
+      {
+        path: 'generic-component',
+        component: UserListComponent,
+        resolve: { users: UsersResolver },
+      }
+    ]
+  }
 ];

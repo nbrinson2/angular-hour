@@ -31,6 +31,8 @@ import { MergeMapExampleComponent } from './rxjs/merge-map-example/merge-map-exa
 import { SearchExampleComponent } from './rxjs/search-example/search-example.component';
 import { SharedModule } from './shared/shared.module';
 import { ProductsComponent } from './breadcrumbs-demo/products/products.component';
+import { GenericComponentComponent } from './types-and-typescript-generics/generic-component/generic-component.component';
+import { UserListComponent } from './types-and-typescript-generics/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { ProductsComponent } from './breadcrumbs-demo/products/products.componen
     ProductComponent,
     BreadcrumbsHostComponent,
     ProductsComponent,
+    GenericComponentComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

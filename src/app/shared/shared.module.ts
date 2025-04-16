@@ -17,6 +17,8 @@ import { AuthControlsComponent } from './auth-controls/auth-controls.component';
 import { MatCardModule } from '@angular/material/card';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { RouterModule } from '@angular/router';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent, AuthControlsComponent, BreadcrumbsComponent],
@@ -34,6 +36,8 @@ import { RouterModule } from '@angular/router';
     MatExpansionModule,
     MatListModule,
     MatCardModule,
+    MatGridListModule,
+    LayoutModule,
     RouterModule,
   ],
   exports: [
@@ -50,6 +54,8 @@ import { RouterModule } from '@angular/router';
     MatExpansionModule,
     MatListModule,
     MatCardModule,
+    MatGridListModule,
+    LayoutModule,
     RouterModule,
     ExampleDisplayComponent,
     UnsavedChangesModalComponent,

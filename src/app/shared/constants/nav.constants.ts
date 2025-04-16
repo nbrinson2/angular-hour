@@ -13,13 +13,15 @@ export interface NavCategory {
 }
 
 // Helper function: Converts a hyphenated string into Title Case.
-function toTitleCase(str: string): string {
-  const firstSegment = str.split('/')[0]; // Only take part before first '/'
-  return firstSegment
-    .split(/[-\s]+/)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+export function toTitleCase(str: string): string {
+  return str
+    .replace(/-/g, ' ')                // Convert hyphens to spaces.
+    .toLowerCase()                     // Convert the string to lowercase.
+    .split(' ')                        // Split by space.
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter of each word.
+    .join(' ');                        // Join the words back into a string.
 }
+
 
 /**
  * Generate an array of navigation categories from the provided routes.

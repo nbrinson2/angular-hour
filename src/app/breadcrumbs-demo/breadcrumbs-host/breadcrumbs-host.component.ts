@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbsService } from '../../shared/services/breadcrumbs.service';
+import { CodeSnippet } from '../../shared/example-display/example-display.component';
 
 @Component({
   selector: 'app-breadcrumbs-host',
@@ -8,7 +9,7 @@ import { BreadcrumbsService } from '../../shared/services/breadcrumbs.service';
   styleUrl: './breadcrumbs-host.component.scss',
 })
 export class BreadcrumbsHostComponent {
-  get breadcrumbsCode(): string {
+  get breadcrumbsCode(): CodeSnippet[] {
     return this.breadcrumbsService.breadcrumbCodeSnippet();
   }
 

@@ -21,14 +21,14 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    // Set the initial state for expansion panels.
+    this.setActivePanels();
+
     this.routerSubscription = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         this.setActivePanels();
       });
-      
-    // Set the initial state for expansion panels.
-    this.setActivePanels();
   }
 
   ngOnDestroy(): void {
@@ -48,6 +48,8 @@ export class AppComponent implements OnInit, OnDestroy {
         category.expanded = url.includes('/resolvers-guards');
       } else if (category.title === 'Breadcrumbs') {
         category.expanded = url.includes('/breadcrumbs');
+      } else if (category.title === 'Types And Typescript Generics') {
+        category.expanded = url.includes('/types-and-typescript-generics');
       }
     });
   }
