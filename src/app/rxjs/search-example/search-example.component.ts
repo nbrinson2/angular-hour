@@ -15,6 +15,12 @@ export class SearchExampleComponent implements OnInit {
   searchResults: string[] = [];
   searchExampleCode = searchExampleCode;
 
+  private variableToTest: string = 'test';
+  
+  get variableToRead(): string {
+    return this.variableToTest;
+  }
+
   constructor(private searchService: SearchService) { }
 
     ngOnInit(): void {
