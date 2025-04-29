@@ -2,3 +2,37 @@
   height: 230px;
   width: 400px;
 }
+
+.content-grid {
+  display: flex;
+  gap: 32px;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+
+  .user-list-container {
+    flex: 1 1 400px;
+    min-width: 300px;
+    max-height: 600px;         // 👈 set your preferred max height
+    overflow-y: auto;          // 👈 enables scrolling
+    padding-right: 8px;        // optional, avoid scrollbar overlap
+  }
+
+  .pros-cons-container {
+    flex: 1 1 400px;
+    min-width: 300px;
+    background: #f5f5f5;
+    padding: 16px;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-grid {
+    flex-direction: column;
+  }
+
+  .user-list-container {
+    max-height: none; // allow full height on smaller screens
+    overflow: visible;
+  }
+}

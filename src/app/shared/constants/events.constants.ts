@@ -23,7 +23,7 @@ export const EVENTS: EventItem[] = [
     topic: 'Testing Part 1',
   },
   {
-    date: new Date('2025-04-29T13:00:00'),
+    date: new Date('2025-05-06T13:00:00'),
     day: 'Tuesday',
     time: '1:00 PM',
     host: 'Kevin',
@@ -37,7 +37,7 @@ export const EVENTS: EventItem[] = [
     topic: 'Breadcrumbs',
   },
   {
-    date: new Date('2025-05-06T13:00:00'),
+    date: new Date('2025-04-29T13:00:00'),
     day: 'Tuesday',
     time: '1:00 PM',
     host: 'Nick',

@@ -1,0 +1,18 @@
+<app-example-display
+  title="Typed HTTP Calls"
+  description="Demonstrates how to use Angular's HttpClient with TypeScript generics to make strongly-typed HTTP requests."
+  [codeSnippets]="typedHttpCallsCode"
+>
+  <app-example-info [item]="exampleInfo"></app-example-info>
+  <h3>User List</h3>
+
+  <ul *ngIf="users.length > 0; else loading">
+    <li *ngFor="let user of users">
+      <strong>{{ user.fullName }}</strong> — {{ user.email }}
+    </li>
+  </ul>
+
+  <ng-template #loading>
+    <p>Loading users...</p>
+  </ng-template>
+</app-example-display>

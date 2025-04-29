@@ -35,7 +35,9 @@ import { UserResolver } from './shared/resolvers/user.resolver';
 import { ProductsComponent } from './breadcrumbs-demo/products/products.component';
 import { UserListComponent } from './types-and-typescript-generics/user-list/user-list.component';
 import { UsersResolver } from './shared/resolvers/users.resolver';
-
+import { TypedHttpCallsComponent } from './types-and-typescript-generics/typed-http-calls/typed-http-calls.component';
+import { UnionTypesComponent } from './types-and-typescript-generics/union-types/union-types.component';
+import { TypeSafeFormsComponent } from './types-and-typescript-generics/type-safe-forms/type-safe-forms.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -151,7 +153,20 @@ export const routes: Routes = [
         path: 'generic-component',
         component: UserListComponent,
         resolve: { users: UsersResolver },
-      }
-    ]
-  }
+      },
+      {
+        path: 'typed-http-calls',
+        component: TypedHttpCallsComponent,
+        resolve: { users: UsersResolver },
+      },
+      {
+        path: 'union-types',
+        component: UnionTypesComponent,
+      },
+      {
+        path: 'type-safe-forms',
+        component: TypeSafeFormsComponent,
+      },
+    ],
+  },
 ];

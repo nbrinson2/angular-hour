@@ -913,46 +913,6 @@ export class GenericComponentComponent<T> {
 
   // Responsive number of columns for the grid.
   cols: number = 3;
-
-  constructor(private breakpointObserver: BreakpointObserver) {
-    // Subscribe to viewport breakpoints to adjust the grid columns.
-    this.breakpointObserver
-      .observe([
-        Breakpoints.XSmall,
-        Breakpoints.Small,
-      ])
-      .subscribe((state: BreakpointState) => {
-        if (state.breakpoints[Breakpoints.XSmall]) {
-          this.cols = 1;
-        } else if (state.breakpoints[Breakpoints.Small]) {
-          this.cols = 2;
-        } else {
-          this.cols = 3;
-        }
-      });
-  }
-
-  /**
-   * Computes dynamic CSS styles for each list item.
-   * Here, the width and height are based on the index.
-   * Adjust the logic as needed to derive from item properties.
-   */
-  getDynamicStyles(index: number): { [key: string]: string } {
-    const baseWidth = 200;
-    const baseHeight = 50;
-
-    const computedWidth = (
-      baseWidth * this.itemDisplaySizeMulitiplier
-    ).toString();
-    const computedHeight = (
-      baseHeight * this.itemDisplaySizeMulitiplier
-    ).toString();
-
-    return {
-      width: computedWidth,
-      height: computedHeight,
-    };
-  }
 }
   
 
@@ -970,7 +930,10 @@ export class UserListComponent implements OnInit {
   },
   {
     type: CodeType.HTML,
-    code: `<ul>
+    code: `
+
+<!-- Generic Component -->
+<ul>
   <li *ngFor="let item of items">
     <!-- Render the provided template with the current item as context -->
     <ng-container *ngTemplateOutlet="template; context: { $implicit: item }">
@@ -979,7 +942,7 @@ export class UserListComponent implements OnInit {
 </ul>
 
     
-    
+<!-- User List Component -->
 <app-example-display
   title="User List with Generics"
   description="Demonstrates how to use a generic component to display a list of users with all attributes."
@@ -1021,6 +984,177 @@ export class UserListComponent implements OnInit {
   ></app-generic-component>
 </app-example-display>
 
+`,
+  },
+];
+
+export const typedHttpCallsCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `export interface UserResponse {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: {
+      lat: string;
+      lng: string;
+    };
+  };
+  phone: string;
+  website: string;
+  company: {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
+}
+
+export interface User {
+  fullName: string;
+  email: string;
+  city: string;
+  company: string;
+  phone: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+  private baseUrl = 'https://jsonplaceholder.typicode.com/users';
+
+  constructor(private http: HttpClient) {}
+
+  getUserById(userId: string): Observable<UserResponse> {
+    const response = this.http.get<UserResponse>(\`\${this.baseUrl}/\${userId}\`);
+    console.log('Response:', response);
+    return response;
+  }
+
+  getUsers(): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(this.baseUrl);
+  }
+}
+  
+
+@Injectable({ providedIn: 'root' })
+export class UsersResolver {
+  constructor(private userService: UserService, private router: Router) {}
+
+  resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
+    return this.userService.getUsers().pipe(
+      map((responses: UserResponse[]) =>
+        responses.map((response: UserResponse) => ({
+          fullName: \`\${response.name} (\${response.username})\`,
+          email: response.email,
+          city: response.address.city,
+          company: \`\${response.company.name} - \${response.company.catchPhrase}\`,
+          phone: response.phone,
+        }))
+      ),
+      catchError((error) => {
+        this.router.navigate(['/resolvers-guards/error-handling']);
+        return EMPTY;
+      })
+    );
+  }
+}`,
+  },
+];
+
+export const unionTypesCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+    export type RequestStatus = 'idle' | 'loading' | 'success' | 'error';
+
+export class UnionTypesComponent {
+  unionTypesCode = unionTypesCode;
+  exampleInfo: InfoItem = {
+    context:
+      'Union types limit a variable to a fixed set of values (e.g., "loading" | "success" | "error"), which improves safety, code clarity, and IntelliSense support.',
+  };
+
+  status: RequestStatus = 'idle';
+
+  simulateRequest() {
+    this.status = 'loading';
+    setTimeout(() => {
+      const success = Math.random() > 0.5;
+      this.status = success ? 'success' : 'error';
+    }, 2000);
+  }
+}
+
+
+export class StatusIndicatorComponent {
+  @Input() status: RequestStatus = 'idle';
+
+  get statusLabel(): string {
+    switch (this.status) {
+      case 'idle': return 'Waiting...';
+      case 'loading': return 'Loading...';
+      case 'success': return 'Done!';
+      case 'error': return 'Something went wrong.';
+    }
+  }
+
+  get statusIcon(): string {
+    switch (this.status) {
+      case 'idle': return 'hourglass_empty';
+      case 'loading': return 'autorenew';
+      case 'success': return 'check_circle';
+      case 'error': return 'error_outline';
+    }
+  }
+
+  get statusColor(): string {
+    switch (this.status) {
+      case 'success': return 'primary';
+      case 'error': return 'warn';
+      default: return '';
+    }
+  }
+}`,
+  },
+];
+
+export const typeSafeFormsCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+export interface ProfileFormValues {
+  name: string;
+  email: string;
+  age: number;
+}
+
+export class TypeSafeFormsComponent {
+
+form = new FormGroup<{
+  name: FormControl<string>;
+  email: FormControl<string>;
+  age: FormControl<number | null>; // allow empty initially
+}>({
+  name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+  email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+  age: new FormControl(null)
+});
+
+submit() {
+  if (this.form.valid) {
+    const values: ProfileFormValues = this.form.getRawValue();
+    console.log('Form Submitted!', values);
+  } else {
+    console.warn('Form is invalid');
+  }
+}
 `,
   },
 ];

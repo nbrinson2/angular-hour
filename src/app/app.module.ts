@@ -33,6 +33,10 @@ import { SharedModule } from './shared/shared.module';
 import { ProductsComponent } from './breadcrumbs-demo/products/products.component';
 import { GenericComponentComponent } from './types-and-typescript-generics/generic-component/generic-component.component';
 import { UserListComponent } from './types-and-typescript-generics/user-list/user-list.component';
+import { TypedHttpCallsComponent } from './types-and-typescript-generics/typed-http-calls/typed-http-calls.component';
+import { UnionTypesComponent } from './types-and-typescript-generics/union-types/union-types.component';
+import { StatusIndicatorComponent } from './types-and-typescript-generics/union-types/status-indicator/status-indicator.component';
+import { TypeSafeFormsComponent } from './types-and-typescript-generics/type-safe-forms/type-safe-forms.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +68,11 @@ import { UserListComponent } from './types-and-typescript-generics/user-list/use
     BreadcrumbsHostComponent,
     ProductsComponent,
     GenericComponentComponent,
-    UserListComponent
+    UserListComponent,
+    TypedHttpCallsComponent,
+    UnionTypesComponent,
+    StatusIndicatorComponent,
+    TypeSafeFormsComponent
   ],
   imports: [
     BrowserModule,

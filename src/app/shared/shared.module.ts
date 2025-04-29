@@ -20,9 +20,10 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ExampleDisplayComponent } from './example-display/example-display.component';
 import { ExampleInfoComponent } from './example-info/example-info.component';
 import { UnsavedChangesModalComponent } from './unsave-changes-modal/unsave-changes-modal.component';
-
+import { ProsConsTableComponent } from './pros-cons-table/pros-cons-table.component';
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
-  declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent, AuthControlsComponent, BreadcrumbsComponent, ExampleInfoComponent],
+  declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent, AuthControlsComponent, BreadcrumbsComponent, ExampleInfoComponent, ProsConsTableComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -37,6 +38,7 @@ import { UnsavedChangesModalComponent } from './unsave-changes-modal/unsave-chan
     MatListModule,
     MatCardModule,
     MatGridListModule,
+    MatTableModule,
     LayoutModule,
     RouterModule,
   ],
@@ -54,6 +56,7 @@ import { UnsavedChangesModalComponent } from './unsave-changes-modal/unsave-chan
     MatListModule,
     MatCardModule,
     MatGridListModule,
+    MatTableModule,
     LayoutModule,
     RouterModule,
     ExampleDisplayComponent,
@@ -61,6 +64,7 @@ import { UnsavedChangesModalComponent } from './unsave-changes-modal/unsave-chan
     UnsavedChangesModalComponent,
     AuthControlsComponent,
     BreadcrumbsComponent,
+    ProsConsTableComponent,
   ],
   providers: [
     provideHttpClient(),

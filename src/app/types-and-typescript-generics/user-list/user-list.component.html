@@ -34,9 +34,20 @@
   </ng-template>
 
   <!-- Use the generic component, binding the users array and template -->
-  <app-generic-component
-    [items]="users"
-    [itemDisplaySizeMulitiplier]="1.25"
-    [template]="userTemplate"
-  ></app-generic-component>
+  <div class="content-grid">
+    <div class="user-list-container">
+      <app-generic-component
+        [items]="users"
+        [itemDisplaySizeMulitiplier]="1.25"
+        [template]="userTemplate"
+      ></app-generic-component>
+    </div>
+    <div class="pros-cons-container">
+      <app-pros-cons-table
+        [items]="compileTimeSafetyProsAndCons"
+        leftHeader="Compile-Time Safety"
+        rightHeader="Without Compile-Time Safety"
+      ></app-pros-cons-table>
+    </div>
+  </div>
 </app-example-display>

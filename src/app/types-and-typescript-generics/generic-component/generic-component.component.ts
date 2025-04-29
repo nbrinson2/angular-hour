@@ -29,9 +29,9 @@ export class GenericComponentComponent<T> {
         if (state.breakpoints[Breakpoints.XSmall]) {
           this.cols = 1;
         } else if (state.breakpoints[Breakpoints.Small]) {
-          this.cols = 2;
+          this.cols = 1;
         } else {
-          this.cols = 3;
+          this.cols = 1;
         }
       });
   }

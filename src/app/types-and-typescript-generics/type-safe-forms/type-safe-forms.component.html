@@ -1,0 +1,49 @@
+<app-example-display
+  title="Type-Safe Forms"
+  description="Demonstrates how to create type-safe forms using Angular's FormGroup and FormControl."
+  [codeSnippets]="typeSafeFormsCode"
+>
+  <app-example-info [item]="exampleInfo"></app-example-info>
+
+  <div class="form-layout">
+    <!-- LEFT: The Form -->
+    <form class="form-section" [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter your name" />
+        <mat-error *ngIf="form.controls.name.invalid">Name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Enter your email" />
+        <mat-error *ngIf="form.controls.email.invalid">Valid email is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Age</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="age"
+          placeholder="Enter your age"
+        />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </form>
+
+    <!-- RIGHT: Submitted Data -->
+    <div class="data-section">
+      <h4>Submitted Data</h4>
+
+      <div *ngIf="submittedData; else noData">
+        <pre>{{ submittedData | json }}</pre>
+      </div>
+
+      <ng-template #noData>
+        <p>No submission yet.</p>
+      </ng-template>
+    </div>
+  </div>
+</app-example-display>

@@ -1,0 +1,17 @@
+<div class="table-wrapper">
+  <table mat-table [dataSource]="items" class="mat-elevation-z1 full-width-table">
+  
+    <ng-container matColumnDef="left">
+      <th mat-header-cell *matHeaderCellDef> ✅ {{ leftHeader }} </th>
+      <td mat-cell *matCellDef="let element"> {{ element.pro }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="right">
+      <th mat-header-cell *matHeaderCellDef> ❌ {{ rightHeader }} </th>
+      <td mat-cell *matCellDef="let element"> {{ element.con }} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

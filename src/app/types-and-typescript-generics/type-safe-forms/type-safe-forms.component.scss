@@ -1,0 +1,38 @@
+.form-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 2rem;
+
+  .form-section,
+  .data-section {
+    flex: 1 1 400px; /* Allow shrinking and growing */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .data-section {
+    background: #f9f9f9;
+    padding: 16px;
+    border-radius: 8px;
+    min-width: 300px;
+
+    pre {
+      background: #e0f7fa;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .form-section,
+    .data-section {
+      flex: 1 1 auto;
+    }
+  }
+}

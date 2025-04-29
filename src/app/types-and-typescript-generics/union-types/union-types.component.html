@@ -1,0 +1,10 @@
+<app-example-display
+  title="Union Types"
+  description="Demonstrates how to use TypeScript union types to combine multiple types into a single type."
+  [codeSnippets]="unionTypesCode"
+>
+  <app-example-info [item]="exampleInfo"></app-example-info>
+
+  <app-status-indicator [status]="status"></app-status-indicator>
+  <button mat-raised-button color="primary" (click)="simulateRequest()">Simulate Request</button>
+</app-example-display>
