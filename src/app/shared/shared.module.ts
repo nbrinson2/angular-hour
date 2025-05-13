@@ -2,7 +2,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -12,18 +12,33 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { HighlightJsModule } from 'ngx-highlight-js';
 import { AuthControlsComponent } from './auth-controls/auth-controls.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ExampleDisplayComponent } from './example-display/example-display.component';
 import { ExampleInfoComponent } from './example-info/example-info.component';
-import { UnsavedChangesModalComponent } from './unsave-changes-modal/unsave-changes-modal.component';
 import { ProsConsTableComponent } from './pros-cons-table/pros-cons-table.component';
-import { MatTableModule } from '@angular/material/table';
+import { UnsavedChangesModalComponent } from './unsave-changes-modal/unsave-changes-modal.component';
+import { UserCardComponent } from './user-card/user-card.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { NotificationBannerComponent } from './notification-banner/notification-banner.component';
 @NgModule({
-  declarations: [ExampleDisplayComponent, UnsavedChangesModalComponent, AuthControlsComponent, BreadcrumbsComponent, ExampleInfoComponent, ProsConsTableComponent],
+  declarations: [
+    ExampleDisplayComponent,
+    UnsavedChangesModalComponent,
+    AuthControlsComponent,
+    BreadcrumbsComponent,
+    ExampleInfoComponent,
+    ProsConsTableComponent,
+    UserCardComponent,
+    AddUserComponent,
+    NotificationBannerComponent,
+  ],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -41,6 +56,9 @@ import { MatTableModule } from '@angular/material/table';
     MatTableModule,
     LayoutModule,
     RouterModule,
+    MatSelectModule,
+    FormsModule,
+    MatDividerModule,
   ],
   exports: [
     CommonModule,
@@ -57,17 +75,21 @@ import { MatTableModule } from '@angular/material/table';
     MatCardModule,
     MatGridListModule,
     MatTableModule,
+    MatSelectModule,
+    FormsModule,
     LayoutModule,
     RouterModule,
+    MatDividerModule,
     ExampleDisplayComponent,
     ExampleInfoComponent,
     UnsavedChangesModalComponent,
     AuthControlsComponent,
     BreadcrumbsComponent,
     ProsConsTableComponent,
+    UserCardComponent,
+    AddUserComponent,
+    NotificationBannerComponent,
   ],
-  providers: [
-    provideHttpClient(),
-  ],
+  providers: [provideHttpClient()],
 })
 export class SharedModule {}

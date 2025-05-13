@@ -1158,3 +1158,257 @@ submit() {
 `,
   },
 ];
+
+export const parentChildCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+export class ParentChildComponent {
+  protected users: User[] = [];
+  protected selectedUser: User | null = null;
+  protected parentChildCode = parentChildCode;
+
+  constructor(private route: ActivatedRoute) {
+    this.route.data.subscribe((data) => {
+      this.users = (data as Data).users;
+    });
+  }
+
+  protected selectUser(user: User) {
+    this.selectedUser = user;
+  }
+}
+  
+export class UserCardComponent {
+  @Input() user!: User;
+}
+`,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<app-example-display
+  title="Parent Child Communication"
+  description="Demonstrates how to pass data from a parent component to a child component."
+  [codeSnippets]="parentChildCode"
+>
+  <app-example-info [item]="exampleInfo"></app-example-info>
+
+  <mat-form-field appearance="fill" class="user-dropdown">
+    <mat-label>Select a user</mat-label>
+    <mat-select
+      [(value)]="selectedUser"
+      (selectionChange)="selectUser($event.value)"
+    >
+      <mat-option *ngFor="let user of users" [value]="user">
+        {{ user.fullName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <ng-container *ngIf="selectedUser; else noSelection">
+    <app-user-card [user]="selectedUser"></app-user-card>
+  </ng-container>
+
+  <ng-template #noSelection>
+    <mat-card class="user-placeholder-card">
+      <mat-card-content class="text-center">
+        <mat-icon style="font-size: 48px; color: #ccc;">info</mat-icon>
+        <p style="margin-top: 8px;">No user selected. Click a name above to see details.</p>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</app-example-display>`,
+  },
+];
+
+export const childParentCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+export class ChildParentComponent {
+  get users(): Signal<User[]> {
+    return this._users.asReadonly();
+  }
+
+  protected displayedColumns: string[] = [
+    'fullName',
+    'email',
+    'city',
+    'company',
+    'phone',
+  ];
+
+  private _users = signal<User[]>([]);
+
+  addUser(user: User) {
+    this._users.update((users) => [...users, user]);
+  }
+}
+
+export class AddUserComponent {
+  @Output() userCreated = new EventEmitter<User>();
+
+  fullName = '';
+  email = '';
+  city = '';
+  company = '';
+  phone = '';
+
+  submitForm() {
+    if (!this.fullName || !this.email) return;
+
+    this.userCreated.emit({
+      fullName: this.fullName,
+      email: this.email,
+      city: this.city,
+      company: this.company,
+      phone: this.phone,
+    });
+
+    // Clear form
+    this.fullName = '';
+    this.email = '';
+    this.city = '';
+    this.company = '';
+    this.phone = '';
+  }
+}`,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<app-example-display
+  title="Child Parent Communication"
+  description="Demonstrates how to pass data from a child component to a parent component."
+  [codeSnippets]="childParentCode"
+>
+  <app-example-info
+    [heading]="'Why Child-to-Parent Communication Matters'"
+    [item]="exampleInfo"
+  ></app-example-info>
+  <app-add-user (userCreated)="addUser($event)"></app-add-user>
+
+  <br />
+  <mat-divider></mat-divider>
+
+  <h3>Current Users:</h3>
+  <mat-table [dataSource]="users()">
+    <ng-container matColumnDef="fullName">
+      <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.fullName }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef>City</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.city }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="company">
+      <mat-header-cell *matHeaderCellDef>Company</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.company }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.phone }}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</app-example-display>
+`,
+  },
+];
+
+export const siblingViaServiceCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+export class SiblingViaServiceComponent {
+  @ViewChild(NotificationBannerComponent)
+  protected notificationBanner!: NotificationBannerComponent;
+
+  protected message = '';
+
+  constructor(private notificationService: NotificationService) {}
+
+  send() {
+    if (this.message.trim()) {
+      this.notificationService.send(this.message);
+      this.message = '';
+    }
+  }
+
+  dismiss() {
+    this.notificationBanner.dismiss();
+  }
+}
+
+export class NotificationBannerComponent {
+  protected message: string | null = null;
+
+  constructor(private notificationService: NotificationService) {}
+
+  ngOnInit() {
+    this.notificationService.notification$.subscribe(msg => {
+      this.message = msg;
+    });
+  }
+
+  dismiss() {
+    this.message = null;
+  }
+}
+  
+export class NotificationService {
+  private notificationSubject = new BehaviorSubject<string | null>(null);
+  notification$ = this.notificationSubject.asObservable();
+
+  send(message: string) {
+    this.notificationSubject.next(message);
+  }
+}
+`,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<app-example-display
+  title="Sibling via Service"
+  description="Demonstrates how to communicate between siblings using a service."
+  [codeSnippets]="siblingViaServiceCode"
+>
+  <app-notification-banner></app-notification-banner>
+  <br />
+  <div class="notification-controls">
+    <mat-form-field appearance="outline" class="message-input">
+      <mat-label>Message</mat-label>
+      <input
+        matInput
+        [(ngModel)]="message"
+        placeholder="Type a notification..."
+      />
+    </mat-form-field>
+
+    <div class="button-group">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="send()"
+        [disabled]="!message.trim()"
+      >
+        Send Notification
+      </button>
+
+      <button mat-stroked-button color="warn" (click)="dismiss()">
+        Dismiss Notification
+      </button>
+    </div>
+  </div>
+</app-example-display>
+`,
+  },
+];
