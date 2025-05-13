@@ -1,0 +1,31 @@
+<app-example-display
+  title="Parent Child Communication"
+  description="Demonstrates how to pass data from a parent component to a child component."
+  [codeSnippets]="parentChildCode"
+>
+  <br />
+  <mat-form-field appearance="fill" class="user-dropdown">
+    <mat-label>Select a user</mat-label>
+    <mat-select
+      [(value)]="selectedUser"
+      (selectionChange)="selectUser($event.value)"
+    >
+      <mat-option *ngFor="let user of users" [value]="user">
+        {{ user.fullName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <ng-container *ngIf="selectedUser; else noSelection">
+    <app-user-card [user]="selectedUser"></app-user-card>
+  </ng-container>
+
+  <ng-template #noSelection>
+    <mat-card class="user-placeholder-card">
+      <mat-card-content class="text-center">
+        <mat-icon style="font-size: 48px; color: #ccc;">info</mat-icon>
+        <p style="margin-top: 8px;">No user selected. Click a name above to see details.</p>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</app-example-display>

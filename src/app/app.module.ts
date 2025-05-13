@@ -37,6 +37,9 @@ import { TypedHttpCallsComponent } from './types-and-typescript-generics/typed-h
 import { UnionTypesComponent } from './types-and-typescript-generics/union-types/union-types.component';
 import { StatusIndicatorComponent } from './types-and-typescript-generics/union-types/status-indicator/status-indicator.component';
 import { TypeSafeFormsComponent } from './types-and-typescript-generics/type-safe-forms/type-safe-forms.component';
+import { ParentChildComponent } from './component-communication/parent-child/parent-child.component';
+import { ChildParentComponent } from './component-communication/child-parent/child-parent.component';
+import { SiblingViaServiceComponent } from './component-communication/sibling-via-service/sibling-via-service.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,10 @@ import { TypeSafeFormsComponent } from './types-and-typescript-generics/type-saf
     TypedHttpCallsComponent,
     UnionTypesComponent,
     StatusIndicatorComponent,
-    TypeSafeFormsComponent
+    TypeSafeFormsComponent,
+    ParentChildComponent,
+    ChildParentComponent,
+    SiblingViaServiceComponent
   ],
   imports: [
     BrowserModule,

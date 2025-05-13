@@ -1,0 +1,19 @@
+.notification-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center; // ✅ vertical alignment
+  margin-top: 16px;
+
+  .message-input {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .button-group {
+    display: flex;
+    margin-bottom: 16px;
+    gap: 12px;
+    align-items: center; // ✅ vertical alignment inside group
+  }
+}

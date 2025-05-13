@@ -38,6 +38,9 @@ import { UsersResolver } from './shared/resolvers/users.resolver';
 import { TypedHttpCallsComponent } from './types-and-typescript-generics/typed-http-calls/typed-http-calls.component';
 import { UnionTypesComponent } from './types-and-typescript-generics/union-types/union-types.component';
 import { TypeSafeFormsComponent } from './types-and-typescript-generics/type-safe-forms/type-safe-forms.component';
+import { ParentChildComponent } from './component-communication/parent-child/parent-child.component';
+import { ChildParentComponent } from './component-communication/child-parent/child-parent.component';
+import { SiblingViaServiceComponent } from './component-communication/sibling-via-service/sibling-via-service.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -166,6 +169,26 @@ export const routes: Routes = [
       {
         path: 'type-safe-forms',
         component: TypeSafeFormsComponent,
+      },
+    ],
+  },
+  {
+    path: 'component-communication',
+    children: [
+      {
+        path: 'parent-child',
+        component: ParentChildComponent,
+        resolve: { users: UsersResolver },
+      },
+      {
+        path: 'child-parent',
+        component: ChildParentComponent,
+        resolve: { users: UsersResolver },
+      },
+      {
+        path: 'sibling-communication',
+        component: SiblingViaServiceComponent,
+        resolve: { users: UsersResolver },
       },
     ],
   },

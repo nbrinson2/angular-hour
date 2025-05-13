@@ -1,0 +1,37 @@
+<app-example-display
+  title="Sibling via Service"
+  description="Demonstrates how to communicate between siblings using a service."
+  [codeSnippets]="siblingViaServiceCode"
+>
+  <app-example-info
+    heading="Why Using @ViewChild for Sibling Communication Is Problematic"
+    [item]="exampleInfo"
+  ></app-example-info>
+  <app-notification-banner></app-notification-banner>
+  <br />
+  <div class="notification-controls">
+    <mat-form-field appearance="outline" class="message-input">
+      <mat-label>Message</mat-label>
+      <input
+        matInput
+        [(ngModel)]="message"
+        placeholder="Type a notification..."
+      />
+    </mat-form-field>
+
+    <div class="button-group">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="send()"
+        [disabled]="!message.trim()"
+      >
+        Send Notification
+      </button>
+
+      <button mat-stroked-button color="warn" (click)="dismiss()">
+        Dismiss Notification
+      </button>
+    </div>
+  </div>
+</app-example-display>

@@ -1,0 +1,41 @@
+<app-example-display
+  title="Child Parent Communication"
+  description="Demonstrates how to pass data from a child component to a parent component."
+  [codeSnippets]="childParentCode"
+>
+  <app-example-info
+    [heading]="'Why Child-to-Parent Communication Matters'"
+    [item]="exampleInfo"
+  ></app-example-info>
+  <app-add-user (userCreated)="addUser($event)"></app-add-user>
+
+  <br />
+  <mat-divider></mat-divider>
+
+  <h3>Current Users:</h3>
+  <mat-table [dataSource]="users()">
+    <ng-container matColumnDef="fullName">
+      <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.fullName }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef>City</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.city }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="company">
+      <mat-header-cell *matHeaderCellDef>Company</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.company }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.phone }}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</app-example-display>
