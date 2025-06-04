@@ -41,6 +41,7 @@ import { TypeSafeFormsComponent } from './types-and-typescript-generics/type-saf
 import { ParentChildComponent } from './component-communication/parent-child/parent-child.component';
 import { ChildParentComponent } from './component-communication/child-parent/child-parent.component';
 import { SiblingViaServiceComponent } from './component-communication/sibling-via-service/sibling-via-service.component';
+import { InitialSetupComponent } from './standalone-components/initial-setup/initial-setup.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -189,6 +190,43 @@ export const routes: Routes = [
         path: 'sibling-communication',
         component: SiblingViaServiceComponent,
         resolve: { users: UsersResolver },
+      },
+    ],
+  },
+  {
+    path: 'standalone-components',
+    children: [
+      {
+        path: 'initial-setup',
+        children: [
+          {
+            path: 'user-details/:id',
+            resolve: { user: UserResolver },
+            loadComponent: () =>
+              import(
+                './standalone-components/initial-setup/initial-setup.component'
+              ).then((m) => m.InitialSetupComponent),
+          },
+          {
+            path: '',
+            redirectTo: 'user-details/1',
+            pathMatch: 'full',
+          },
+        ],
+      },
+      {
+        path: 'component-scoped-service',
+        loadComponent: () =>
+          import(
+            './standalone-components/component-scoped-service/component-scoped-service.component'
+          ).then((m) => m.ComponentScopedServiceComponent),
+      },
+      {
+        path: 'directives',
+        loadComponent: () =>
+          import(
+            './standalone-components/directives/directives.component'
+          ).then((m) => m.DirectivesComponent),
       },
     ],
   },

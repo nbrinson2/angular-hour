@@ -1,0 +1,37 @@
+<app-example-display
+  title="Directives"
+  description="Learn how to create and use standalone directives in Angular"
+  [codeSnippets]="standaloneDirectivesCode"
+>
+  <app-example-info [item]="exampleInfo"></app-example-info>
+  <mat-card class="demo-card mat-elevation-z4">
+    <mat-card-header>
+      <mat-card-title class="demo-title">
+        Highlight Directive (Material Demo)
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- 1) A Material list with dividers and hover‐lift animations -->
+      <mat-list>
+        <ng-container *ngFor="let item of items; let last = last">
+          <mat-list-item [appHighlight]="'#fff59d'" class="list-item">
+            {{ item }}
+          </mat-list-item>
+          <!-- Divider between items, except after the last -->
+          <mat-divider *ngIf="!last"></mat-divider>
+        </ng-container>
+      </mat-list>
+
+      <!-- 2) A Material button that highlights with a custom color -->
+      <button
+        mat-raised-button
+        color="primary"
+        appHighlight="#b39ddb"
+        class="demo-button mat-elevation-z2"
+      >
+        Hover Me (Purple Highlight)
+      </button>
+    </mat-card-content>
+  </mat-card>
+</app-example-display>

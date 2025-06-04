@@ -40,7 +40,7 @@ import { TypeSafeFormsComponent } from './types-and-typescript-generics/type-saf
 import { ParentChildComponent } from './component-communication/parent-child/parent-child.component';
 import { ChildParentComponent } from './component-communication/child-parent/child-parent.component';
 import { SiblingViaServiceComponent } from './component-communication/sibling-via-service/sibling-via-service.component';
-
+  
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +78,7 @@ import { SiblingViaServiceComponent } from './component-communication/sibling-vi
     TypeSafeFormsComponent,
     ParentChildComponent,
     ChildParentComponent,
-    SiblingViaServiceComponent
+    SiblingViaServiceComponent,
   ],
   imports: [
     BrowserModule,

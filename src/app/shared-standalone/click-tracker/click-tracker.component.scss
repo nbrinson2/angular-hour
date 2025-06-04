@@ -1,0 +1,25 @@
+.tracker‐card {
+  max-width: 300px;
+  margin: 2rem auto;
+  text-align: center;
+
+  /* On hover, slightly lift the card even higher */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.count‐display {
+  font-size: 1.25rem;
+  color: rgba(0, 0, 0, 0.87);
+  margin-bottom: 1rem;
+}
+
+.count {
+  font-weight: 600;
+  margin: 0 0.25rem;
+  color: #1976d2; /* Primary blue from Material’s palette */
+}

@@ -50,6 +50,8 @@ export class AppComponent implements OnInit, OnDestroy {
         category.expanded = url.includes('/breadcrumbs');
       } else if (category.title === 'Types And Typescript Generics') {
         category.expanded = url.includes('/types-and-typescript-generics');
+      } else if (category.title === 'Standalone Components') {
+        category.expanded = url.includes('/standalone-components');
       }
     });
   }

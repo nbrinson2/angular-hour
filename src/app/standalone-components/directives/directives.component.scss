@@ -1,0 +1,60 @@
+/* src/app/highlight-demo/highlight-demo.component.scss */
+
+/* Centered card container with more padding and a stronger shadow */
+.demo-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  border-radius: 8px;
+  overflow: hidden; /* ensure rounded corners clip any children */
+  background-color: #fafafa; /* a very light grey backdrop */
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    /* Slightly deepen elevation when you hover the entire card */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Header title styling */
+.demo-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* Each list item gets more breathing room, rounded edges, and a subtle lift on hover */
+.list-item {
+  margin: 0.25rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease,
+              transform 0.2s ease,
+              box-shadow 0.2s ease;
+  cursor: pointer; /* show pointer so it feels interactive */
+
+  /* On hover—besides the directive’s bgColor—lift the item slightly */
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* The button sits below the list, centered, with extra padding */
+.demo-button {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 24px; /* fully rounded pill shape */
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+}

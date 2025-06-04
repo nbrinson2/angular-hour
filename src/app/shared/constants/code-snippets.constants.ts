@@ -1412,3 +1412,211 @@ export class NotificationService {
 `,
   },
 ];
+
+export const standaloneInitialSetupCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+import { Component } from '@angular/core';
+import { User } from '../../shared/resolvers/user.resolver';
+import { ActivatedRoute } from '@angular/router';
+import { SharedModule } from '../../shared/shared.module';
+import { standaloneInitialSetupCode } from '../../shared/constants/code-snippets.constants';
+import { InfoItem } from '../../shared/example-info/example-info.component';
+
+@Component({
+  selector: 'app-initial-setup',
+  standalone: true,
+  imports: [SharedModule],
+  templateUrl: './initial-setup.component.html',
+  styleUrl: './initial-setup.component.scss',
+})
+export class InitialSetupComponent {
+  protected user!: User;
+
+  constructor(private route: ActivatedRoute) {
+    this.user = this.route.snapshot.data['user'];
+  }
+}
+
+
+// Routes:
+{
+  path: 'standalone-components',
+  children: [
+    {
+      path: 'initial-setup',
+      children: [
+        {
+          path: 'user-details/:id',
+          resolve: { user: UserResolver },
+          loadComponent: () =>
+            import('./standalone-components/initial-setup/initial-setup.component').then(
+              (m) => m.InitialSetupComponent
+            ),
+        },
+        {
+          path: '',
+          redirectTo: 'user-details/1',
+          pathMatch: 'full',
+        },
+      ],
+    },
+  ],
+},
+
+`,
+  },
+];
+
+export const componentScopedServiceCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+export class ClickTrackerComponent {
+  protected service!: ClickTrackerService;
+
+  constructor(
+    @Optional()
+    @Host()
+    public parentService: ClickTrackerService | null
+  ) {
+    console.log('ClickTrackerComponent constructor', parentService);
+    this.service = parentService ?? new ClickTrackerService();
+  }
+
+  handleClick() {
+    this.service.increment();
+  }
+}
+  
+
+import { Component } from '@angular/core';
+import { componentScopedServiceCode } from '../../shared/constants/code-snippets.constants';
+import { SharedModule } from "../../shared/shared.module";
+import { InfoItem } from '../../shared/example-info/example-info.component';
+import { ClickTrackerComponent } from '../../shared-standalone/click-tracker/click-tracker.component';
+import { ParentScopedServiceComponent } from './parent-scoped-service/parent-scoped-service.component';
+
+@Component({
+  selector: 'app-component-scoped-service',
+  standalone: true,
+  imports: [SharedModule, ClickTrackerComponent, ParentScopedServiceComponent],
+  templateUrl: './component-scoped-service.component.html',
+  styleUrl: './component-scoped-service.component.scss'
+})
+export class ComponentScopedServiceComponent {}`,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<h3>Parent Scoped Service Demo</h3>
+<div class="demo-container">
+  <app-click-tracker></app-click-tracker>
+  <app-click-tracker></app-click-tracker>
+</div>
+
+
+<app-example-display
+  title="Component Scoped Service"
+  description="Learn how to create a component scoped service in Angular"
+  [codeSnippets]="componentScopedServiceCode"
+>
+  <h3>Component Scoped Service Demo</h3>
+  <div class="demo-container">
+    <app-click-tracker></app-click-tracker>
+    <app-click-tracker></app-click-tracker>
+  </div>
+
+  <app-parent-scoped-service></app-parent-scoped-service>
+</app-example-display>`,
+  },
+];
+
+export const standaloneDirectivesCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+@Directive({
+  selector: '[appHighlight]',
+  standalone: true
+})
+export class HighlightDirective {
+  /** 
+   * Input property: if set, use this color; otherwise default to yellow
+   * Usage: <div appHighlight="lightblue">…</div>
+   */
+  @Input('appHighlight') highlightColor = 'yellow';
+
+  /**
+   * Bind to the host element’s style.backgroundColor
+   * This is updated on mouseenter/mouseleave.
+   */
+  @HostBinding('style.backgroundColor') bgColor!: string | null;
+
+  /** On mouseenter → set background to \`highlightColor\` */
+  @HostListener('mouseenter') onMouseEnter() {
+    this.bgColor = this.highlightColor;
+  }
+
+  /** On mouseleave → clear background */
+  @HostListener('mouseleave') onMouseLeave() {
+    this.bgColor = null;
+  }
+}
+
+
+// Directives Component
+import { Component } from '@angular/core';
+import { HighlightDirective } from '../../shared-standalone/highlight.directive';
+import { standaloneDirectivesCode } from '../../shared/constants/code-snippets.constants';
+import { SharedModule } from '../../shared/shared.module';
+import { InfoItem } from '../../shared/example-info/example-info.component';
+
+@Component({
+  selector: 'app-directives',
+  standalone: true,
+  imports: [HighlightDirective, SharedModule],
+  templateUrl: './directives.component.html',
+  styleUrl: './directives.component.scss',
+})
+export class DirectivesComponent {}
+    `
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<mat-card class="demo-card mat-elevation-z4">
+  <mat-card-header>
+    <mat-card-title class="demo-title">
+      Highlight Directive (Material Demo)
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- 1) A Material list with dividers and hover‐lift animations -->
+    <mat-list>
+      <ng-container *ngFor="let item of items; let last = last">
+        <mat-list-item [appHighlight]="'#fff59d'" class="list-item">
+          {{ item }}
+        </mat-list-item>
+        <!-- Divider between items, except after the last -->
+        <mat-divider *ngIf="!last"></mat-divider>
+      </ng-container>
+    </mat-list>
+    
+
+    <!-- 2) A Material button that highlights with a custom color -->
+    <button
+      mat-raised-button
+      color="primary"
+      appHighlight="#b39ddb"
+      class="demo-button mat-elevation-z2"
+    >
+      Hover Me (Purple Highlight)
+    </button>
+  </mat-card-content>
+</mat-card>
+`,
+  },
+];

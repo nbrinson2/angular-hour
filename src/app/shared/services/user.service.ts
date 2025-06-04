@@ -36,7 +36,6 @@ export class UserService {
 
   getUserById(userId: string): Observable<UserResponse> {
     const response = this.http.get<UserResponse>(`${this.baseUrl}/${userId}`);
-    console.log('Response:', response);
     return response;
   }
 
