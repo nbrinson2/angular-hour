@@ -42,6 +42,7 @@ import { ParentChildComponent } from './component-communication/parent-child/par
 import { ChildParentComponent } from './component-communication/child-parent/child-parent.component';
 import { SiblingViaServiceComponent } from './component-communication/sibling-via-service/sibling-via-service.component';
 import { InitialSetupComponent } from './standalone-components/initial-setup/initial-setup.component';
+import { SettingVariablesFromInputComponent } from './getters-and-setters/setting-variables-from-input/setting-variables-from-input.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -227,6 +228,16 @@ export const routes: Routes = [
           import(
             './standalone-components/directives/directives.component'
           ).then((m) => m.DirectivesComponent),
+      },
+    ],
+  },
+  {
+    path: 'getters-and-setters',
+    children: [
+      {
+        path: 'setting-variables-from-input',
+        component: SettingVariablesFromInputComponent,
+        resolve: { users: UsersResolver },
       },
     ],
   },

@@ -1,0 +1,9 @@
+<app-example-display
+  title="Setting Variables from Input"
+  description="This example demonstrates how to set variables from an input."
+  [codeSnippets]="settingVariablesFromInputCode"
+>
+  <app-example-info heading="Purpose of Getters and Setters" [item]="exampleInfo"></app-example-info>
+  <app-example-info heading="Performance Costs" [item]="exampleInfo2"></app-example-info>
+  <app-user-info [user]="user" (userChange)="onUserChange()"></app-user-info>
+</app-example-display>

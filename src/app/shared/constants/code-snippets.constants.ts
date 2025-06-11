@@ -1620,3 +1620,105 @@ export class DirectivesComponent {}
 `,
   },
 ];
+
+export const settingVariablesFromInputCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+export class UserInfoComponent {
+  @Input() set user(user: User) {
+    this._fullName = user.fullName;
+    this._lettersInName = user.fullName.length;
+    this._validNameLength = user.fullName.length > 21;
+  }
+  @Output() userChange = new EventEmitter<void>();
+
+  // backing fields
+  private _fullName = '';
+  private _lettersInName = 0;
+  private _validNameLength = false;
+
+  // render-time trackers
+  lastUserRenderMs = 0;
+  lastPerfRenderMs = 0;
+
+  get fullName(): string {
+    const start = performance.now();
+    const name = this._fullName;
+    this.lastUserRenderMs = Math.round(performance.now() - start);
+    return name;
+  }
+
+  get lettersInName(): number {
+    return this._lettersInName;
+  }
+
+  get validNameLength(): boolean {
+    return this._validNameLength;
+  }
+
+  get heavyValue(): number {
+    const start = performance.now();
+    let sum = 0;
+    for (let i = 0; i < 200_000_000; i++) {
+      sum += i;
+    }
+    this.lastPerfRenderMs = Math.round(performance.now() - start);
+    return sum;
+  }
+
+  onUserChange(): void {
+    this.userChange.emit();
+  }
+}
+    `,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<div class="container">
+  <!-- User Info Card -->
+  <mat-card class="user-info-card mat-elevation-z4">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon aria-label="User icon">account_circle</mat-icon>
+      </div>
+      <mat-card-title>{{ fullName }}</mat-card-title>
+      <mat-card-subtitle>Letters: {{ lettersInName }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p [ngClass]="validNameLength ? 'valid' : 'invalid'">
+        {{ fullName }} is <strong>{{ validNameLength ? 'valid' : 'invalid' }}</strong>.
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-icon-button (click)="onUserChange()" aria-label="Refresh user">
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <span class="render-time">⏱ {{ lastUserRenderMs }} ms</span>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Performance Demo Card -->
+  <mat-card class="performance-card mat-elevation-z4">
+    <mat-card-header>
+      <mat-card-title>Performance Demo</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>Heavy calc: <strong>{{ heavyValue }}</strong></p>
+      <p class="warning">
+        ⚠️ Putting expensive work in a getter runs every CD cycle and slows you down.
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <span class="render-time">⏱ {{ lastPerfRenderMs }} ms</span>
+    </mat-card-actions>
+  </mat-card>
+</div>    
+    `
+  }
+];

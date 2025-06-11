@@ -40,6 +40,8 @@ import { TypeSafeFormsComponent } from './types-and-typescript-generics/type-saf
 import { ParentChildComponent } from './component-communication/parent-child/parent-child.component';
 import { ChildParentComponent } from './component-communication/child-parent/child-parent.component';
 import { SiblingViaServiceComponent } from './component-communication/sibling-via-service/sibling-via-service.component';
+import { SettingVariablesFromInputComponent } from './getters-and-setters/setting-variables-from-input/setting-variables-from-input.component';
+import { UserInfoComponent } from './getters-and-setters/setting-variables-from-input/user-info/user-info.component';
   
 @NgModule({
   declarations: [
@@ -79,6 +81,8 @@ import { SiblingViaServiceComponent } from './component-communication/sibling-vi
     ParentChildComponent,
     ChildParentComponent,
     SiblingViaServiceComponent,
+    SettingVariablesFromInputComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,
