@@ -43,6 +43,8 @@ import { ChildParentComponent } from './component-communication/child-parent/chi
 import { SiblingViaServiceComponent } from './component-communication/sibling-via-service/sibling-via-service.component';
 import { InitialSetupComponent } from './standalone-components/initial-setup/initial-setup.component';
 import { SettingVariablesFromInputComponent } from './getters-and-setters/setting-variables-from-input/setting-variables-from-input.component';
+import { BuiltInPipesComponent } from './templates-and-data-binding/built-in-pipes/built-in-pipes.component';
+import { CustomPipesComponent } from './templates-and-data-binding/custom-pipes/custom-pipes.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -237,6 +239,21 @@ export const routes: Routes = [
       {
         path: 'setting-variables-from-input',
         component: SettingVariablesFromInputComponent,
+        resolve: { users: UsersResolver },
+      },
+    ],
+  },
+  {
+    path: 'templates-and-data-binding',
+    children: [
+      {
+        path: 'built-in-pipes',
+        component: BuiltInPipesComponent,
+        resolve: { users: UsersResolver },
+      },
+      {
+        path: 'custom-pipes',
+        component: CustomPipesComponent,
         resolve: { users: UsersResolver },
       },
     ],

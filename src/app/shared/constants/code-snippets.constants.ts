@@ -1581,7 +1581,7 @@ import { InfoItem } from '../../shared/example-info/example-info.component';
   styleUrl: './directives.component.scss',
 })
 export class DirectivesComponent {}
-    `
+    `,
   },
   {
     type: CodeType.HTML,
@@ -1719,6 +1719,197 @@ export class UserInfoComponent {
     </mat-card-actions>
   </mat-card>
 </div>    
-    `
+    `,
+  },
+];
+
+export const builtInPipesCode: CodeSnippet[] = [
+  {
+    type: CodeType.HTML,
+    code: `
+  <div class="card-grid">
+    <!-- DatePipe -->
+    <mat-card class="pipes-card">
+      <h2>DatePipe</h2>
+      <ul class="pipe-list">
+        <li><strong>Default:</strong> {{ today | date }}</li>
+        <li><strong>Full Date:</strong> {{ today | date : 'fullDate' }}</li>
+        <li><strong>Short Date:</strong> {{ today | date : 'shortDate' }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- CurrencyPipe -->
+    <mat-card class="pipes-card">
+      <h2>CurrencyPipe</h2>
+      <ul class="pipe-list">
+        <li><strong>USD:</strong> {{ price | currency : 'USD' }}</li>
+        <li><strong>Euro:</strong> {{ price | currency : 'EUR' : 'symbol' : '1.0-0' }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- PercentPipe -->
+    <mat-card class="pipes-card">
+      <h2>PercentPipe</h2>
+      <ul class="pipe-list">
+        <li><strong>Raw:</strong> {{ conversionRate }}</li>
+        <li><strong>Percent:</strong> {{ conversionRate | percent : '1.1-2' }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- DecimalPipe -->
+    <mat-card class="pipes-card">
+      <h2>DecimalPipe</h2>
+      <ul class="pipe-list">
+        <li><strong>Default:</strong> {{ quantity | number }}</li>
+        <li><strong>Custom:</strong> {{ quantity | number : '1.2-2' }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- Case Pipes -->
+    <mat-card class="pipes-card">
+      <h2>Case Pipes</h2>
+      <ul class="pipe-list">
+        <li><strong>Uppercase:</strong> {{ greeting | uppercase }}</li>
+        <li><strong>Lowercase:</strong> {{ greeting | lowercase }}</li>
+        <li><strong>Title Case:</strong> {{ greeting | titlecase }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- JsonPipe -->
+    <mat-card class="pipes-card">
+      <h2>JsonPipe</h2>
+      <pre class="json-output">{{ user | json }}</pre>
+    </mat-card>
+
+    <!-- SlicePipe -->
+    <mat-card class="pipes-card">
+      <h2>SlicePipe</h2>
+      <ul class="pipe-list">
+        <li><strong>First 2 Items:</strong> {{ items | slice : 0 : 2 }}</li>
+        <li><strong>Last Item:</strong> {{ items | slice : -1 }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- Product Card -->
+    <mat-card class="pipes-card">
+      <h2>Product Card</h2>
+      <ul class="pipe-list">
+        <li><strong>Name:</strong> {{ product.name | uppercase }}</li>
+        <li><strong>Price:</strong> {{ product.price | currency }}</li>
+        <li><strong>Release Date:</strong> {{ product.releaseDate | date : 'longDate' }}</li>
+      </ul>
+    </mat-card>
+  </div>
+
+    `,
+  },
+];
+
+export const customPipesCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+@Pipe({ name: 'pluralize' })
+export class PluralizePipe implements PipeTransform {
+  transform(value: number, singular: string, plural?: string): string {
+    const word = value === 1 ? singular : (plural || singular + 's');
+    return \`\${value} \${word}\`;
   }
+}
+
+
+@Pipe({ name: 'statusClass' })
+export class StatusClassPipe implements PipeTransform {
+  transform(status: string): string {
+    switch (status?.toLowerCase()) {
+      case 'active':
+        return 'status-active';
+      case 'pending':
+        return 'status-pending';
+      case 'inactive':
+        return 'status-inactive';
+      default:
+        return 'status-unknown';
+    }
+  }
+}
+
+
+@Pipe({ name: 'unslug' })
+export class UnslugPipe implements PipeTransform {
+  transform(value: string): string {
+    if (!value) return '';
+    return value.replace(/[-_]/g, ' ').replace(/\\b\\w/g, c => c.toUpperCase());
+  }
+}
+
+    `,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+  <div class="card-container">
+    <mat-card class="pipes-card">
+      <h2>Custom Pipe: Unslug</h2>
+      <ul class="pipe-list">
+        <li><strong>Raw:</strong> {{ routeName }}</li>
+        <li><strong>Readable:</strong> {{ routeName | unslug }}</li>
+      </ul>
+    </mat-card>
+    <mat-card class="pipes-card">
+      <h2>Custom Pipe: Pluralize</h2>
+      <ul class="pipe-list">
+        <li><strong>Comments (0):</strong> {{ 0 | pluralize : "comment" }}</li>
+        <li><strong>Comments (1):</strong> {{ 1 | pluralize : "comment" }}</li>
+        <li><strong>Comments (3):</strong> {{ 3 | pluralize : "comment" }}</li>
+        <li>
+          <strong>Custom Plural:</strong>
+          {{ 2 | pluralize : "person" : "people" }}
+        </li>
+      </ul>
+    </mat-card>
+    <mat-card class="pipes-card status-card">
+      <h2>Custom Pipe: StatusClass</h2>
+
+      <div class="status-section">
+        <span class="status-text"><strong>Current Status:</strong></span>
+        <mat-chip [@statusChange]="statusKey" selected>
+          <span [ngClass]="status | statusClass">{{ status }}</span>
+        </mat-chip>
+      </div>
+
+      <div class="status-section">
+        <span class="status-text"><strong>Status History:</strong></span>
+        <mat-chip-listbox class="history-chips">
+          <mat-chip
+            *ngFor="
+              let s of statusHistory | slice : 0 : 3;
+              trackBy: trackByStatus;
+              let i = index
+            "
+            [@singleChipSlide]="i === 0 ? statusHistoryAnimationState : null"
+          >
+            <span [ngClass]="s | statusClass">{{ s }}</span>
+          </mat-chip>
+          <ng-container *ngIf="statusHistory.length === 0">
+            <mat-chip disabled>No history yet</mat-chip>
+          </ng-container>
+        </mat-chip-listbox>
+      </div>
+
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="accent"
+          class="status-btn"
+          (click)="changeStatus()"
+        >
+          Change Status
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+    `,
+  },
 ];

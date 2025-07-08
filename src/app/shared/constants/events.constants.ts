@@ -65,10 +65,17 @@ export const EVENTS: EventItem[] = [
     topic: 'Standalone Components',
   },
   {
-    date: new Date('2025-06-10T13:00:00'),
+    date: new Date('2025-06-17T13:00:00'),
     day: 'Tuesday',
     time: '1:00 PM',
     host: 'Nick',
     topic: 'Getters and Setters',
-  }
+  },
+  {
+    date: new Date('2025-06-24T13:00:00'),
+    day: 'Tuesday',
+    time: '1:00 PM',
+    host: 'Nick',
+    topic: 'Pipes',
+  },
 ];

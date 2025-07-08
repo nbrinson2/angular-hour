@@ -1,0 +1,81 @@
+<app-example-display
+  title="Built-In Pipes"
+  description="Demonstrates the use of Angular's built-in pipes."
+  [codeSnippets]="builtInPipesCode"
+>
+  <app-example-info [item]="exampleInfo"></app-example-info>
+
+  <div class="card-grid">
+    <!-- DatePipe -->
+    <mat-card class="pipes-card">
+      <h2>DatePipe</h2>
+      <ul class="pipe-list">
+        <li><strong>Default:</strong> {{ today | date }}</li>
+        <li><strong>Full Date:</strong> {{ today | date : 'fullDate' }}</li>
+        <li><strong>Short Date:</strong> {{ today | date : 'shortDate' }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- CurrencyPipe -->
+    <mat-card class="pipes-card">
+      <h2>CurrencyPipe</h2>
+      <ul class="pipe-list">
+        <li><strong>USD:</strong> {{ price | currency : 'USD' }}</li>
+        <li><strong>Euro:</strong> {{ price | currency : 'EUR' : 'symbol' : '1.0-0' }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- PercentPipe -->
+    <mat-card class="pipes-card">
+      <h2>PercentPipe</h2>
+      <ul class="pipe-list">
+        <li><strong>Raw:</strong> {{ conversionRate }}</li>
+        <li><strong>Percent:</strong> {{ conversionRate | percent : '1.1-2' }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- DecimalPipe -->
+    <mat-card class="pipes-card">
+      <h2>DecimalPipe</h2>
+      <ul class="pipe-list">
+        <li><strong>Default:</strong> {{ quantity | number }}</li>
+        <li><strong>Custom:</strong> {{ quantity | number : '1.2-2' }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- Case Pipes -->
+    <mat-card class="pipes-card">
+      <h2>Case Pipes</h2>
+      <ul class="pipe-list">
+        <li><strong>Uppercase:</strong> {{ greeting | uppercase }}</li>
+        <li><strong>Lowercase:</strong> {{ greeting | lowercase }}</li>
+        <li><strong>Title Case:</strong> {{ greeting | titlecase }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- JsonPipe -->
+    <mat-card class="pipes-card">
+      <h2>JsonPipe</h2>
+      <pre class="json-output">{{ user | json }}</pre>
+    </mat-card>
+
+    <!-- SlicePipe -->
+    <mat-card class="pipes-card">
+      <h2>SlicePipe</h2>
+      <ul class="pipe-list">
+        <li><strong>First 2 Items:</strong> {{ items | slice : 0 : 2 }}</li>
+        <li><strong>Last Item:</strong> {{ items | slice : -1 }}</li>
+      </ul>
+    </mat-card>
+
+    <!-- Product Card -->
+    <mat-card class="pipes-card">
+      <h2>Product Card</h2>
+      <ul class="pipe-list">
+        <li><strong>Name:</strong> {{ product.name | uppercase }}</li>
+        <li><strong>Price:</strong> {{ product.price | currency }}</li>
+        <li><strong>Release Date:</strong> {{ product.releaseDate | date : 'longDate' }}</li>
+      </ul>
+    </mat-card>
+  </div>
+</app-example-display>

@@ -42,7 +42,9 @@ import { ChildParentComponent } from './component-communication/child-parent/chi
 import { SiblingViaServiceComponent } from './component-communication/sibling-via-service/sibling-via-service.component';
 import { SettingVariablesFromInputComponent } from './getters-and-setters/setting-variables-from-input/setting-variables-from-input.component';
 import { UserInfoComponent } from './getters-and-setters/setting-variables-from-input/user-info/user-info.component';
-  
+import { BuiltInPipesComponent } from './templates-and-data-binding/built-in-pipes/built-in-pipes.component';
+import { CustomPipesComponent } from './templates-and-data-binding/custom-pipes/custom-pipes.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,9 +85,12 @@ import { UserInfoComponent } from './getters-and-setters/setting-variables-from-
     SiblingViaServiceComponent,
     SettingVariablesFromInputComponent,
     UserInfoComponent,
+    BuiltInPipesComponent,
+    CustomPipesComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     SharedModule,
   ],

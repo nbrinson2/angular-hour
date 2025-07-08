@@ -1,0 +1,68 @@
+<app-example-display
+  title="Custom Pipes"
+  description="Custom pipes are Angular’s way to extend the built-in transformation capabilities."
+  [codeSnippets]="customPipesCode"
+>
+  <app-example-info [item]="exampleInfo"></app-example-info>
+  <div class="card-container">
+    <mat-card class="pipes-card">
+      <h2>Custom Pipe: Unslug</h2>
+      <ul class="pipe-list">
+        <li><strong>Raw:</strong> {{ routeName }}</li>
+        <li><strong>Readable:</strong> {{ routeName | unslug }}</li>
+      </ul>
+    </mat-card>
+    <mat-card class="pipes-card">
+      <h2>Custom Pipe: Pluralize</h2>
+      <ul class="pipe-list">
+        <li><strong>Comments (0):</strong> {{ 0 | pluralize : "comment" }}</li>
+        <li><strong>Comments (1):</strong> {{ 1 | pluralize : "comment" }}</li>
+        <li><strong>Comments (3):</strong> {{ 3 | pluralize : "comment" }}</li>
+        <li>
+          <strong>Custom Plural:</strong>
+          {{ 2 | pluralize : "person" : "people" }}
+        </li>
+      </ul>
+    </mat-card>
+    <mat-card class="pipes-card status-card">
+      <h2>Custom Pipe: StatusClass</h2>
+
+      <div class="status-section">
+        <span class="status-text"><strong>Current Status:</strong></span>
+        <mat-chip [@statusChange]="statusKey" selected>
+          <span [ngClass]="status | statusClass">{{ status }}</span>
+        </mat-chip>
+      </div>
+
+      <div class="status-section">
+        <span class="status-text"><strong>Status History:</strong></span>
+        <mat-chip-listbox class="history-chips">
+          <mat-chip
+            *ngFor="
+              let s of statusHistory | slice : 0 : 3;
+              trackBy: trackByStatus;
+              let i = index
+            "
+            [@singleChipSlide]="i === 0 ? statusHistoryAnimationState : null"
+          >
+            <span [ngClass]="s | statusClass">{{ s }}</span>
+          </mat-chip>
+          <ng-container *ngIf="statusHistory.length === 0">
+            <mat-chip disabled>No history yet</mat-chip>
+          </ng-container>
+        </mat-chip-listbox>
+      </div>
+
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="accent"
+          class="status-btn"
+          (click)="changeStatus()"
+        >
+          Change Status
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</app-example-display>

@@ -27,6 +27,10 @@ import { UserCardComponent } from './user-card/user-card.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { NotificationBannerComponent } from './notification-banner/notification-banner.component';
+import { UnslugPipe } from './pipes/unslug.pipe';
+import { PluralizePipe } from './pipes/pluralize.pipe';
+import { StatusClassPipe } from './pipes/status-class.pipe';
+import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
   declarations: [
     ExampleDisplayComponent,
@@ -38,6 +42,9 @@ import { NotificationBannerComponent } from './notification-banner/notification-
     UserCardComponent,
     AddUserComponent,
     NotificationBannerComponent,
+    UnslugPipe,
+    PluralizePipe,
+    StatusClassPipe,
   ],
   imports: [
     CommonModule,
@@ -54,6 +61,7 @@ import { NotificationBannerComponent } from './notification-banner/notification-
     MatCardModule,
     MatGridListModule,
     MatTableModule,
+    MatChipsModule,
     LayoutModule,
     RouterModule,
     MatSelectModule,
@@ -80,6 +88,7 @@ import { NotificationBannerComponent } from './notification-banner/notification-
     LayoutModule,
     RouterModule,
     MatDividerModule,
+    MatChipsModule,
     ExampleDisplayComponent,
     ExampleInfoComponent,
     UnsavedChangesModalComponent,
@@ -89,6 +98,9 @@ import { NotificationBannerComponent } from './notification-banner/notification-
     UserCardComponent,
     AddUserComponent,
     NotificationBannerComponent,
+    UnslugPipe,
+    PluralizePipe,
+    StatusClassPipe,
   ],
   providers: [provideHttpClient()],
 })
