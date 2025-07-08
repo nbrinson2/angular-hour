@@ -45,6 +45,9 @@ import { UserInfoComponent } from './getters-and-setters/setting-variables-from-
 import { BuiltInPipesComponent } from './templates-and-data-binding/built-in-pipes/built-in-pipes.component';
 import { CustomPipesComponent } from './templates-and-data-binding/custom-pipes/custom-pipes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PanelComponent } from './reusability/panel/panel.component';
+import { PanelUseCaseComponent } from './reusability/panel-use-case/panel-use-case.component';
+import { StructuralDirectiveComponent } from './reusability/structural-directive/structural-directive.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +90,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserInfoComponent,
     BuiltInPipesComponent,
     CustomPipesComponent,
+    PanelComponent,
+    PanelUseCaseComponent,
+    StructuralDirectiveComponent,
   ],
   imports: [
     BrowserModule,

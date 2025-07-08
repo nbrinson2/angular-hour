@@ -45,6 +45,8 @@ import { InitialSetupComponent } from './standalone-components/initial-setup/ini
 import { SettingVariablesFromInputComponent } from './getters-and-setters/setting-variables-from-input/setting-variables-from-input.component';
 import { BuiltInPipesComponent } from './templates-and-data-binding/built-in-pipes/built-in-pipes.component';
 import { CustomPipesComponent } from './templates-and-data-binding/custom-pipes/custom-pipes.component';
+import { PanelUseCaseComponent } from './reusability/panel-use-case/panel-use-case.component';
+import { StructuralDirectiveComponent } from './reusability/structural-directive/structural-directive.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -258,4 +260,18 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'reusability',
+    children: [
+      {
+        path: 'wrapper-components',
+        component: PanelUseCaseComponent,
+        resolve: { users: UsersResolver },
+      },
+      {
+        path: 'structural-directives',
+        component: StructuralDirectiveComponent,
+      }
+    ]
+  }
 ];

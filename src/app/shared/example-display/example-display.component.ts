@@ -19,7 +19,7 @@ export interface CodeSnippet {
   styleUrls: ['./example-display.component.scss']
 })
 export class ExampleDisplayComponent {
-  @Input() title!: string;
+  @Input() header!: string;
   @Input() description!: string;
   @Input() codeSnippet?: string;
   @Input() codeSnippets?: CodeSnippet[];

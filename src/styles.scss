@@ -124,6 +124,19 @@ button[mat-raised-button] {
   }
 }
 
+.app-tooltip {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.1s ease-in;
+  z-index: 1000;
+  position: fixed;
+}
+
 // Media query for mobile
 @media (max-width: 500px) {
   .example-container {

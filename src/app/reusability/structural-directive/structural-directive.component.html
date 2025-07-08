@@ -1,0 +1,11 @@
+<app-example-display
+  header="Structural Directives"
+  description="Structural directives are Angular’s way to modify the DOM layout."
+  [codeSnippets]="structuralDirectivesCode"
+>
+  <app-example-info [item]="exampleInfo"></app-example-info>
+
+  <!-- In any template -->
+  <button mat-raised-button appTooltip="Click to save">💾 Save</button>
+  <a href="#" mat-raised-button appTooltip="Go to profile">Profile</a>
+</app-example-display>

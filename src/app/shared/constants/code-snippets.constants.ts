@@ -1913,3 +1913,116 @@ export class UnslugPipe implements PipeTransform {
     `,
   },
 ];
+
+export const panelUseCaseCode: CodeSnippet[] = [
+  {
+    type: CodeType.HTML,
+    code: `
+<!-- panel.component.html -->
+<div class="panel">
+  <div class="panel-header">
+    {{ title }}
+  </div>
+  <div class="panel-body">
+    <ng-content></ng-content>
+  </div>
+</div>
+
+<!-- panel-use-case.component.html -->
+<app-example-display
+  title="Panel Use Case"
+  description="Create a generic “Panel” that wraps any inner markup under a header."
+  [codeSnippets]="panelUseCaseCode"
+>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <app-panel header="User Details">
+      <p><strong>Name:</strong> {{ user.fullName }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+    </app-panel>
+
+    <app-panel header="Tasks">
+      <ul>
+        <li *ngFor="let task of tasks">{{ task }}</li>
+      </ul>
+    </app-panel>
+  </div>
+</app-example-display>
+`,
+  },
+];
+
+export const structuralDirectivesCode: CodeSnippet[] = [
+  {
+    type: CodeType.HTML,
+    code: `
+<app-example-display
+  title="Structural Directives"
+  description="Structural directives are Angular’s way to modify the DOM layout."
+  [codeSnippets]="structuralDirectivesCode"
+>
+  <!-- In any template -->
+  <button appTooltip="Click to save">💾 Save</button>
+  <a href="#" appTooltip="Go to profile">Profile</a>
+</app-example-display>
+`,
+  },
+  {
+    type: CodeType.TS,
+    code: `
+@Directive({
+  selector: '[appTooltip]',
+  standalone: true
+})
+export class TooltipDirective implements OnDestroy {
+  @Input('appTooltip') text = '';
+
+  private tooltipEl: HTMLElement | null = null;
+
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
+
+  @HostListener('mouseenter')
+  show() {
+    if (this.tooltipEl) return;
+
+    // 1) Create tooltip element
+    this.tooltipEl = this.renderer.createElement('div');
+    this.renderer.addClass(this.tooltipEl, 'app-tooltip');
+    this.renderer.appendChild(
+      this.tooltipEl,
+      this.renderer.createText(this.text)
+    );
+
+    // 2) Position it
+    const hostPos = this.el.nativeElement.getBoundingClientRect();
+    const tooltipPos = { width: 0, height: 0 };
+    this.renderer.appendChild(document.body, this.tooltipEl);
+    tooltipPos.width = this.tooltipEl?.offsetWidth ?? 0;
+    tooltipPos.height = this.tooltipEl?.offsetHeight ?? 0;
+
+    const top = hostPos.top - tooltipPos.height - 6;
+    const left = hostPos.left + (hostPos.width - tooltipPos.width) / 2;
+
+    this.renderer.setStyle(this.tooltipEl, 'top', \`\${top}px\`);
+    this.renderer.setStyle(this.tooltipEl, 'left', \`\${left}px\`);
+    this.renderer.setStyle(this.tooltipEl, 'position', 'absolute');
+  }
+
+  @HostListener('mouseleave')
+  hide() {
+    if (this.tooltipEl) {
+      this.renderer.removeChild(document.body, this.tooltipEl);
+      this.tooltipEl = null;
+    }
+  }
+
+  ngOnDestroy() {
+    this.hide();
+  }
+}
+    
+    `,
+  },
+];

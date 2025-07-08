@@ -31,6 +31,8 @@ import { UnslugPipe } from './pipes/unslug.pipe';
 import { PluralizePipe } from './pipes/pluralize.pipe';
 import { StatusClassPipe } from './pipes/status-class.pipe';
 import { MatChipsModule } from '@angular/material/chips';
+import { TooltipDirective } from './tooltip.directive';
+
 @NgModule({
   declarations: [
     ExampleDisplayComponent,
@@ -45,6 +47,7 @@ import { MatChipsModule } from '@angular/material/chips';
     UnslugPipe,
     PluralizePipe,
     StatusClassPipe,
+    TooltipDirective,
   ],
   imports: [
     CommonModule,
@@ -101,6 +104,7 @@ import { MatChipsModule } from '@angular/material/chips';
     UnslugPipe,
     PluralizePipe,
     StatusClassPipe,
+    TooltipDirective,
   ],
   providers: [provideHttpClient()],
 })

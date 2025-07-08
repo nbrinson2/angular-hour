@@ -1,0 +1,18 @@
+<app-example-display
+  header="Panel Use Case"
+  description="Create a generic “Panel” that wraps any inner markup under a header."
+  [codeSnippets]="panelUseCaseCode"
+>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <app-panel header="User Details">
+      <p><strong>Name:</strong> {{ user.fullName }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+    </app-panel>
+
+    <app-panel header="Tasks">
+      <ul>
+        <li *ngFor="let task of tasks">{{ task }}</li>
+      </ul>
+    </app-panel>
+  </div>
+</app-example-display>

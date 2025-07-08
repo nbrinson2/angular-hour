@@ -1,0 +1,14 @@
+.grid {
+  padding: 1rem;
+  display: grid;
+  /* single-column by default */
+  grid-template-columns: 1fr;
+  /* larger gap between panels */
+  gap: 2rem;           /* ← adjust this value as needed */
+
+  /* switch to two columns on medium+ screens */
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
