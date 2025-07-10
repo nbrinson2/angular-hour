@@ -1,0 +1,30 @@
+<mat-card class="section-card mat-elevation-z2" [formGroup]="formGroup">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>vpn_key</mat-icon>
+      Login
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="two-col">
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+        <mat-error *ngIf="get('username')?.hasError('required')">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="get('password')?.hasError('minlength')">
+          Minimum 6 characters
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,39 @@
+<app-example-display
+  header="Control Container"
+  description="This example demonstrates how to use ControlContainer to share form controls between parent and child components. The parent form contains a name field and two child components - an address editor and a login editor. Each child component has access to its own form group through dependency injection."
+  [codeSnippets]="controlContainerCode"
+>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <!-- Parent-level field -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Your name" />
+      <mat-error *ngIf="userForm.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Child1: Address -->
+    <div formGroupName="child1" class="full-width">
+      <div formGroupName="address">
+        <app-address-editor></app-address-editor>
+      </div>
+    </div>
+
+    <!-- Child2: Login -->
+    <div formGroupName="child2" class="full-width">
+      <div formGroupName="login">
+        <app-login-editor></app-login-editor>
+      </div>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="userForm.invalid"
+    >
+      Submit All
+    </button>
+  </form>
+</app-example-display>

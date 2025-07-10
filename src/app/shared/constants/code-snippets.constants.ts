@@ -2026,3 +2026,527 @@ export class TooltipDirective implements OnDestroy {
     `,
   },
 ];
+
+export const simpleFormCode: CodeSnippet[] = [
+  {
+    type: CodeType.HTML,
+    code: `
+<mat-card class="user-form-card mat-elevation-z4">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>person</mat-icon>
+      User Information
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Name</mat-label>
+        <mat-icon matPrefix>person</mat-icon>
+        <input
+          matInput
+          formControlName="fullName"
+          placeholder="John Doe"
+          aria-required="true"
+        />
+        <mat-hint align="start">Your full name</mat-hint>
+        <mat-error *ngIf="userForm.get('fullName')?.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Email</mat-label>
+        <mat-icon matPrefix>email</mat-icon>
+        <input
+          matInput
+          formControlName="email"
+          placeholder="you@example.com"
+          aria-required="true"
+        />
+        <mat-hint align="start">We’ll never share your email</mat-hint>
+        <mat-error *ngIf="userForm.get('email')?.hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="userForm.get('email')?.hasError('email')">
+          Enter a valid email
+        </mat-error>
+
+      </mat-form-field>
+
+      <div class="actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="userForm.invalid || loading"
+        >
+          <mat-progress-spinner
+            *ngIf="loading"
+            mode="indeterminate"
+            diameter="20"
+          ></mat-progress-spinner>
+          <span *ngIf="!loading">Submit</span>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+`,
+  },
+  {
+    type: CodeType.TS,
+    code: `
+export class SimpleFormComponent {
+  protected userForm!: FormGroup;
+  protected loading = false;
+  
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {}
+
+  ngOnInit(): void {
+    this.userForm = this.fb.group({
+      fullName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+    });
+  }
+
+  onSubmit(): void {
+    if (this.userForm.invalid) {
+      return;
+    }
+    this.loading = true;
+
+    // simulate a submit call
+    setTimeout(() => {
+      this.loading = false;
+      this.snackBar.open('User information saved', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'right',
+      });
+      this.userForm.reset();
+    }, 1500);
+  }
+}
+
+`,
+  },
+];
+
+export const dynamicFormCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+interface HeroFormControls {
+  heroName: FormControl<string>;
+  aliases: FormArray<FormControl<string>>;
+}
+
+export class DynamicFormComponent {
+  get aliases(): FormArray<FormControl<string>> {
+    return this.heroForm.controls.aliases;
+  }
+
+  protected heroForm!: FormGroup<HeroFormControls>;
+
+  protected dynamicFormCode = dynamicFormCode;
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.heroForm = this.fb.group<HeroFormControls>({
+      heroName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      aliases: this.fb.array<FormControl<string>>(
+        [ new FormControl('', { nonNullable: true, validators: [Validators.required] }) ]
+      )
+    });
+  }
+
+  addAlias(): void {
+    this.aliases.push(new FormControl('', { nonNullable: true, validators: [Validators.required] }));
+  }
+
+  removeAlias(index: number): void {
+    this.aliases.removeAt(index);
+  }
+
+  onSubmit(): void {
+    console.log(this.heroForm.value);
+  }
+}
+    `,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<mat-card class="hero-form-card mat-elevation-z4">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>supervisor_account</mat-icon>
+      Hero Profile
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+      <!-- Hero Name -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Hero Name</mat-label>
+        <input
+          matInput
+          placeholder="Enter hero name"
+          formControlName="heroName"
+          aria-required="true"
+        />
+        <mat-error *ngIf="heroForm.get('heroName')?.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Aliases Array -->
+      <div formArrayName="aliases">
+        <div
+          *ngFor="let aliasCtrl of aliases.controls; let i = index"
+          class="alias-row"
+        >
+          <mat-form-field appearance="fill" class="alias-field">
+            <mat-label>Alias {{ i + 1 }}</mat-label>
+            <input
+              matInput
+              placeholder="Enter alias"
+              [formControlName]="i"
+              aria-required="true"
+            />
+            <mat-error *ngIf="aliasCtrl.invalid">
+              Alias is required
+            </mat-error>
+          </mat-form-field>
+
+          <button
+            mat-icon-button
+            color="warn"
+            aria-label="Remove alias"
+            (click)="removeAlias(i)"
+            *ngIf="aliases.length > 1"
+          >
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button
+          mat-stroked-button
+          color="accent"
+          type="button"
+          (click)="addAlias()"
+        >
+          <mat-icon>add_circle</mat-icon>
+          Add Alias
+        </button>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="heroForm.invalid"
+        >
+          <mat-icon>save</mat-icon>
+          Save Hero
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+    `,
+  },
+];
+
+export const customValidatorCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+export function noSpaceValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const hasSpace = /\s/.test(control.value as string);
+    return hasSpace
+      ? { noSpace: { message: 'Spaces are not allowed' } }
+      : null;
+  };
+}
+
+
+interface CustomValidatorForm {
+  username: FormControl<string>;
+  email: FormControl<string>;
+}
+
+
+export class CustomValidatorComponent {
+  protected form!: FormGroup<CustomValidatorForm>;
+
+  protected customValidatorCode = customValidatorCode;
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.form = this.fb.group<CustomValidatorForm>({
+      username: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, noSpaceValidator()],
+      }),
+      email: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.email],
+      }),
+    });
+  }
+
+  onSubmit() {
+    console.log(this.form.value);
+  }
+}
+`,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<mat-card class="custom-form mat-elevation-z2">
+  <mat-card-title>Sign Up</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username"/>
+        <mat-error *ngIf="form.controls.username.hasError('required')">
+          Username is required
+        </mat-error>
+        <mat-error *ngIf="form.controls.username.hasError('noSpace')">
+          {{ form.controls.username.getError("noSpace")?.message }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          placeholder="you@example.com"
+        />
+        <mat-error *ngIf="form.controls.email.hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="form.controls.email.hasError('email')">
+          Enter a valid email
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Sign Up
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
+`,
+  },
+];
+
+export const controlContainerCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+// control-container.component.ts
+export class ControlContainerComponent {
+  protected controlContainerCode = controlContainerCode;
+
+  protected userForm!: FormGroup<ControlContainerForm>;
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.userForm = this.fb.group<ControlContainerForm>({
+      name:    new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      child1:  this.fb.group({
+        address: this.fb.group({
+          street: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+          city:   new FormControl('', { nonNullable: true, validators: [Validators.required] })
+        })
+      }),
+      child2:  this.fb.group({
+        login: this.fb.group({
+          username: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+          password: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(6)] })
+        })
+      })
+    });
+  }
+
+  onSubmit() {
+    console.log(this.userForm.value);
+  }
+}
+
+
+// address-editor.component.ts
+@Component({
+  selector: 'app-address-editor',
+  templateUrl: './address-editor.component.html',
+  viewProviders: [
+    { provide: ControlContainer, useExisting: FormGroupName }
+  ],
+  styleUrl: './address-editor.component.scss'
+})
+export class AddressEditorComponent {
+  // Inject the parent FormGroupDirective
+  constructor(private controlContainer: ControlContainer) {}
+
+  // Expose the current FormGroup (the 'address' group)
+  get formGroup(): FormGroup {
+    return this.controlContainer.control as FormGroup;
+  }
+
+  // Helper to grab a control by name
+  get(controlName: string) {
+    return this.formGroup.get(controlName);
+  }
+}
+
+
+// login-editor.component.ts
+@Component({
+  selector: 'app-login-editor',
+  templateUrl: './login-editor.component.html',
+  viewProviders: [
+    { provide: ControlContainer, useExisting: FormGroupName }
+  ],
+  styleUrl: './login-editor.component.scss'
+})
+export class LoginEditorComponent {
+  constructor(private controlContainer: ControlContainer) {}
+
+  get formGroup(): FormGroup {
+    return this.controlContainer.control as FormGroup;
+  }
+
+  get(controlName: string) {
+    return this.formGroup.get(controlName);
+  }
+}
+
+`,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<!-- control-container.component.html -->
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <!-- Parent-level field -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Your name" />
+      <mat-error *ngIf="userForm.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Child1: Address -->
+    <div formGroupName="child1" class="full-width">
+      <div formGroupName="address">
+        <app-address-editor></app-address-editor>
+      </div>
+    </div>
+
+    <!-- Child2: Login -->
+    <div formGroupName="child2" class="full-width">
+      <div formGroupName="login">
+        <app-login-editor></app-login-editor>
+      </div>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="userForm.invalid"
+    >
+      Submit All
+    </button>
+  </form>
+
+
+<!-- address-editor.component.html -->
+<mat-card class="section-card mat-elevation-z2" [formGroup]="formGroup">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>home</mat-icon>
+      Address
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="two-col">
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Street</mat-label>
+        <input matInput formControlName="street" />
+        <mat-error *ngIf="get('street')?.hasError('required')">
+          Street is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" />
+        <mat-error *ngIf="get('city')?.hasError('required')">
+          City is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+
+<!-- login-editor.component.html -->
+<mat-card class="section-card mat-elevation-z2" [formGroup]="formGroup">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>vpn_key</mat-icon>
+      Login
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="two-col">
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+        <mat-error *ngIf="get('username')?.hasError('required')">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="get('password')?.hasError('minlength')">
+          Minimum 6 characters
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+`,
+  },
+];

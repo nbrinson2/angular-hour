@@ -32,6 +32,8 @@ import { PluralizePipe } from './pipes/pluralize.pipe';
 import { StatusClassPipe } from './pipes/status-class.pipe';
 import { MatChipsModule } from '@angular/material/chips';
 import { TooltipDirective } from './tooltip.directive';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { TooltipDirective } from './tooltip.directive';
     MatSelectModule,
     FormsModule,
     MatDividerModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     CommonModule,
@@ -92,6 +96,8 @@ import { TooltipDirective } from './tooltip.directive';
     RouterModule,
     MatDividerModule,
     MatChipsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
     ExampleDisplayComponent,
     ExampleInfoComponent,
     UnsavedChangesModalComponent,

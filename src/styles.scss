@@ -160,3 +160,42 @@ button[mat-raised-button] {
     transform-origin: top left;
   }
 }
+
+
+.section-card {
+  margin: 1.5rem auto;
+  max-width: 600px;
+  border-radius: 8px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.two-col {
+  display: flex;
+  gap: 1rem;
+}
+
+.col {
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+@media (max-width: 600px) {
+  .two-col {
+    flex-direction: column;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  .actions {
+    margin: 1rem 0;
+  }
+}

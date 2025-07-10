@@ -48,6 +48,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelComponent } from './reusability/panel/panel.component';
 import { PanelUseCaseComponent } from './reusability/panel-use-case/panel-use-case.component';
 import { StructuralDirectiveComponent } from './reusability/structural-directive/structural-directive.component';
+import { SimpleFormComponent } from './reactive-forms/simple-form/simple-form.component';
+import { DynamicFormComponent } from './reactive-forms/dynamic-form/dynamic-form.component';
+import { CustomValidatorComponent } from './reactive-forms/custom-validator/custom-validator.component';
+import { ControlContainerComponent } from './reactive-forms/control-container/control-container.component';
+import { AddressEditorComponent } from './reactive-forms/control-container/address-editor/address-editor.component';
+import { LoginEditorComponent } from './reactive-forms/control-container/login-editor/login-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,6 +99,12 @@ import { StructuralDirectiveComponent } from './reusability/structural-directive
     PanelComponent,
     PanelUseCaseComponent,
     StructuralDirectiveComponent,
+    SimpleFormComponent,
+    DynamicFormComponent,
+    CustomValidatorComponent,
+    ControlContainerComponent,
+    AddressEditorComponent,
+    LoginEditorComponent,
   ],
   imports: [
     BrowserModule,

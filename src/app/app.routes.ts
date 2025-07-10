@@ -47,6 +47,10 @@ import { BuiltInPipesComponent } from './templates-and-data-binding/built-in-pip
 import { CustomPipesComponent } from './templates-and-data-binding/custom-pipes/custom-pipes.component';
 import { PanelUseCaseComponent } from './reusability/panel-use-case/panel-use-case.component';
 import { StructuralDirectiveComponent } from './reusability/structural-directive/structural-directive.component';
+import { SimpleFormComponent } from './reactive-forms/simple-form/simple-form.component';
+import { DynamicFormComponent } from './reactive-forms/dynamic-form/dynamic-form.component';
+import { CustomValidatorComponent } from './reactive-forms/custom-validator/custom-validator.component';
+import { ControlContainerComponent } from './reactive-forms/control-container/control-container.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -273,5 +277,26 @@ export const routes: Routes = [
         component: StructuralDirectiveComponent,
       }
     ]
-  }
+  },
+  {
+    path: 'reactive-forms',
+    children: [
+      {
+        path: 'simple-form',
+        component: SimpleFormComponent,
+      },
+      {
+        path: 'dynamic-form',
+        component: DynamicFormComponent,
+      },
+      {
+        path: 'custom-validators',
+        component: CustomValidatorComponent,
+      },
+      {
+        path: 'control-container',
+        component: ControlContainerComponent,
+      }
+    ],
+  },
 ];
