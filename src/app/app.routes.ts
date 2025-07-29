@@ -41,7 +41,6 @@ import { TypeSafeFormsComponent } from './types-and-typescript-generics/type-saf
 import { ParentChildComponent } from './component-communication/parent-child/parent-child.component';
 import { ChildParentComponent } from './component-communication/child-parent/child-parent.component';
 import { SiblingViaServiceComponent } from './component-communication/sibling-via-service/sibling-via-service.component';
-import { InitialSetupComponent } from './standalone-components/initial-setup/initial-setup.component';
 import { SettingVariablesFromInputComponent } from './getters-and-setters/setting-variables-from-input/setting-variables-from-input.component';
 import { BuiltInPipesComponent } from './templates-and-data-binding/built-in-pipes/built-in-pipes.component';
 import { CustomPipesComponent } from './templates-and-data-binding/custom-pipes/custom-pipes.component';
@@ -51,6 +50,9 @@ import { SimpleFormComponent } from './reactive-forms/simple-form/simple-form.co
 import { DynamicFormComponent } from './reactive-forms/dynamic-form/dynamic-form.component';
 import { CustomValidatorComponent } from './reactive-forms/custom-validator/custom-validator.component';
 import { ControlContainerComponent } from './reactive-forms/control-container/control-container.component';
+import { PromiseVsObservableComponent } from './rxjs/promise-vs-observable/promise-vs-observable.component';
+import { ConstructorVsNgoninitComponent } from './change-detection-demo/constructor-vs-ngoninit/constructor-vs-ngoninit.component';
+
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -72,6 +74,7 @@ export const routes: Routes = [
       { path: 'merge-map-example', component: MergeMapExampleComponent },
       { path: 'concat-map-example', component: ConcatMapExampleComponent },
       { path: 'exhaust-map-example', component: ExhaustMapExampleComponent },
+      { path: 'promise-vs-observable', component: PromiseVsObservableComponent },
     ],
   },
   {
@@ -89,6 +92,7 @@ export const routes: Routes = [
         component: AfterDestroyScenarioComponent,
       },
       { path: 'on-push-example', component: OnPushComponent },
+      { path: 'constructor-vs-ngoninit', component: ConstructorVsNgoninitComponent },
     ],
   },
   {

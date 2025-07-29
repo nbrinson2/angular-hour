@@ -2550,3 +2550,306 @@ export class LoginEditorComponent {
 `,
   },
 ];
+
+export const promiseVsObservableCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+// user.service.ts
+getUserWithPromise(): Promise<string> {
+  return firstValueFrom(this.http.get<{ name: string }>(\`\${this.baseUrl}/1\`)).then(
+    (response) => response.name
+  );
+}
+
+
+export class PromiseVsObservableComponent {
+  protected promiseResult: string | null = null;
+  protected loadingPromise = false;
+
+  /** Observable stream state */
+  protected streamValues: number[] = [];
+  protected streaming = false;
+  private streamSub?: Subscription;
+
+  constructor(private userService: UserService) {}
+
+  ngOnDestroy(): void {
+    this.streamSub?.unsubscribe();
+  }
+
+  protected fetchPromise(): void {
+    this.loadingPromise = true;
+    this.userService.getUserWithPromise()
+      .then(name => (this.promiseResult = name))
+      .catch(err => console.error(err))
+      .finally(() => this.loadingPromise = false);
+  }
+
+  // Observable: emit count every second, up to 10 values
+  protected startStream() {
+    this.streaming = true;
+    this.streamValues = [];
+    this.streamSub = interval(1000)
+      .pipe(
+        map(i => i + 1), // start at 1
+        take(10)
+      )
+      .subscribe({
+        next: (v) => this.streamValues.push(v),
+        error: () => {},
+        complete: () => (this.streaming = false),
+      });
+  }
+
+  protected stopStream() {
+    this.streamSub?.unsubscribe();
+    this.streaming = false;
+  }
+
+  protected trackByValue(index: number, value: number): number {
+    return value;
+  }
+}
+`,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<div class="demo-container">
+  <!-- Promise Section -->
+  <section class="demo-section promise-section">
+    <div class="section-header">
+      <mat-icon class="section-icon">schedule</mat-icon>
+      <h3>Promise - Single Value</h3>
+      <p class="section-description">One-time execution with a single result</p>
+    </div>
+
+    <div class="content-area">
+      <div class="button-container">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="fetchPromise()"
+          [disabled]="loadingPromise"
+          class="action-button"
+        >
+          <mat-icon *ngIf="!loadingPromise">cloud_download</mat-icon>
+          <mat-progress-spinner
+            *ngIf="loadingPromise"
+            mode="indeterminate"
+            diameter="20"
+            class="button-spinner"
+          >
+          </mat-progress-spinner>
+
+          <span>{{ loadingPromise ? 'Loading...' : 'Fetch Value Once' }}</span>
+        </button>
+      </div>
+
+      <div class="result-container" *ngIf="promiseResult || loadingPromise">
+        <mat-card class="result-card" [@fadeInUp]>
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="result-icon">check_circle</mat-icon>
+            <mat-card-title>Promise Result</mat-card-title>
+            <mat-card-subtitle>Single value response</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="result-value" *ngIf="promiseResult">
+              <span class="value-label">Value:</span>
+              <span class="value-text">{{ promiseResult }}</span>
+            </div>
+            <div class="loading-placeholder" *ngIf="loadingPromise">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              <p>Fetching data...</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Observable Section -->
+  <section class="demo-section observable-section">
+    <div class="section-header">
+      <mat-icon class="section-icon">stream</mat-icon>
+      <h3>Observable - Stream</h3>
+      <p class="section-description">Continuous stream with multiple emissions</p>
+    </div>
+
+    <div class="content-area">
+      <div class="button-container">
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="startStream()"
+          [disabled]="streaming"
+          class="action-button"
+        >
+          <mat-icon *ngIf="!streaming">play_arrow</mat-icon>
+          <mat-progress-spinner
+            *ngIf="streaming"
+            mode="indeterminate"
+            diameter="20"
+            class="button-spinner"
+          >
+          </mat-progress-spinner>
+          <span>{{ streaming ? 'Streaming...' : 'Start Stream' }}</span>
+        </button>
+
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="stopStream()"
+          [disabled]="!streaming"
+          class="action-button secondary"
+        >
+          <mat-icon>stop</mat-icon>
+          <span>Stop Stream</span>
+        </button>
+      </div>
+
+      <div class="result-container" *ngIf="streamValues.length > 0 || streaming">
+        <mat-card class="result-card stream-card" [@fadeInUp]>
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="result-icon">timeline</mat-icon>
+            <mat-card-title>Observable Stream</mat-card-title>
+            <mat-card-subtitle>{{ streamValues.length }} values received</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stream-values" *ngIf="streamValues.length > 0">
+              <div class="values-grid">
+                <div 
+                  *ngFor="let value of streamValues; trackBy: trackByValue" 
+                  class="value-item"
+                  [@valueSlideIn]
+                >
+                  <span class="value-number">{{ value }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="streaming-indicator" *ngIf="streaming">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              <p>Receiving stream data...</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+</div>
+`,
+  },
+];
+
+
+export const constructorVsNgoninitCode: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+// Parent Component
+export class ConstructorVsNgoninitComponent
+  implements OnInit, AfterContentInit, AfterViewInit
+{
+  constructor() {
+    console.log('Parent: Constructor');
+  }
+
+  ngOnInit(): void {
+    console.log('Parent: ngOnInit');
+    // Simulate a change after init
+    setTimeout(() => {
+      this.childTitle = 'Updated Title After Init';
+    }, 2000);
+  }
+
+  ngAfterContentInit(): void {
+    console.log('Parent: ngAfterContentInit');
+  }
+
+  ngAfterViewInit(): void {
+    console.log('Parent: ngAfterViewInit');
+  }
+}
+
+
+// Child Component
+export class LifecycleChildComponent implements OnChanges, OnInit, AfterContentInit, AfterViewInit {
+  @Input() title = '';
+  @ViewChild('childParagraph') paragraphEl!: ElementRef;
+  protected highlight = false;
+
+  constructor() {
+    console.log('Child: Constructor');
+  }
+
+  ngOnInit(): void {
+    console.log('Child: ngOnInit');
+    // ❌ This will be undefined at this point
+    console.log('Child: ngOnInit paragraphEl?', this.paragraphEl);
+  }
+
+  ngAfterContentInit(): void {
+    console.log('Child: ngAfterContentInit');
+  }
+
+  ngAfterViewInit(): void {
+    console.log('Child: ngAfterViewInit');
+    console.log('Child: paragraphEl content:', this.paragraphEl.nativeElement.textContent);
+  }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('Child: ngOnChanges', changes);
+  }
+
+  protected toggleHighlight(): void {
+    this.highlight = !this.highlight;
+    const el = this.paragraphEl.nativeElement as HTMLElement;
+    if (this.highlight) {
+      el.style.backgroundColor = 'yellow';
+    } else {
+      el.style.backgroundColor = '';
+    }
+  }
+}
+  `,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<!-- Parent Component -->
+<app-lifecycle-child>
+  <p>This is projected content from the parent component!</p>
+</app-lifecycle-child>
+
+<app-comparison-table
+  [columns]="comparisonColumns"
+  [rows]="comparisonRows"
+></app-comparison-table>
+
+
+<!-- Child Component -->
+<mat-card class="lifecycle-card">
+  <mat-card-header>
+    <mat-card-title>{{ title }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p #childParagraph class="content-paragraph">
+      I'm the child component content
+    </p>
+
+    <ng-content></ng-content>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-raised-button color="primary" (click)="toggleHighlight()">
+      <mat-icon>{{ highlight ? 'highlight_off' : 'highlight' }}</mat-icon>
+      Toggle Highlight
+    </button>
+  </mat-card-actions>
+</mat-card>
+    `,
+  },
+];

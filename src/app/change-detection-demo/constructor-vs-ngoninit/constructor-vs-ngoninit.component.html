@@ -1,0 +1,14 @@
+<app-example-display
+  header="Constructor vs ngOnInit vs ngAfterContentInit vs ngAfterViewInit"
+  description="This example demonstrates the difference between the constructor and ngOnInit lifecycle hooks."
+  [codeSnippets]="constructorVsNgoninitCode"
+>
+  <app-lifecycle-child>
+    <p>This is projected content from the parent component!</p>
+  </app-lifecycle-child>
+
+  <app-comparison-table
+    [columns]="comparisonColumns"
+    [rows]="comparisonRows"
+  ></app-comparison-table>
+</app-example-display>

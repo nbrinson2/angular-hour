@@ -54,6 +54,9 @@ import { CustomValidatorComponent } from './reactive-forms/custom-validator/cust
 import { ControlContainerComponent } from './reactive-forms/control-container/control-container.component';
 import { AddressEditorComponent } from './reactive-forms/control-container/address-editor/address-editor.component';
 import { LoginEditorComponent } from './reactive-forms/control-container/login-editor/login-editor.component';
+import { PromiseVsObservableComponent } from './rxjs/promise-vs-observable/promise-vs-observable.component';
+import { ConstructorVsNgoninitComponent } from './change-detection-demo/constructor-vs-ngoninit/constructor-vs-ngoninit.component';
+import { LifecycleChildComponent } from './change-detection-demo/constructor-vs-ngoninit/lifecycle-child/lifecycle-child.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,6 +108,9 @@ import { LoginEditorComponent } from './reactive-forms/control-container/login-e
     ControlContainerComponent,
     AddressEditorComponent,
     LoginEditorComponent,
+    PromiseVsObservableComponent,
+    ConstructorVsNgoninitComponent,
+    LifecycleChildComponent,
   ],
   imports: [
     BrowserModule,

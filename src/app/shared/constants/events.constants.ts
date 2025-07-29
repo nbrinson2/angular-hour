@@ -51,7 +51,7 @@ export const EVENTS: EventItem[] = [
     topic: 'Component Communication',
   },
   {
-    date: new Date('2025-05-27T13:00:00'),
+    date: new Date('2025-07-15T13:00:00'),
     day: 'Tuesday',
     time: '1:00 PM',
     host: 'Nick',
@@ -77,5 +77,12 @@ export const EVENTS: EventItem[] = [
     time: '1:00 PM',
     host: 'Nick',
     topic: 'Pipes',
+  },
+  {
+    date: new Date('2025-07-22T13:00:00'),
+    day: 'Tuesday',
+    time: '1:00 PM',
+    host: 'Nick',
+    topic: 'Lifecycle Hooks & RxJS',
   },
 ];

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
 
 export interface UserResponse {
   id: number;
@@ -27,7 +27,7 @@ export interface UserResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private baseUrl = 'https://jsonplaceholder.typicode.com/users';
@@ -41,5 +41,19 @@ export class UserService {
 
   getUsers(): Observable<UserResponse[]> {
     return this.http.get<UserResponse[]>(this.baseUrl);
+  }
+
+  // Promise<string>
+  getUserWithPromise(): Promise<string> {
+    return firstValueFrom(this.http.get<{ name: string }>(`${this.baseUrl}/1`)).then(
+      (response) => response.name
+    );
+  }
+
+  // Observable<string>
+  getUserWithObservable(): Observable<string> {
+    return this.http
+      .get<{ name: string }>(`${this.baseUrl}/1`)
+      .pipe(map((response) => response.name));
   }
 }

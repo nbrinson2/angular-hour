@@ -1,0 +1,19 @@
+.lifecycle-card {
+  margin: 1rem;
+  padding: 1rem;
+
+  .content-paragraph {
+    transition: background-color 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .content-paragraph.highlighted {
+    background-color: #fff59d; // Material Yellow 200
+  }
+
+  mat-card-actions {
+    margin-top: 1rem;
+  }
+}

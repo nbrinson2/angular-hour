@@ -34,7 +34,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { TooltipDirective } from './tooltip.directive';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ComparisonTableComponent } from './comparison-table/comparison-table.component';
 @NgModule({
   declarations: [
     ExampleDisplayComponent,
@@ -50,6 +51,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     PluralizePipe,
     StatusClassPipe,
     TooltipDirective,
+    ComparisonTableComponent,
   ],
   imports: [
     CommonModule,
@@ -73,7 +75,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormsModule,
     MatDividerModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
   exports: [
     CommonModule,
@@ -91,6 +94,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatGridListModule,
     MatTableModule,
     MatSelectModule,
+    MatProgressBarModule,
     FormsModule,
     LayoutModule,
     RouterModule,
@@ -111,6 +115,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     PluralizePipe,
     StatusClassPipe,
     TooltipDirective,
+    ComparisonTableComponent,
   ],
   providers: [provideHttpClient()],
 })
