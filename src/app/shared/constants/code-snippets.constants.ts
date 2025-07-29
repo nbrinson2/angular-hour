@@ -2853,3 +2853,249 @@ export class LifecycleChildComponent implements OnChanges, OnInit, AfterContentI
     `,
   },
 ];
+
+export const cachingCodeSnippets: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+export class CacheService {
+  private cache = new Map<string, HttpResponse<unknown>>();
+
+  getCacheList(): string[] {
+    return Array.from(this.cache.keys());
+  }
+
+  /**
+   * Retrieve a cached HttpResponse<T> by key.
+   * Returns a cloned response of the correct type, or null if missing.
+   */
+  get<T>(key: string): HttpResponse<T> | null {
+    const cached = this.cache.get(key);
+    return cached
+      ? (cached.clone() as HttpResponse<T>)
+      : null;
+  }
+
+  /**
+   * Cache an HttpResponse<T> under the given key.
+   * We clone to avoid mutating the original.
+   */
+  put<T>(key: string, response: HttpResponse<T>): void {
+    this.cache.set(key, response.clone() as HttpResponse<unknown>);
+  }
+
+  /**
+   * Check presence of a key in the cache.
+   */
+  has(key: string): boolean {
+    return this.cache.has(key);
+  }
+
+  /**
+   * Clear all cached entries.
+   */
+  clear(): void {
+    this.cache.clear();
+  }
+}
+
+
+export class UserService {
+  private baseUrl = 'https://jsonplaceholder.typicode.com/users';
+
+  constructor(
+    private http: HttpClient,
+    private cache: CacheService
+  ) {}
+
+  getUserById(userId: string): Observable<UserResponse> {
+    const key = \`user-\${userId}\`;
+    if (this.cache.has(key)) {
+      // Pull the cached HttpResponse<T> and return its body
+      const cachedResponse = this.cache.get<UserResponse>(key)!;
+      return of(cachedResponse.body!);
+    }
+
+    return this.http
+      .get<UserResponse>(\`\${this.baseUrl}/\${userId}\`, { observe: 'response' })
+      .pipe(
+        tap(response => this.cache.put(key, response)),
+        map(response => response.body!)
+      );
+  }
+
+  getUsers(): Observable<UserResponse[]> {
+    const key = 'users';
+    if (this.cache.has(key)) {
+      const cachedResponse = this.cache.get<UserResponse[]>(key)!;
+      return of(cachedResponse.body!);
+    }
+
+    return this.http
+      .get<UserResponse[]>(this.baseUrl, { observe: 'response' })
+      .pipe(
+        tap(response => this.cache.put(key, response)),
+        map(response => response.body!)
+      );
+  }
+
+  // Promise<string> (unchanged)
+  getUserWithPromise(): Promise<string> {
+    return firstValueFrom(
+      this.http.get<{ name: string }>(\`\${this.baseUrl}/1\`)
+    ).then(resp => resp.name);
+  }
+
+  // Observable<string> (unchanged)
+  getUserWithObservable(): Observable<string> {
+    return this.http
+      .get<{ name: string }>(\`\${this.baseUrl}/1\`)
+      .pipe(map(r => r.name));
+  }
+}
+
+`,
+  },
+];
+
+export const cacheInterceptorCodeSnippets: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+// app.module.ts
+providers: [
+  provideAnimationsAsync(),
+  provideHttpClient(
+    withInterceptors([CacheInterceptor])
+  ),
+],
+
+
+export const CacheInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<unknown>, 
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> => {
+  const cacheService = inject(CacheService);
+  
+  // Only cache GET requests
+  if (req.method !== 'GET') {
+    return next(req);
+  }
+
+  console.log(\`🔍 Cache Interceptor: Checking cache for \${req.urlWithParams}\`);
+  
+  const cachedResponse = cacheService.get(req.urlWithParams) as HttpResponse<unknown> | null;
+  if (cachedResponse) {
+    console.log(\`✅ Cache Interceptor: Returning cached response for \${req.urlWithParams}\`);
+    // Return a cloned response of the correct type
+    return of(cachedResponse.clone());
+  }
+
+  console.log(\`❌ Cache Interceptor: No cache found, making HTTP request for \${req.urlWithParams}\`);
+
+  return next(req).pipe(
+    tap(event => {
+      if (event instanceof HttpResponse) {
+        console.log(\`💾 Cache Interceptor: Caching response for \${req.urlWithParams}\`);
+        // Cache the response (typed)
+        cacheService.put(req.urlWithParams, event.clone());
+      }
+    })
+  );
+};
+
+
+export class CacheInterceptorComponent {
+  protected cacheInterceptorCodeSnippets = cacheInterceptorCodeSnippets;
+  protected exampleInfo: InfoItem = {
+    bulletPoints: [
+      {
+        label: 'First loadPosts()',
+        description: 'Interceptor lets request through, caches HttpResponse.'
+      },
+      {
+        label: 'Second loadPosts()',
+        description: 'Interceptor finds cache and returns instantly.'
+      },
+      {
+        label: 'clearCache()',
+        description: 'Allows you to purge everything when you need fresh data.'
+      }
+    ]
+  };
+  
+  protected posts$!: Observable<Post[]>;
+  protected loading = false;
+
+  constructor(
+    private http: HttpClient,
+    private cacheService: CacheService
+  ) {}
+
+  loadPosts(): void {
+    this.loading = true;
+    this.posts$ = this.http.get<Post[]>(
+      'https://jsonplaceholder.typicode.com/posts'
+    );
+    this.posts$.subscribe(() => (this.loading = false));
+  }
+
+  protected clearCache(): void {
+    console.log('Clearing cache: ', this.cacheService.getCacheList());
+    this.cacheService.clear();
+    console.log('Cleared cache: ', this.cacheService.getCacheList());
+  }
+}
+`,
+  },
+  {
+    type: CodeType.HTML,
+    code: `
+<div class="container">
+  <div class="controls">
+    <button
+      mat-flat-button
+      color="accent"
+      (click)="loadPosts()"
+      [disabled]="loading"
+    >
+      <mat-progress-spinner
+        *ngIf="loading"
+        mode="indeterminate"
+        diameter="20"
+      ></mat-progress-spinner>
+      <span *ngIf="!loading">Load Posts</span>
+    </button>
+
+    <!-- Moved Clear Cache here -->
+    <button
+      mat-flat-button
+      color="warn"
+      (click)="clearCache()"
+      aria-label="Clear Cache"
+    >
+      Clear Cache
+    </button>
+  </div>
+
+  <ng-container *ngIf="posts$ | async as posts">
+    <mat-grid-list cols="1" gutterSize="16px" rowHeight="100px">
+      <mat-grid-tile *ngFor="let post of posts">
+        <mat-card
+          class="post-card"
+          style="width: 100%; height: 100%; margin: 8px"
+        >
+          <mat-card-header>
+            <mat-card-title>{{ post.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{ post.body }}
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </ng-container>
+</div>
+    `,
+  },
+];

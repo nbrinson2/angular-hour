@@ -85,4 +85,18 @@ export const EVENTS: EventItem[] = [
     host: 'Nick',
     topic: 'Lifecycle Hooks & RxJS',
   },
+  {
+    date: new Date('2025-07-29T13:00:00'),
+    day: 'Tuesday',
+    time: '1:00 PM',
+    host: 'Nick',
+    topic: 'Caching',
+  },
+  {
+    date: new Date('2025-08-05T13:00:00'),
+    day: 'Tuesday',
+    time: '1:00 PM',
+    host: 'Nick',
+    topic: 'Structural-Directive Factories',
+  },
 ];

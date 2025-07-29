@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { RouterModule } from '@angular/router';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { BreadcrumbsHostComponent } from './breadcrumbs-demo/breadcrumbs-host/breadcrumbs-host.component';
@@ -57,6 +58,10 @@ import { LoginEditorComponent } from './reactive-forms/control-container/login-e
 import { PromiseVsObservableComponent } from './rxjs/promise-vs-observable/promise-vs-observable.component';
 import { ConstructorVsNgoninitComponent } from './change-detection-demo/constructor-vs-ngoninit/constructor-vs-ngoninit.component';
 import { LifecycleChildComponent } from './change-detection-demo/constructor-vs-ngoninit/lifecycle-child/lifecycle-child.component';
+import { CachingComponent } from './reusability/caching/caching.component';
+import { CacheInterceptorComponent } from './reusability/cache-interceptor/cache-interceptor.component';
+import { CacheInterceptor } from './shared/services/cache-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -111,6 +116,8 @@ import { LifecycleChildComponent } from './change-detection-demo/constructor-vs-
     PromiseVsObservableComponent,
     ConstructorVsNgoninitComponent,
     LifecycleChildComponent,
+    CachingComponent,
+    CacheInterceptorComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,7 +125,12 @@ import { LifecycleChildComponent } from './change-detection-demo/constructor-vs-
     RouterModule.forRoot(routes),
     SharedModule,
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [
+    provideAnimationsAsync(),
+    provideHttpClient(
+      withInterceptors([CacheInterceptor])
+    ),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

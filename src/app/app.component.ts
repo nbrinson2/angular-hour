@@ -52,6 +52,16 @@ export class AppComponent implements OnInit, OnDestroy {
         category.expanded = url.includes('/types-and-typescript-generics');
       } else if (category.title === 'Standalone Components') {
         category.expanded = url.includes('/standalone-components');
+      } else if (category.title === 'Reusability') {
+        category.expanded = url.includes('/reusability');
+      } else if (category.title === 'Reactive Forms') {
+        category.expanded = url.includes('/reactive-forms');
+      } else if (category.title === 'Component Communication') {
+        category.expanded = url.includes('/component-communication');
+      } else if (category.title === 'Getters And Setters') {
+        category.expanded = url.includes('/getters-and-setters');
+      } else if (category.title === 'Templates And Data Binding') {
+        category.expanded = url.includes('/templates-and-data-binding');
       }
     });
   }

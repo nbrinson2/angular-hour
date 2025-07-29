@@ -1,0 +1,13 @@
+<app-example-display
+  header="Caching"
+  description="
+    Caching is a technique used to store data in a temporary storage location so that it can be retrieved quickly when needed. This can improve performance and reduce the load on the server by avoiding the need to fetch the same data multiple times.
+  "
+  [codeSnippets]="cachingCodeSnippets"
+>
+  <app-example-info heading="Recap: Why Cache?" [item]="exampleInfo"></app-example-info>
+
+  <div class="users-grid">
+    <app-user-card *ngFor="let user of users" [user]="user"> </app-user-card>
+  </div>
+</app-example-display>

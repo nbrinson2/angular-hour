@@ -52,6 +52,8 @@ import { CustomValidatorComponent } from './reactive-forms/custom-validator/cust
 import { ControlContainerComponent } from './reactive-forms/control-container/control-container.component';
 import { PromiseVsObservableComponent } from './rxjs/promise-vs-observable/promise-vs-observable.component';
 import { ConstructorVsNgoninitComponent } from './change-detection-demo/constructor-vs-ngoninit/constructor-vs-ngoninit.component';
+import { CachingComponent } from './reusability/caching/caching.component';
+import { CacheInterceptorComponent } from './reusability/cache-interceptor/cache-interceptor.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -279,8 +281,17 @@ export const routes: Routes = [
       {
         path: 'structural-directives',
         component: StructuralDirectiveComponent,
-      }
-    ]
+      },
+      {
+        path: 'caching',
+        component: CachingComponent,
+        resolve: { users: UsersResolver },
+      },
+      {
+        path: 'cache-interceptor',
+        component: CacheInterceptorComponent,
+      },
+    ],
   },
   {
     path: 'reactive-forms',

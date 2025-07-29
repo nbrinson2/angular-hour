@@ -1,6 +1,5 @@
 import { LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -117,6 +116,5 @@ import { ComparisonTableComponent } from './comparison-table/comparison-table.co
     TooltipDirective,
     ComparisonTableComponent,
   ],
-  providers: [provideHttpClient()],
 })
 export class SharedModule {}
