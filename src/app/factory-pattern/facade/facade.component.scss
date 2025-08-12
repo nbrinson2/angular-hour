@@ -1,0 +1,14 @@
+.w-full { width: 100%; }
+.row { display: flex; gap: 1rem; }
+.actions {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-top: .5rem;
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  opacity: .9;
+}

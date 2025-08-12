@@ -93,7 +93,14 @@ export const EVENTS: EventItem[] = [
     topic: 'Caching',
   },
   {
-    date: new Date('2025-08-05T13:00:00'),
+    date: new Date('2025-08-12T14:00:00'),
+    day: 'Tuesday',
+    time: '1:00 PM',
+    host: 'Nick',
+    topic: 'Factory Pattern',
+  },
+  {
+    date: new Date('2025-08-19T13:00:00'),
     day: 'Tuesday',
     time: '1:00 PM',
     host: 'Nick',

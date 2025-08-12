@@ -3099,3 +3099,135 @@ export class CacheInterceptorComponent {
     `,
   },
 ];
+
+
+
+export const injectionTokenCodeSnippets: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+// environment.ts
+export const environment = {
+  production: false,
+  useMock: true, // true → use LocalStorageService, false → use S3StorageService
+  apiBaseUrl: 'http://localhost:4200/api',
+  s3BucketUrl: 'https://dev-bucket.example.com',
+};
+
+
+// app.module.ts
+export const appProviders: Provider[] = [
+  {
+    provide: DOCUMENT_STORAGE,
+    deps: [LocalStorageService, S3StorageService],
+    useFactory: (local: LocalStorageService, s3: S3StorageService): DocumentStorage =>
+      environment.useMock ? local : s3,
+  },
+];
+
+
+
+// document-storage.ts
+export interface DocumentStorage {
+  save(doc: string): Promise<string>;
+}
+
+export const DOCUMENT_STORAGE = new InjectionToken<DocumentStorage>(
+  'DOCUMENT_STORAGE'
+);
+
+
+export class InjectionTokensComponent {
+  protected text = '';
+  protected msg = '';
+
+  constructor(
+    @Inject(DOCUMENT_STORAGE) private storage: DocumentStorage,
+    private snackBar: MatSnackBar
+  ) {}
+
+  protected async save(): Promise<void> {
+    const id = await this.storage.save(this.text);
+    const implName = id.startsWith('s3-')
+      ? 'S3StorageService'
+      : 'LocalStorageService';
+    this.msg = \`Saved with \${implName}. id=\${id}\`;
+    this.snackBar.open(this.msg, 'OK', { duration: 2500 });
+  }
+}
+
+    `,
+  },
+];
+
+
+export const facadeCodeSnippets: CodeSnippet[] = [
+  {
+    type: CodeType.TS,
+    code: `
+export class FacadeComponent {
+  protected text = '';
+  protected msg = '';
+  protected kind: StorageKind = 'local';
+
+  constructor(private facade: StorageFacade, private snackBar: MatSnackBar) {}
+
+  setKind(k: StorageKind): void {
+    this.kind = k;
+    this.facade.setByKind(k);
+  }
+
+  protected async save(): Promise<void> {
+    const id = await this.facade.save(this.text);
+    const implName = this.kind === 's3' ? 'S3StorageService' : 'LocalStorageService';
+    this.msg = \`Saved with \${implName}. id=\${id}\`;
+    this.snackBar.open(this.msg, 'OK', { duration: 2500 });
+  }
+}
+
+
+
+// storage-registry.ts
+export type StorageKind = 'local' | 's3';
+
+export interface StorageFactory {
+  kind: StorageKind;
+  create(injector: Injector): DocumentStorage;
+}
+
+export const STORAGE_FACTORIES = new InjectionToken<StorageFactory[]>('STORAGE_FACTORIES');
+
+@Injectable({ providedIn: 'root' })
+export class StorageFacade implements DocumentStorage {
+  private active: DocumentStorage;
+
+  constructor(
+    @Inject(STORAGE_FACTORIES) factories: StorageFactory[],
+    private injector: Injector
+  ) {
+    const byKind = new Map<StorageKind, StorageFactory>(
+      factories.map(f => [f.kind, f] as const)
+    );
+    this.active = byKind.get('local')!.create(this.injector);
+
+    this._setByKind = (k: StorageKind) => {
+      const factory = byKind.get(k);
+      if (!factory) throw new Error(\`No factory for \${k}\`);
+      this.active = factory.create(this.injector);
+    };
+  }
+
+  private _setByKind: (k: StorageKind) => void;
+
+  setByKind(kind: StorageKind): void {
+    this._setByKind(kind);
+  }
+
+  save(doc: string): Promise<string> {
+    return this.active.save(doc);
+  }
+}
+`,
+  },
+];
+

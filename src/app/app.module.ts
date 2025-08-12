@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { InjectionToken, Injector, NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { RouterModule } from '@angular/router';
@@ -61,7 +61,38 @@ import { LifecycleChildComponent } from './change-detection-demo/constructor-vs-
 import { CachingComponent } from './reusability/caching/caching.component';
 import { CacheInterceptorComponent } from './reusability/cache-interceptor/cache-interceptor.component';
 import { CacheInterceptor } from './shared/services/cache-interceptor.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DOCUMENT_STORAGE } from './shared/models/document-storage';
+import { InjectionTokensComponent } from './factory-pattern/injection-tokens/injection-tokens.component';
+import { DocumentStorage } from './shared/models/document-storage';
+import { LocalStorageService } from './shared/services/local-storage.service';
+import { S3StorageService } from './shared/services/s3-storage.service';
+import { environment } from '../environments/environment';
+import { FacadeComponent } from './factory-pattern/facade/facade.component';
+import { STORAGE_FACTORIES, StorageFacade, StorageFactory } from './shared/utils/storage-registry';
+
+export const S3StorageFactory: StorageFactory = {
+  kind: 's3',
+  create: (injector: Injector) => injector.get(S3StorageService),
+};
+
+export const LocalStorageFactory: StorageFactory = {
+  kind: 'local',
+  create: (injector: Injector) => injector.get(LocalStorageService),
+};
+
+export const appProviders: Provider[] = [
+  { provide: STORAGE_FACTORIES, useValue: LocalStorageFactory, multi: true },
+  { provide: STORAGE_FACTORIES, useValue: S3StorageFactory, multi: true },
+  {
+    provide: DOCUMENT_STORAGE,
+    deps: [LocalStorageService, S3StorageService],
+    useFactory: (
+      local: LocalStorageService,
+      s3: S3StorageService
+    ): DocumentStorage => (environment.useMock ? local : s3),
+  },
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -118,6 +149,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     LifecycleChildComponent,
     CachingComponent,
     CacheInterceptorComponent,
+    InjectionTokensComponent,
+    FacadeComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,10 +159,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     SharedModule,
   ],
   providers: [
+    ...appProviders,
     provideAnimationsAsync(),
-    provideHttpClient(
-      withInterceptors([CacheInterceptor])
-    ),
+    provideHttpClient(withInterceptors([CacheInterceptor])),
   ],
   bootstrap: [AppComponent],
 })

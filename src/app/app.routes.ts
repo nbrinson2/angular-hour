@@ -54,6 +54,8 @@ import { PromiseVsObservableComponent } from './rxjs/promise-vs-observable/promi
 import { ConstructorVsNgoninitComponent } from './change-detection-demo/constructor-vs-ngoninit/constructor-vs-ngoninit.component';
 import { CachingComponent } from './reusability/caching/caching.component';
 import { CacheInterceptorComponent } from './reusability/cache-interceptor/cache-interceptor.component';
+import { InjectionTokensComponent } from './factory-pattern/injection-tokens/injection-tokens.component';
+import { FacadeComponent } from './factory-pattern/facade/facade.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -314,4 +316,17 @@ export const routes: Routes = [
       }
     ],
   },
+  {
+    path: 'factory-pattern',
+    children: [
+      {
+        path: 'injection-tokens',
+        component: InjectionTokensComponent,
+      },
+      {
+        path: 'facade',
+        component: FacadeComponent,
+      }
+    ]
+  }
 ];

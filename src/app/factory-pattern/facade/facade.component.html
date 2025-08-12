@@ -1,0 +1,46 @@
+<app-example-display
+  header="Swap service implementations with a facade at runtime"
+  [codeSnippets]="facadeCodeSnippets"
+>
+  <app-example-info [item]="exampleInfo"></app-example-info>
+  <app-example-info heading="Benefits" [item]="benefitsInfo"></app-example-info>
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <mat-form-field appearance="fill">
+          <mat-label>Backend</mat-label>
+          <mat-select [value]="kind" (selectionChange)="setKind($event.value)">
+            <mat-option value="local">Local</mat-option>
+            <mat-option value="s3">S3</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Document text</mat-label>
+        <textarea
+          matInput
+          [(ngModel)]="text"
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="4"
+          cdkAutosizeMaxRows="12"
+          placeholder="Type something"
+        >
+        </textarea>
+        <mat-hint align="start">{{ text.length || 0 }} chars</mat-hint>
+      </mat-form-field>
+
+      <div class="actions">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="save()"
+          [disabled]="!text.trim()"
+        >
+          <mat-icon aria-hidden="true">save</mat-icon>
+          Save
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</app-example-display>
