@@ -1,6 +1,6 @@
 # AngularHour
 
-**AngularHour** is an educational and demonstration platform built with Angular. Its primary purpose is to showcase and teach a wide range of Angular concepts, best practices, and advanced features through interactive examples and categorized demos. The application covers topics such as change detection, RxJS operators, debugging techniques, route guards, resolvers, breadcrumbs, and type safety in TypeScript.
+**AngularHour** is an educational and demonstration platform built with Angular 18. Its primary purpose is to showcase and teach a wide range of Angular concepts, best practices, and advanced features through interactive examples and categorized demos. The application covers topics such as change detection, RxJS operators, debugging techniques, route guards, resolvers, breadcrumbs, type safety in TypeScript, reactive forms, standalone components, and more.
 
 ## Table of Contents
 - [Features](#features)
@@ -19,10 +19,17 @@
   - Breadcrumbs navigation
   - TypeScript Generics & Types (union types, type-safe forms, typed HTTP calls)
   - Component Communication (parent-child, child-parent, sibling via service)
+  - Reactive Forms (form validation, dynamic forms, custom validators)
+  - Standalone Components (modern Angular architecture)
+  - Templates and Data Binding (interpolation, property binding, event binding)
+  - Getters and Setters (computed properties, encapsulation)
+  - Factory Pattern (creational design patterns)
+  - Reusability (DRY principles, component composition)
 - **Live Code Examples:** View and interact with real code snippets for each concept.
 - **Event Schedule:** Home page displays upcoming AngularHour events and topics.
 - **Authentication Controls:** Simulate user roles and access control.
 - **Responsive Design:** Works well on desktop and mobile devices.
+- **Material Design:** Built with Angular Material for a polished UI experience.
 
 ## Directory Structure
 ```
@@ -35,7 +42,14 @@ src/app/
 ├── resolvers-guards/           # Route guards and resolvers
 ├── rxjs/                       # RxJS operator demos
 ├── shared/                     # Shared modules, components, services, constants
+├── shared-standalone/          # Standalone shared components
 ├── types-and-typescript-generics/ # TypeScript generics and types demos
+├── reactive-forms/             # Reactive forms demos and examples
+├── standalone-components/      # Standalone component architecture
+├── templates-and-data-binding/ # Template syntax and data binding
+├── getters-and-setters/        # Getters and setters examples
+├── factory-pattern/            # Factory pattern implementation
+├── reusability/                # Reusable component patterns
 ├── app.component.*             # Main app shell and navigation
 ├── app.module.ts               # Root Angular module
 ├── app.routes.ts               # Application routes
@@ -66,20 +80,42 @@ npm run build
 ```
 The build artifacts will be stored in the `dist/` directory.
 
+### Watch Mode
+```bash
+npm run watch
+```
+Builds the project and watches for file changes.
+
 ### Running Unit Tests
 ```bash
 npm test
 ```
 Runs unit tests using Jest.
 
+### Running Tests in Watch Mode
+```bash
+npm run test:watch
+```
+Runs tests in watch mode for development.
+
 ### Running End-to-End Tests
-Add and configure your preferred e2e testing tool (e.g., Cypress, Playwright).
+The project is configured with Jest for unit testing. For e2e testing, you can add and configure your preferred e2e testing tool (e.g., Cypress, Playwright).
+
+## Technology Stack
+- **Angular:** 18.0.0
+- **Angular Material:** 18.2.14
+- **RxJS:** 7.8.0
+- **TypeScript:** 5.4.2
+- **Testing:** Jest with jest-preset-angular
+- **Styling:** SCSS with Angular Material themes
+- **Build Tool:** Angular CLI 18.0.6
 
 ## Usage
 - Browse the sidebar to explore different Angular topics and demos.
 - Each section contains interactive examples, code snippets, and explanations.
 - Use the authentication controls to simulate admin/user roles and see how guards and access control work.
 - Check the home page for upcoming AngularHour event topics and schedule.
+- Explore modern Angular patterns like standalone components and reactive forms.
 
 ## Contributing
 Contributions are welcome! Please open issues or submit pull requests for improvements, bug fixes, or new demos.
