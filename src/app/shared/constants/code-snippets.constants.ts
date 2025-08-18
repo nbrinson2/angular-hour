@@ -2742,7 +2742,6 @@ export class PromiseVsObservableComponent {
   },
 ];
 
-
 export const constructorVsNgoninitCode: CodeSnippet[] = [
   {
     type: CodeType.TS,
@@ -3100,8 +3099,6 @@ export class CacheInterceptorComponent {
   },
 ];
 
-
-
 export const injectionTokenCodeSnippets: CodeSnippet[] = [
   {
     type: CodeType.TS,
@@ -3159,7 +3156,6 @@ export class InjectionTokensComponent {
     `,
   },
 ];
-
 
 export const facadeCodeSnippets: CodeSnippet[] = [
   {
@@ -3231,3 +3227,46 @@ export class StorageFacade implements DocumentStorage {
   },
 ];
 
+export const configInfoCodeSnippets = `
+// app-config.ts
+export interface AppConfig {
+  production: boolean;
+  apiBaseUrl: string;
+  s3BucketUrl: string;
+  useMock: boolean;
+  enableFlagToggles: boolean; // only respected in non prod
+}
+
+export const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
+
+
+
+//environment.ts
+export const environment: AppConfig = {
+  production: false,
+  useMock: false, // true → use LocalStorageService, false → use S3StorageService
+  apiBaseUrl: 'http://localhost:4200/api',
+  s3BucketUrl: 'https://dev-bucket.example.com',
+  enableFlagToggles: true,
+};
+
+
+// environment.prod.ts
+export const environment: AppConfig = {
+  production: true,
+  useMock: false, // prod points to S3 by default
+  apiBaseUrl: 'https://api.example.com',
+  s3BucketUrl: 'https://prod-bucket.example.com',
+  enableFlagToggles: false,
+};
+
+
+
+// config-info.component.ts
+export class ConfigInfoComponent {
+  constructor(@Inject(APP_CONFIG) public cfg: AppConfig) {}
+}
+
+
+
+`;

@@ -1,0 +1,142 @@
+<app-example-display
+  header="Config Info"
+  description="Shows the current configuration"
+  [codeSnippet]="configInfoCodeSnippet"
+>
+  <app-example-info [item]="exampleInfo"></app-example-info>
+
+  <mat-card class="cfg-card mat-elevation-z2" *ngIf="cfg as c; else loading">
+    <mat-card-header class="cfg-header">
+      <mat-card-title>Current Configuration</mat-card-title>
+      <div class="cfg-actions">
+        <button
+          mat-icon-button
+          matTooltip="Refresh"
+          aria-label="Refresh"
+          (click)="reload?.()"
+        >
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="config-list">
+        <!-- API -->
+        <div class="config-item">
+          <mat-icon class="item-icon" aria-hidden="true">api</mat-icon>
+          <div class="item-label">API</div>
+          <div class="item-value mono">{{ cfg.apiBaseUrl || "not set" }}</div>
+          <div class="item-actions">
+            <button
+              mat-icon-button
+              matTooltip="Copy"
+              (click)="copy(cfg.apiBaseUrl)"
+              [disabled]="!cfg.apiBaseUrl"
+            >
+              <mat-icon>content_copy</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matTooltip="Open"
+              (click)="open(cfg.apiBaseUrl)"
+              [disabled]="!cfg.apiBaseUrl"
+            >
+              <mat-icon>open_in_new</mat-icon>
+            </button>
+          </div>
+        </div>
+        <mat-divider class="row-divider"></mat-divider>
+
+        <!-- Production -->
+        <div class="config-item">
+          <mat-icon class="item-icon" aria-hidden="true">build</mat-icon>
+          <div class="item-label">Production</div>
+          <div class="item-value">
+            <span
+              class="pill"
+              [class.true]="cfg.production"
+              [class.false]="!cfg.production"
+            >
+              {{ cfg.production ? "Enabled" : "Disabled" }}
+            </span>
+          </div>
+          <div class="item-actions"></div>
+        </div>
+        <mat-divider class="row-divider"></mat-divider>
+
+        <!-- S3 Bucket URL -->
+        <div class="config-item">
+          <mat-icon class="item-icon" aria-hidden="true">cloud</mat-icon>
+          <div class="item-label">S3 Bucket URL</div>
+          <div class="item-value mono">{{ cfg.s3BucketUrl || "not set" }}</div>
+          <div class="item-actions">
+            <button
+              mat-icon-button
+              matTooltip="Copy"
+              (click)="copy(cfg.s3BucketUrl)"
+              [disabled]="!cfg.s3BucketUrl"
+            >
+              <mat-icon>content_copy</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matTooltip="Open"
+              (click)="open(cfg.s3BucketUrl)"
+              [disabled]="!cfg.s3BucketUrl"
+            >
+              <mat-icon>open_in_new</mat-icon>
+            </button>
+          </div>
+        </div>
+        <mat-divider class="row-divider"></mat-divider>
+
+        <!-- Use Mock -->
+        <div class="config-item">
+          <mat-icon class="item-icon" aria-hidden="true"
+            >developer_mode</mat-icon
+          >
+          <div class="item-label">Use Mock</div>
+          <div class="item-value">
+            <span
+              class="pill"
+              [class.true]="cfg.useMock"
+              [class.false]="!cfg.useMock"
+            >
+              {{ cfg.useMock ? "Enabled" : "Disabled" }}
+            </span>
+          </div>
+          <div class="item-actions"></div>
+        </div>
+        <mat-divider class="row-divider"></mat-divider>
+
+        <!-- Enable Flag Toggles -->
+        <div class="config-item">
+          <mat-icon class="item-icon" aria-hidden="true">toggle_on</mat-icon>
+          <div class="item-label">Enable Flag Toggles</div>
+          <div class="item-value">
+            <span
+              class="pill"
+              [class.true]="cfg.enableFlagToggles"
+              [class.false]="!cfg.enableFlagToggles"
+            >
+              {{ cfg.enableFlagToggles ? "Enabled" : "Disabled" }}
+            </span>
+          </div>
+          <div class="item-actions"></div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <ng-template #loading>
+    <mat-card class="cfg-card mat-elevation-z2">
+      <mat-card-header class="cfg-header">
+        <mat-card-title>Current Configuration</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="skeleton-row" *ngFor="let _ of [0, 1, 2, 3, 4]"></div>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</app-example-display>

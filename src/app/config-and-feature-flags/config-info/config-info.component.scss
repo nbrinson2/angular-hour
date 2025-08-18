@@ -1,0 +1,143 @@
+/* Card wrapper */
+.cfg-card {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Header section with actions (refresh, etc.) */
+.cfg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 4px;
+}
+
+/* List of configuration items (vertical stack) */
+.config-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Each row (grid layout) */
+.config-item {
+  display: grid;
+  grid-template-columns: 24px 1fr 2fr auto;
+  gap: 12px 16px;
+  align-items: center;
+  min-height: 36px;
+}
+
+/* Icons */
+.item-icon {
+  align-self: center;
+  opacity: 0.78;
+  font-size: 20px;
+}
+
+/* Labels */
+.item-label {
+  align-self: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Values */
+.item-value {
+  align-self: center;
+  min-width: 0; /* critical for ellipsis to work in CSS grid */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &.mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &.muted {
+    opacity: 0.7;
+    font-style: italic;
+  }
+}
+
+/* Right-hand side action buttons (copy, open, etc.) */
+.item-actions {
+  align-self: center;
+  display: flex;
+  gap: 4px;
+}
+
+/* Divider between rows */
+.row-divider {
+  margin: 4px 0 4px;
+  opacity: 0.5;
+}
+
+/* Pills for booleans */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  border: 1px solid currentColor;
+  opacity: 0.95;
+
+  &.true {
+    color: #1b5e20; // dark green
+    background: rgba(46, 125, 50, 0.12);
+    border-color: rgba(46, 125, 50, 0.4);
+  }
+
+  &.false {
+    color: #b71c1c; // dark red
+    background: rgba(198, 40, 40, 0.12);
+    border-color: rgba(198, 40, 40, 0.4);
+  }
+}
+
+/* Skeleton shimmer while loading */
+.skeleton-row {
+  height: 20px;
+  border-radius: 6px;
+  margin: 10px 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.08) 25%,
+    rgba(0, 0, 0, 0.15) 37%,
+    rgba(0, 0, 0, 0.08) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* Mobile tweaks */
+@media (max-width: 720px) {
+  .config-item {
+    grid-template-columns: 24px 1fr;
+  }
+
+  .config-item .item-value,
+  .config-item .item-actions {
+    grid-column: 2 / -1;
+  }
+
+  .row-divider {
+    grid-column: 1 / -1;
+  }
+}

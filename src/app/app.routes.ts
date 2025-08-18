@@ -56,6 +56,7 @@ import { CachingComponent } from './reusability/caching/caching.component';
 import { CacheInterceptorComponent } from './reusability/cache-interceptor/cache-interceptor.component';
 import { InjectionTokensComponent } from './factory-pattern/injection-tokens/injection-tokens.component';
 import { FacadeComponent } from './factory-pattern/facade/facade.component';
+import { ConfigInfoComponent } from './config-and-feature-flags/config-info/config-info.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -326,6 +327,15 @@ export const routes: Routes = [
       {
         path: 'facade',
         component: FacadeComponent,
+      }
+    ]
+  },
+  {
+    path: 'config-and-feature-flags',
+    children: [
+      {
+        path: 'config-info',
+        component: ConfigInfoComponent,
       }
     ]
   }

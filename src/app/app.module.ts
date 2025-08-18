@@ -69,6 +69,9 @@ import { S3StorageService } from './shared/services/s3-storage.service';
 import { environment } from '../environments/environment';
 import { FacadeComponent } from './factory-pattern/facade/facade.component';
 import { STORAGE_FACTORIES, StorageFacade, StorageFactory } from './shared/utils/storage-registry';
+import { ConfigInfoComponent } from './config-and-feature-flags/config-info/config-info.component';
+import { APP_CONFIG } from './app-config';
+import { FeatureFlagImplComponent } from './config-and-feature-flags/feature-flag-impl/feature-flag-impl.component';
 
 export const S3StorageFactory: StorageFactory = {
   kind: 's3',
@@ -81,6 +84,7 @@ export const LocalStorageFactory: StorageFactory = {
 };
 
 export const appProviders: Provider[] = [
+  { provide: APP_CONFIG, useValue: environment },
   { provide: STORAGE_FACTORIES, useValue: LocalStorageFactory, multi: true },
   { provide: STORAGE_FACTORIES, useValue: S3StorageFactory, multi: true },
   {
@@ -151,6 +155,8 @@ export const appProviders: Provider[] = [
     CacheInterceptorComponent,
     InjectionTokensComponent,
     FacadeComponent,
+    ConfigInfoComponent,
+    FeatureFlagImplComponent,
   ],
   imports: [
     BrowserModule,
